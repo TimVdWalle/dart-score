@@ -1,7 +1,12 @@
 <script setup>
-
+import AppLayout from "@/Layouts/AppLayout.vue";
+import { Head, Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-   homepage
+    <Head title="Home" />
+
+   <AppLayout>
+testqdf
+   </AppLayout>
 </template>

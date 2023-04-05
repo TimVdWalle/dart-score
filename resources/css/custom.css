@@ -1,0 +1,9 @@
+.logo span {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.logo span::first-letter {
+    @apply text-gg_red;
+    font-weight: bold;
+}
