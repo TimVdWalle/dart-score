@@ -6,8 +6,11 @@
             </div>
         </div>
     </nav>
+    test
+    <font-awesome-icon :icon="faUser" />    test
 </template>
 
 <script setup>
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 </script>
