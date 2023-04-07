@@ -39,4 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/********************************************************************************
+ * the game routes
+ ********************************************************************************/
+Route::get('/game/init', function () {
+    return Inertia::render('Game/Init');
+})->name('game.init');
+
+
 require __DIR__.'/auth.php';
