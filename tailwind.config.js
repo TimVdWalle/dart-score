@@ -35,10 +35,12 @@ module.exports = {
             'gg_green': '#38A21F',
 
             'white': '#FFFFFF',
+            'gg_white': '#A0A7AB',
 
             'gg_grey_darker': '#0A0B0E',
             'gg_grey_dark': '#181C23',
-            'gg_grey_light': '#292E38',
+            'gg_grey_medium': '#292E38',
+            'gg_grey_light': '#2F3541',
             'gg_grey_lighter': '#363D4A',
         },
         extend: {
