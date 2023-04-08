@@ -1,6 +1,6 @@
 <template>
     <Link :href="route(this.href)">
-        <Button>
+        <ButtonBig>
             <template #icon>
                 <slot name="icon"></slot>
             </template>
@@ -10,13 +10,14 @@
             </template>
 
             <slot />
-        </Button>
+        </ButtonBig>
     </Link>
 </template>
 
 <script setup>
 import {  Link } from '@inertiajs/vue3';
-import Button from "@/Components/Button.vue";
+import Button from "@/Components/CardSmall.vue";
+import ButtonBig from "@/Components/CardSmall.vue";
 
 const props = defineProps({
     href: String
