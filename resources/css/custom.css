@@ -36,7 +36,7 @@
     outline: 0;
 }
 
-.button-small {
+.button.small {
     @apply rounded;
     @apply py-1 px-4;
     line-height: 1.7;
@@ -44,18 +44,26 @@
     @apply text-white;
 }
 
-.button-small.red {
+.button.big {
+    @apply rounded;
+    @apply py-4 px-6;
+    line-height: 2;
+    @apply uppercase;
+    @apply text-white;
+}
+
+.button.red {
     @apply bg-red;
 }
 
-.button-small.red:hover {
+.button.red:hover {
+    @apply bg-blue;
+}
+
+.button.grey {
     @apply bg-grey_lightest;
 }
 
-.button-small.grey {
-    @apply bg-grey_lightest;
-}
-
-.button-small.grey:hover {
+.button.grey:hover {
     @apply bg-red;
 }
