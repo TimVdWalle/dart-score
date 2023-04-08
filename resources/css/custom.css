@@ -42,6 +42,7 @@
     line-height: 1.7;
     @apply uppercase;
     @apply text-white;
+    @apply font-extrabold;
 }
 
 .button.big {
@@ -50,6 +51,7 @@
     line-height: 2;
     @apply uppercase;
     @apply text-white;
+    @apply font-extrabold;
 }
 
 .button.red {
