@@ -1,6 +1,8 @@
 <script setup>
 import {ref} from 'vue';
 import {Head} from '@inertiajs/vue3';
+import {Link} from '@inertiajs/vue3';
+
 
 import AppLayout from "@/Layouts/AppLayout.vue";
 import LinedTitle from "@/Elements/LinedTitle.vue";
@@ -66,7 +68,7 @@ const setGameMode = (option) => {
         ---------------------------------------------------->
         <lined-title class="mt-12">Spelers</lined-title>
 
-        <div class="flex items-center gap-x-8">
+        <div class="flex items-center gap-x-8 mb-8">
             <input
                 ref="playerNameInput"
                 v-model="playerName"
@@ -78,18 +80,28 @@ const setGameMode = (option) => {
             </button>
         </div>
 
-        <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton
-                   @close="removePlayer(player)">
-            <template #icon>
-                <font-awesome-icon :icon="faCircleUser" class="fa-3x text-white"/>
-            </template>
+        <div class="flex grid grid-cols-2 gap-x-4 gap-y-4 mb-16">
+            <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton
+                       @close="removePlayer(player)">
+                <!--            <template #icon>-->
+                <!--                <font-awesome-icon :icon="faCircleUser" class="fa-3x text-white"/>-->
+                <!--            </template>-->
 
-            <template #title>
-                Speler {{ index + 1 }}
-            </template>
+                <template #title>
+                    Speler {{ index + 1 }}
+                </template>
 
-            {{ player.name }}
-        </CardSmall>
+                {{ player.name }}
+            </CardSmall>
+        </div>
+
+
+        <!----------------------------------------------------
+            START GAME
+        ---------------------------------------------------->
+        <Link :href="route('login')" class="flex justify-center items-center">
+            <button class="button big red">start spel</button>
+        </Link>
 
 
     </AppLayout>
