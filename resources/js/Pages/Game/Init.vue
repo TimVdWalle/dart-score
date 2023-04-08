@@ -11,20 +11,27 @@ import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import {useGameStore} from "@/Stores/GameStore";
 import CardSmall from "@/Components/CardSmall.vue";
-
+/** @type {ReturnType<typeof useGameStore>} */
 const gameStore = useGameStore();
 
-const player = ref(null);
-const playerInput = ref(null); // add a ref for the input element
+const playerName = ref(null);
+const playerNameInput = ref(null); // add a ref for the input element
 
 const addPlayer = () => {
-    console.log("adding player ", player.value);
-    if (player.value) {
-        gameStore.addPlayer(player.value);
+    console.log("adding player ", playerName.value);
+    if (playerName.value) {
+        gameStore.addPlayer(playerName.value);
     }
 
-    player.value = '';
-    playerInput.value.focus(); // focus back on the input field
+    playerName.value = '';
+    playerNameInput.value.focus(); // focus back on the input field
+}
+
+const removePlayer = (player) => {
+    console.log("removing player ", player);
+    if (player) {
+        gameStore.removePlayer(player);
+    }
 }
 </script>
 
@@ -34,11 +41,10 @@ const addPlayer = () => {
     <AppLayout classes="xl:max-w-6xl xl:mx-auto mx-6">
         <lined-title>Spelers</lined-title>
 
-
         <div class="flex items-center gap-x-8">
             <input
-                ref="playerInput"
-                v-model="player"
+                ref="playerNameInput"
+                v-model="playerName"
                 v-on:keyup.enter="addPlayer"
                 class="input-light min-w-[200px] max-w-[300px]" placeholder="speler 1">
 
@@ -47,7 +53,7 @@ const addPlayer = () => {
             </button>
         </div>
 
-        <CardSmall v-for="(player, index) in gameStore.players">
+        <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton @close="removePlayer(player)">
             <template #icon>
                 <font-awesome-icon :icon="faCircleUser" class="fa-3x text-white"/>
             </template>
@@ -56,7 +62,7 @@ const addPlayer = () => {
                 Speler {{ index + 1 }}
             </template>
 
-            {{ player }}
+            {{ player.name }}
         </CardSmall>
 
     </AppLayout>
