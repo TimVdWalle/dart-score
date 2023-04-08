@@ -4,6 +4,58 @@
 }
 
 .logo span::first-letter {
-    @apply text-gg_red;
+    @apply text-red;
     font-weight: bold;
+}
+
+.input-light {
+    padding: 6.5px 10px;
+    font-size: 1em;
+    font-weight: 400;
+    border: 1px solid #313947;
+    border-radius: 4px;
+    transition: .15s border-color;
+
+    color: #181c23;
+    background-color: #fff;
+    height: calc(1.5em + 0.75rem + 2px);
+    display: block;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    line-height: 1.5;
+
+
+}
+
+.input-light:focus {
+    background-color: #fff;
+    border-color: #dd163b;
+    box-shadow: none;
+    outline: 0;
+}
+
+.button-small {
+    @apply rounded;
+    @apply py-1 px-4;
+    line-height: 1.7;
+    @apply uppercase;
+    @apply text-white;
+}
+
+.button-small.red {
+    @apply bg-red;
+}
+
+.button-small.red:hover {
+    @apply bg-grey_lightest;
+}
+
+.button-small.grey {
+    @apply bg-grey_lightest;
+}
+
+.button-small.grey:hover {
+    @apply bg-red;
 }
