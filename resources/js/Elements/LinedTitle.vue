@@ -1,3 +1,8 @@
+<script setup>
+const props = defineProps({
+    title: String
+})
+</script>
 <template>
     <div class="">
         <div class="flex items-center py-4">
@@ -6,7 +11,7 @@
 
             <!-- Your text here -->
             <span class="flex-shrink text-2xl px-4 text-red uppercase font-display font-semibold">
-                <slot />
+                <slot/>
             </span>
 
             <!-- The right line -->
@@ -14,9 +19,3 @@
         </div>
     </div>
 </template>
-
-<script setup>
-const props = defineProps({
-    title: String
-})
-</script>
