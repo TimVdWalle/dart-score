@@ -8,12 +8,17 @@ export const useGameStore = defineStore('game', {
     state: () => {
         return {
             nextPlayerId: 0,
-            players: []
+            players: [],
+            gameMode: '501'
         }
     },
     actions: {
         setPlayers(players) {
             this.players = players;
+        },
+
+        setGameMode(gameMode){
+          this.gameMode = gameMode;
         },
 
         addPlayer(playerName) {
