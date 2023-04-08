@@ -11,8 +11,9 @@ import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import {useGameStore} from "@/Stores/GameStore";
 import CardSmall from "@/Components/CardSmall.vue";
-/** @type {ReturnType<typeof useGameStore>} */
+
 const gameStore = useGameStore();
+
 
 const playerName = ref(null);
 const playerNameInput = ref(null); // add a ref for the input element
@@ -21,6 +22,8 @@ const addPlayer = () => {
     console.log("adding player ", playerName.value);
     if (playerName.value) {
         gameStore.addPlayer(playerName.value);
+    } else {
+        gameStore.addPlayer('speler ' + (gameStore.nextPlayerId + 1));
     }
 
     playerName.value = '';
