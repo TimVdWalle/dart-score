@@ -11,6 +11,7 @@ import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import {useGameStore} from "@/Stores/GameStore";
 import CardSmall from "@/Components/CardSmall.vue";
+import TabGroup from "@/Components/TabGroup.vue";
 
 const gameStore = useGameStore();
 
@@ -42,7 +43,21 @@ const removePlayer = (player) => {
     <Head title="Game"/>
 
     <AppLayout classes="xl:max-w-6xl xl:mx-auto mx-6">
-        <lined-title>Spelers</lined-title>
+        <!----------------------------------------------------
+            SETTINGS
+        ---------------------------------------------------->
+        <lined-title class="mt-16">Settings</lined-title>
+        <tab-group :options="[
+                {'value':'501', 'selected': true},
+                {'value':'301', 'selected': false},
+                {'value':'101', 'selected': false},
+            ]">
+        </tab-group>
+
+        <!----------------------------------------------------
+            PLAYERS
+        ---------------------------------------------------->
+        <lined-title class="mt-12">Spelers</lined-title>
 
         <div class="flex items-center gap-x-8">
             <input
@@ -56,7 +71,8 @@ const removePlayer = (player) => {
             </button>
         </div>
 
-        <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton @close="removePlayer(player)">
+        <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton
+                   @close="removePlayer(player)">
             <template #icon>
                 <font-awesome-icon :icon="faCircleUser" class="fa-3x text-white"/>
             </template>
@@ -67,6 +83,7 @@ const removePlayer = (player) => {
 
             {{ player.name }}
         </CardSmall>
+
 
     </AppLayout>
 </template>
