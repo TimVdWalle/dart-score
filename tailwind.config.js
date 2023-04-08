@@ -31,17 +31,22 @@ module.exports = {
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
-            'gg_red': '#DE163B',
-            'gg_green': '#38A21F',
+            'red': '#DE163B',
+            'red-dark': '#DD163B',
+            'orange': '#EE9E2B',
+            'orange-dark': '#CC8110',
+            'green': '#38A21F',
+            'green-dark': '#286E17',
+            'blue': '#21A2B1',
+            'blue-dark': '#0175D8',
 
+            'grey_darker': '#0A0B0E',
+            'grey_dark': '#181C23',
+            'grey_medium': '#292E38',
+            'grey_light': '#2F3541',
+            'grey_lighter': '#363D4A',
+            'grey_lightest': '#A0A7AB',
             'white': '#FFFFFF',
-            'gg_white': '#A0A7AB',
-
-            'gg_grey_darker': '#0A0B0E',
-            'gg_grey_dark': '#181C23',
-            'gg_grey_medium': '#292E38',
-            'gg_grey_light': '#2F3541',
-            'gg_grey_lighter': '#363D4A',
         },
         extend: {
             fontFamily: {
