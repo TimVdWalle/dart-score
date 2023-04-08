@@ -37,6 +37,11 @@ const removePlayer = (player) => {
         gameStore.removePlayer(player);
     }
 }
+
+const setGameMode = (option) => {
+    gameStore.setGameMode(option.value);
+}
+
 </script>
 
 <template>
@@ -46,8 +51,10 @@ const removePlayer = (player) => {
         <!----------------------------------------------------
             SETTINGS
         ---------------------------------------------------->
-        <lined-title class="mt-16">Settings</lined-title>
-        <tab-group :options="[
+        <lined-title class="mt-4">Settings</lined-title>
+        <tab-group
+            @select-tab="setGameMode($event)"
+            :tabs="[
                 {'value':'501', 'selected': true},
                 {'value':'301', 'selected': false},
                 {'value':'101', 'selected': false},
