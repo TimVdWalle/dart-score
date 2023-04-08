@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -42,9 +43,13 @@ Route::middleware('auth')->group(function () {
 /********************************************************************************
  * the game routes
  ********************************************************************************/
-Route::get('/game/init', function () {
-    return Inertia::render('Game/Init');
-})->name('game.init');
+Route::get('/game/init',
+    [GameController::class, 'init'])
+    ->name('game.init');
+
+Route::get('/game/{gameHash}',
+    [GameController::class, 'play'])
+    ->name('game.play');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
