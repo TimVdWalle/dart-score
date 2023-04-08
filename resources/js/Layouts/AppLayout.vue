@@ -1,7 +1,7 @@
 <template>
     <Header />
 
-    <div class="mt-12" :class="props.classes">
+    <div class="mt-4" :class="props.classes">
         <slot />
     </div>
 </template>
