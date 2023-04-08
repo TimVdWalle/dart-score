@@ -19,7 +19,10 @@ const playerInput = ref(null); // add a ref for the input element
 
 const addPlayer = () => {
     console.log("adding player ", player.value);
-    gameStore.addPlayer(player.value);
+    if (player.value) {
+        gameStore.addPlayer(player.value);
+    }
+
     player.value = '';
     playerInput.value.focus(); // focus back on the input field
 }
@@ -50,10 +53,10 @@ const addPlayer = () => {
             </template>
 
             <template #title>
-                Speler {{index + 1}}
+                Speler {{ index + 1 }}
             </template>
 
-            {{player}}
+            {{ player }}
         </CardSmall>
 
     </AppLayout>
