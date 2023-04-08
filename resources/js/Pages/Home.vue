@@ -21,7 +21,7 @@ import {faBullseye} from "@fortawesome/free-solid-svg-icons";
                 dart
             </template>
 
-            start game
+            start spel
         </LinkButton>
    </AppLayout>
 </template>
