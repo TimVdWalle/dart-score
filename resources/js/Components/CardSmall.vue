@@ -24,7 +24,6 @@ const props = defineProps({
             </div>
             <div class="text-red fgroup-hover:text-white">
                 <slot/>
-                {{ closeButton }}
             </div>
         </div>
     </div>
