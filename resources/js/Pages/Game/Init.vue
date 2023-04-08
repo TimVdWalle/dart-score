@@ -9,11 +9,16 @@ import LinedTitle from "@/Elements/LinedTitle.vue";
 import Button from "@/Components/CardSmall.vue";
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {faUserPlus} from "@fortawesome/free-solid-svg-icons";
-import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 
 import {useGameStore} from "@/Stores/GameStore";
 import CardSmall from "@/Components/CardSmall.vue";
 import TabGroup from "@/Components/TabGroup.vue";
+
+const props = defineProps({
+    gameHash: String
+})
+
+console.log("gameHash", props.gameHash)
 
 const gameStore = useGameStore();
 
@@ -99,7 +104,7 @@ const setGameMode = (option) => {
         <!----------------------------------------------------
             START GAME
         ---------------------------------------------------->
-        <Link :href="route('login')" class="flex justify-center items-center">
+        <Link :href="route('game.play', { gameHash: props.gameHash })" class="flex justify-center items-center">
             <button class="button big red">start spel</button>
         </Link>
 
