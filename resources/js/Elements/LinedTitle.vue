@@ -5,7 +5,7 @@ const props = defineProps({
 </script>
 <template>
     <div class="">
-        <div class="flex items-center py-4">
+        <div class="flex items-center py-3">
             <!-- The left line -->
             <div class="flex-grow h-1 max-w-[30px] w-30 bg-grey_medium"></div>
 
