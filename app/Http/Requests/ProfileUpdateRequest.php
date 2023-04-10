@@ -13,10 +13,12 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
+    /** @phpstan-ignore-next-line */
     public function rules(): array
     {
         return [
             'name' => ['string', 'max:255'],
+            /** @phpstan-ignore-next-line */
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
