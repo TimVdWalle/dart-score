@@ -55,7 +55,7 @@ const setGameType = (option) => {
 <template>
     <Head title="Game"/>
 
-    <AppLayout classes="xl:max-w-6xl xl:mx-auto mx-6">
+    <AppLayout classes="xl:max-w-6xl xl:mx-auto mx-6 mt-4">
         <!----------------------------------------------------
             SETTINGS
         ---------------------------------------------------->

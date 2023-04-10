@@ -65,7 +65,7 @@ class GameController extends Controller
             ->first();
 
         if ($game) {
-            return Inertia::render('Game/Play', ['gameHash' => $game->hash]);
+            return Inertia::render('Game/Show', ['gameHash' => $game->hash]);
         } else {
             return redirect()->route('game.init');
         }

@@ -12,7 +12,7 @@ import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
 <template>
     <Head title="Home" />
 
-   <AppLayout classes="flex justify-center items-center h-[70vh]">
+   <AppLayout classes="flex justify-center items-center h-[70vh] mt-4">
 
        <Link :href="route('game.init')">
             <button class="button big red">start nieuw spel</button>
