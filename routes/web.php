@@ -52,8 +52,8 @@ Route::post('/game/store',
     ->name('game.store');
 
 Route::get('/game/{gameHash}',
-    [GameController::class, 'play'])
-    ->name('game.play');
+    [GameController::class, 'show'])
+    ->name('game.show');
 
 
 require __DIR__ . '/auth.php';
