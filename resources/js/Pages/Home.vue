@@ -15,7 +15,7 @@ import {faCircleUser} from "@fortawesome/free-solid-svg-icons";
    <AppLayout classes="flex justify-center items-center h-[70vh]">
 
        <Link :href="route('game.init')">
-            <button class="button big red">start spel</button>
+            <button class="button big red">start nieuw spel</button>
        </Link>
    </AppLayout>
 </template>
