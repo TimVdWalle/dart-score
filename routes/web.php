@@ -47,6 +47,10 @@ Route::get('/game/init',
     [GameController::class, 'init'])
     ->name('game.init');
 
+Route::post('/game/store',
+    [GameController::class, 'store'])
+    ->name('game.store');
+
 Route::get('/game/{gameHash}',
     [GameController::class, 'play'])
     ->name('game.play');
