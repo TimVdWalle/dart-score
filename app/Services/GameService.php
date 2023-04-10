@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Game\Game;
+use Illuminate\Support\Collection;
 
 class GameService
 {
@@ -21,18 +22,27 @@ class GameService
         return $smallnum;
     }
 
-//    /**
-//     * @param $gameData
-//     * @return int
-//     */
-//    public function createGame($gameData)
-//    {
-//        // Insert game data into the database
-//        $gameId = DB::table('games')->insertGetId($gameData);
-//
-//        // Return the ID of the newly created game
-//        return $gameId;
-//    }
+    /**
+     * @param string $hash
+     * @param string $gameType
+     * @param string $exitType
+     * @param array<int, array{id: int, name: string}> $players
+     * @return int
+     */
+    public function createGame(string $hash, string $gameType, string $exitType, array $players)
+    {
+        $game = new Game();
+        $game->hash = $hash;
+        $game->game_type = $gameType;
+        $game->exit_type = $exitType;
+
+        $game->save();
+
+        $players = (new PlayerService())->storePlayers($players);
+        $game->players()->attach($players->pluck('id'));
+
+        return $game->id;
+    }
 //
 //    /**
 //     * @param $gameId
