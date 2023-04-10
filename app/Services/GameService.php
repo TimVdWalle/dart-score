@@ -27,7 +27,7 @@ class GameService
      * @param string $gameType
      * @param string $exitType
      * @param array<int, array{id: int, name: string}> $players
-     * @return int
+     * @return Game
      */
     public function createGame(string $hash, string $gameType, string $exitType, array $players)
     {
@@ -41,7 +41,7 @@ class GameService
         $players = (new PlayerService())->storePlayers($players);
         $game->players()->attach($players->pluck('id'));
 
-        return $game->id;
+        return $game;
     }
 //
 //    /**
