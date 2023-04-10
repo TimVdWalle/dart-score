@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Inertia\Inertia;
 
 //use App\Models\Game;
 
 class GameController extends Controller
 {
-    public function init(){
+    /**
+     * @return \Inertia\Response
+     */
+    public function init()
+    {
         $gameHash = '12345';
         return Inertia::render('Game/Init', ['gameHash' => $gameHash]);
     }
 
-    public function play($hash)
+    /**
+     * @param $hash
+     * @return \Illuminate\Http\RedirectResponse|\Inertia\Response
+     */
+    public function play(string $hash)
     {
 //        $game = Game::where('hash', $hash)->first();
 
