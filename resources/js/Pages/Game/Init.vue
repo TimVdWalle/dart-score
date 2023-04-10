@@ -65,6 +65,7 @@ const setGameMode = (option) => {
                 {'value':'501', 'selected': true},
                 {'value':'301', 'selected': false},
                 {'value':'101', 'selected': false},
+                {'value':'cricket', 'selected': false},
             ]">
         </tab-group>
 
