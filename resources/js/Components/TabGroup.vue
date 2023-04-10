@@ -25,7 +25,7 @@ const selectTab = (selectedTab, index) => {
 </script>
 
 <template>
-    <div class="flex gap-x-2">
+    <div class="flex gap-x-2 mb-3">
         <div v-for="(tab, index) in props.tabs"
              :key="index"
              @click="selectTab(tab, index)"
