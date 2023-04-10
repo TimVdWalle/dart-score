@@ -15,7 +15,8 @@ import CardSmall from "@/Components/CardSmall.vue";
 import TabGroup from "@/Components/TabGroup.vue";
 
 const props = defineProps({
-    gameHash: String
+    gameHash: String,
+    csrf: String,
 })
 
 console.log("gameHash", props.gameHash)
@@ -113,14 +114,25 @@ const setGameType = (option) => {
         <!----------------------------------------------------
             START GAME
         ---------------------------------------------------->
-        <Link
-            :href="route('game.store', { gameHash: props.gameHash, gameType: gameStore.gameType, exitType:gameStore.exitType })"
-            class="flex justify-center items-center"
-            :method="'post'"
-        >
-            <button class="button big red">start spel</button>
-        </Link>
+<!--        <Link-->
+<!--            :href="route('game.store', { '_token': props.csrf, gameHash: props.gameHash, players: gameStore.players, gameType: gameStore.gameType, exitType:gameStore.exitType })"-->
+<!--            class="flex justify-center items-center"-->
+<!--            :method="'post'"-->
+<!--        >-->
+<!--            <button class="button big red">start spel</button>-->
+<!--        </Link>-->
 
+        <form
+            :action="route('game.store')"
+            method="post" class="flex justify-center items-center">
+            <input type="hidden" name="_token" :value="props.csrf">
+            <input type="hidden" name="hash" :value="props.gameHash">
+            <input type="hidden" name="gameType" :value="gameStore.gameType">
+            <input type="hidden" name="exitType" :value="gameStore.exitType">
+            <input type="hidden" name="players" :value="JSON.stringify(gameStore.players)">
+
+            <button type="submit" class="button big red">start spel</button>
+        </form>
 
     </AppLayout>
 </template>
