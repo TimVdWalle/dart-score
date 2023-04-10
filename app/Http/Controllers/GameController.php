@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Game\GameStoreRequest;
+use App\Services\GameService;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 //use App\Models\Game;
@@ -13,8 +16,14 @@ class GameController extends Controller
      */
     public function init()
     {
-        $gameHash = '12345';
+        $gameHash = (new GameService())->getNextHash();
         return Inertia::render('Game/Init', ['gameHash' => $gameHash]);
+    }
+
+    public function store(GameStoreRequest $request)
+    {
+//        $players =
+
     }
 
     /**
