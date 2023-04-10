@@ -45,8 +45,8 @@ const removePlayer = (player) => {
     }
 }
 
-const setGameMode = (option) => {
-    gameStore.setGameMode(option.value);
+const setGameType = (option) => {
+    gameStore.gameType(option.value);
 }
 
 </script>
@@ -58,14 +58,22 @@ const setGameMode = (option) => {
         <!----------------------------------------------------
             SETTINGS
         ---------------------------------------------------->
-        <lined-title class="mt-4">Settings</lined-title>
+        <lined-title class="mt-4">Instellingen</lined-title>
         <tab-group
-            @select-tab="setGameMode($event)"
+            @select-tab="setGameType($event)"
             :tabs="[
                 {'value':'501', 'selected': true},
                 {'value':'301', 'selected': false},
                 {'value':'101', 'selected': false},
                 {'value':'cricket', 'selected': false},
+            ]">
+        </tab-group>
+        <tab-group
+            @select-tab="setGameMode($event)"
+            :tabs="[
+                {'value':'dubbel uit', 'selected': false},
+                {'value':'exact uit', 'selected': true},
+                {'value':'uit', 'selected': false},
             ]">
         </tab-group>
 
@@ -105,7 +113,11 @@ const setGameMode = (option) => {
         <!----------------------------------------------------
             START GAME
         ---------------------------------------------------->
-        <Link :href="route('game.play', { gameHash: props.gameHash })" class="flex justify-center items-center">
+        <Link
+            :href="route('game.store', { gameHash: props.gameHash, gameType: gameStore.gameType, exitType:gameStore.exitType })"
+            class="flex justify-center items-center"
+            :method="'post'"
+        >
             <button class="button big red">start spel</button>
         </Link>
 

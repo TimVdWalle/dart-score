@@ -9,7 +9,8 @@ export const useGameStore = defineStore('game', {
         return {
             nextPlayerId: 0,
             players: [],
-            gameMode: '501'
+            gameType: '501',
+            exitType: 'exact uit',
         }
     },
     actions: {
@@ -17,8 +18,8 @@ export const useGameStore = defineStore('game', {
             this.players = players;
         },
 
-        setGameMode(gameMode){
-          this.gameMode = gameMode;
+        setGameType(gameType){
+          this.gameType = gameType;
         },
 
         addPlayer(playerName) {
