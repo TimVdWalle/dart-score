@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Game\GameStoreRequest;
+use App\Models\Game\Game;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
@@ -59,18 +60,12 @@ class GameController extends Controller
      */
     public function show(string $hash)
     {
-//        $game = Game::where('hash', $hash)->first();
+        $game = Game::query()
+            ->where('hash', 'like', $hash)
+            ->first();
 
-//        if ($game) {
-//        if ($hash) {
-//            return view('game.show', ['game' => $game]);
-//        } else {
-//            return redirect()->route('game.init');
-//        }
-
-//        if ($game) {
-        if ($hash) {
-            return Inertia::render('Game/Play', ['gameHash' => $hash]);
+        if ($game) {
+            return Inertia::render('Game/Play', ['gameHash' => $game->hash]);
         } else {
             return redirect()->route('game.init');
         }
