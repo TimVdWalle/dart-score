@@ -72,7 +72,7 @@ const setExitType = (option) => {
                 {'value':'cricket', 'selected': false},
             ]">
         </tab-group>
-        <tab-group
+        <tab-group v-if="gameStore.gameType !== 'cricket'"
             @select-tab="setExitType($event)"
             :tabs="[
                 {'value':'dubbel uit', 'selected': false},
