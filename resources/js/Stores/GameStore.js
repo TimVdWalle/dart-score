@@ -11,15 +11,25 @@ export const useGameStore = defineStore('game', {
             players: [],
             gameType: '501',
             exitType: 'exact uit',
+            leading: null,
+            turns: 0,
         }
     },
     actions: {
-        setPlayers(players) {
-            this.players = players;
+        setLeading(player){
+            this.leading = player;
+        },
+
+        setTurns(turns){
+            this.turns = turns;
         },
 
         setGameType(gameType){
           this.gameType = gameType;
+        },
+
+        setPlayers(players) {
+            this.players = players;
         },
 
         addPlayer(playerName) {
