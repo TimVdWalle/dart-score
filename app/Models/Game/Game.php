@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * */
 class Game extends Model
 {
-    protected $table = 'game';
+    protected $table = 'games';
 
     /**
      * @return BelongsToMany<Player>
