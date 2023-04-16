@@ -14,12 +14,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Player extends Model
 {
-    protected $table = 'player';
+    protected $table = 'players';
 
     /**
      * @return HasMany<Game>
      */
-    public function players(): HasMany
+    public function games(): HasMany
     {
         return $this->hasMany(Game::class);
     }
