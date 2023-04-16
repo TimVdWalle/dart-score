@@ -4,13 +4,14 @@ import {Head} from '@inertiajs/vue3';
 import {Link} from '@inertiajs/vue3';
 
 
-import AppLayout from "@/Layouts/AppLayout.vue";
+import GameLayout from "@/Layouts/GameLayout.vue";
 </script>
 
 <template>
     <Head title="Game"/>
 
-    <AppLayout classes=" bg-white">
-        <GameStatus />
-    </AppLayout>
+    <GameLayout classes=" bg-white">
+
+
+    </GameLayout>
 </template>
