@@ -10,10 +10,10 @@ import Keyboard from "@/Components/Game/Keyboard.vue";
 <template>
     <Head title="Game"/>
 
-    <GameLayout classes=" ">
-        <Players class="flex h-[25vh] min-h-[150px] bg-white justify-center items-center bg-white"/>
+    <GameLayout classes=" " style="background-color: blue">
+        <Players class="flex h-[40vh] min-h-[100px] bg-white justify-center items-center bg-white"/>
 
-        <Keyboard class="flex mt-3 fixed bottom-0 w-full h-[35vh] min-h-[250px] bg-white justify-center items-center bg-white" />
+        <Keyboard class="fixed bottom-0 w-full h-[30vh] min-h-[250px]"/>
 
     </GameLayout>
 </template>

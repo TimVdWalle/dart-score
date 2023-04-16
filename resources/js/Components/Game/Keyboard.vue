@@ -8,10 +8,10 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="grid grid-cols-3 gap-1 bg-grey_lighterer p-1">
+    <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1">
         <div
             v-for="number in [1,2,3,4,5,6,7,8,9, 0, 'del', 'undo']"
-            class="flex justify-center items-center bg-grey_medium h-full w-full font-display text-2xl rounded-lg hover:bg-blue-dark"
+            class="flex justify-center items-center text-2xl font-display text-white bg-grey_lighterer rounded-lg"
         >
             {{number}}
         </div>
