@@ -47,7 +47,10 @@ const removePlayer = (player) => {
 }
 
 const setGameType = (option) => {
-    gameStore.gameType(option.value);
+    gameStore.gameType = option.value;
+}
+const setExitType = (option) => {
+    gameStore.exitType = option.value;
 }
 
 </script>
@@ -70,7 +73,7 @@ const setGameType = (option) => {
             ]">
         </tab-group>
         <tab-group
-            @select-tab="setGameMode($event)"
+            @select-tab="setExitType($event)"
             :tabs="[
                 {'value':'dubbel uit', 'selected': false},
                 {'value':'exact uit', 'selected': true},
