@@ -32,6 +32,7 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
+        dd($request);
         // TODO : update GameStoreRequest with correct validation for array
         $players = $request->players ? json_decode(strval($request->players), true) : null;
 
@@ -65,7 +66,7 @@ class GameController extends Controller
             ->first();
 
         if ($game) {
-            return Inertia::render('Game/Show', ['gameHash' => $game->hash]);
+            return Inertia::render('Game/Show', ['game' => $game]);
         } else {
             return redirect()->route('game.init');
         }
