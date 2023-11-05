@@ -91,7 +91,7 @@ const setExitType = (option) => {
                 ref="playerNameInput"
                 v-model="playerName"
                 v-on:keyup.enter="addPlayer"
-                class="input-light min-w-[200px] max-w-[300px]" placeholder="speler 1">
+                class="input-light min-w-[200px]" placeholder="speler 1">
 
             <button class="button small red" @click="addPlayer">
                 <font-awesome-icon :icon="faUserPlus" class="fa-1x text-white"/>
