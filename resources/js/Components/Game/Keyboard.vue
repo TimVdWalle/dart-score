@@ -1,34 +1,57 @@
 <script setup>
 import {ref} from 'vue';
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
 import KeyboardButton from "@/Components/Game/KeyboardButton.vue";
-
-const props = defineProps({
-    closeButton: Boolean
-})
 
 const keyboardValue = ref([]);
 keyboardValue.value = 0;
 
-const onButtonClicked = (pressedValue) => {
-    // Handle the click event. You might want to do something with the numberOrString.
-    console.log('Button clicked with:', pressedValue);
-    keyboardValue.value = keyboardValue.value * 10 + pressedValue * 1
-    console.log(keyboardValue.value)
+const buttons = [
+    { value: 1, type: 'number' },
+    { value: 2, type: 'number' },
+    { value: 3, type: 'number' },
+    { value: 4, type: 'number' },
+    { value: 5, type: 'number' },
+    { value: 6, type: 'number' },
+    { value: 7, type: 'number' },
+    { value: 8, type: 'number' },
+    { value: 9, type: 'number' },
+    { value: 'faDeleteLeft', type: 'icon' },
+    { value: 0, type: 'number' },
+    { value: 'faArrowRightLong', type: 'icon' },
+];
+
+const onButtonClicked = (pressedButton) => {
+    if(pressedButton.type === 'number'){
+        handleNumberClicked(pressedButton.value)
+    } else if (pressedButton.value === 'faDeleteLeft'){
+        handleBackspace()
+    }
+}
+
+const handleNumberClicked = (value) => {
+    let newKeyboardValue = keyboardValue.value * 10 + value * 1
+    if(newKeyboardValue <= 180){
+        keyboardValue.value = newKeyboardValue
+    }
+}
+
+const handleBackspace = (value) => {
+    keyboardValue.value = Number(keyboardValue.value.toString().slice(0, -1)) || 0;
 }
 </script>
 
 <template>
-    <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1">
-        <div
-            v-for="number in ['1','2','3','4','5','6','7','8','9',  'del', '0', 'undo']"
-            class="flex justify-center items-center bg-grey_lighterer rounded-lg hover:bg-red hover:cursor-pointer"
-        >
-            <KeyboardButton
-                :text="number"
-                @clicked="onButtonClicked"
-            />
+    <div>
+        <div class="nk-hexagon">
+            <span>{{keyboardValue}}</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 h-[30vh] fixed bottom-0 w-full">
+            <div v-for="button in buttons">
+                <KeyboardButton
+                    :button="button"
+                    @clicked="onButtonClicked"
+                />
+            </div>
         </div>
     </div>
 
