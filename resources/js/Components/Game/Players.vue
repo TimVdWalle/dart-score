@@ -1,14 +1,19 @@
 <script setup>
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {faXmark} from "@fortawesome/free-solid-svg-icons";
+import { defineProps } from 'vue';
 
+// Define props to receive the players array
 const props = defineProps({
-    closeButton: Boolean
-})
+    players: Array,
+});
 </script>
 
 <template>
-<div>
-    players
-</div>
+    <div class="flex ">
+        <div v-if="props.players.length > 0" class="flex justify-center items-center bg-red w-full h-full">
+            {{ props.players[0].name }} <!-- Display the name of the first player -->
+        </div>
+        <div v-if="props.players.length > 1" class="flex justify-center items-center bg-blue w-full h-full">
+            {{ props.players[1].name }} <!-- Display the name of the second player -->
+        </div>
+    </div>
 </template>
