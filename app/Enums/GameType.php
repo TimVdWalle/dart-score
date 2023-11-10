@@ -6,7 +6,7 @@ enum GameType: string {
     case Game501 = '501';
     case Game301 = '301';
     case Game101 = '101';
-    case Cricket = 'Cricket';
+    case Cricket = 'cricket';
 
     public function getStartingScore(): int {
         return match($this) {
