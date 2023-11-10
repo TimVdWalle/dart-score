@@ -10,7 +10,7 @@ export const useGameStore = defineStore('game', {
             nextPlayerId: 0,
             players: [],
             gameType: '501',
-            outType: 'exact uit',
+            outType: 'double_exact',
             leading: null,
             turns: 0,
         }
