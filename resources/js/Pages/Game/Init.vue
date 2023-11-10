@@ -65,9 +65,9 @@ const setOutType = (option) => {
             @select-tab="setGameType($event)"
             :tabs="[
                 {'value':'501', 'text':'501', 'selected': true},
-                {'value':'501', 'text':'301', 'selected': false},
-                {'value':'501', 'text':'101', 'selected': false},
-                {'value':'501', 'text':'cricket', 'selected': false},
+                {'value':'301', 'text':'301', 'selected': false},
+                {'value':'101', 'text':'101', 'selected': false},
+                {'value':'cricket', 'text':'cricket', 'selected': false},
             ]">
         </tab-group>
         <tab-group v-if="gameStore.gameType !== 'cricket'"
