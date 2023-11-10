@@ -1,8 +1,6 @@
 <script setup>
 import {ref} from 'vue';
 import {Head} from '@inertiajs/vue3';
-import {Link} from '@inertiajs/vue3';
-
 
 import AppLayout from "@/Layouts/AppLayout.vue";
 import LinedTitle from "@/Elements/LinedTitle.vue";
@@ -49,8 +47,8 @@ const removePlayer = (player) => {
 const setGameType = (option) => {
     gameStore.gameType = option.value;
 }
-const setExitType = (option) => {
-    gameStore.exitType = option.value;
+const setOutType = (option) => {
+    gameStore.outType = option.value;
 }
 
 </script>
@@ -73,7 +71,7 @@ const setExitType = (option) => {
             ]">
         </tab-group>
         <tab-group v-if="gameStore.gameType !== 'cricket'"
-            @select-tab="setExitType($event)"
+            @select-tab="setOutType($event)"
             :tabs="[
                 {'value':'dubbel uit', 'selected': false},
                 {'value':'exact uit', 'selected': true},
@@ -117,21 +115,13 @@ const setExitType = (option) => {
         <!----------------------------------------------------
             START GAME
         ---------------------------------------------------->
-<!--        <Link-->
-<!--            :href="route('game.store', { '_token': props.csrf, gameHash: props.gameHash, players: gameStore.players, gameType: gameStore.gameType, exitType:gameStore.exitType })"-->
-<!--            class="flex justify-center items-center"-->
-<!--            :method="'post'"-->
-<!--        >-->
-<!--            <button class="button big red">start spel</button>-->
-<!--        </Link>-->
-
         <form
             :action="route('game.store')"
             method="post" class="flex justify-center items-center">
             <input type="hidden" name="_token" :value="props.csrf">
             <input type="hidden" name="hash" :value="props.gameHash">
             <input type="hidden" name="gameType" :value="gameStore.gameType">
-            <input type="hidden" name="exitType" :value="gameStore.exitType">
+            <input type="hidden" name="OutType" :value="gameStore.outType">
             <input type="hidden" name="players" :value="JSON.stringify(gameStore.players)">
 
             <button type="submit" class="button big red">start spel</button>

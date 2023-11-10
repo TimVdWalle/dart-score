@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $hash
  * @property string $game_type;
- * @property string $exit_type;
+ * @property string $out_type;
  * */
 class Game extends Model
 {
