@@ -54,12 +54,12 @@ class GameTypeFactory {
     }
 
     /**
-     * @param Collection $players
+     * @param Collection<int, Player> $players
      * @param Game $game
      * @param int $initialScore
-     * @return Collection
+     * @return Collection<int, Player>
      */
-    public static function mapPlayers(Collection $players, Game $game, int $initialScore)
+    public static function mapPlayers(Collection $players, Game $game, int $initialScore): Collection
     {
         $scoreService = new ScoreService();
 
@@ -78,7 +78,7 @@ class GameTypeFactory {
      * @return AnyOutStrategy|DoubleExactOutStrategy|ExactOutStrategy|null
      * @throws Exception
      */
-    private static function createOutTypeStrategy(string $outType)
+    private static function createOutTypeStrategy(?string $outType)
     {
         if ($outType === null) {
             return null;

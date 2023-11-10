@@ -8,9 +8,9 @@ use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
 abstract class AbstractGameType implements GameTypeInterface {
-    protected $outTypeStrategy;
+    protected ?OutTypeStrategyInterface $outTypeStrategy;
 
-    public function __construct(OutTypeStrategyInterface $outTypeStrategy) {
+    public function __construct(?OutTypeStrategyInterface $outTypeStrategy) {
         $this->outTypeStrategy = $outTypeStrategy;
     }
 
