@@ -32,13 +32,14 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
-        //dd($request);
         // TODO : update GameStoreRequest with correct validation for array
         $players = $request->players ? json_decode(strval($request->players), true) : null;
 
+        /*
         if (!is_array($players) || empty($players)) {
             return redirect()->route('game.init');
         }
+        */
 
         $data = $request->validated();
 
@@ -64,7 +65,7 @@ class GameController extends Controller
     public function show(string $hash)
     {
         $game = Game::query()
-            ->with('players')
+            ->with('players.scores')
             ->where('hash', 'like', $hash)
             ->first();
 
