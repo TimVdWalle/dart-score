@@ -31,7 +31,7 @@ const selectTab = (selectedTab, index) => {
              @click="selectTab(tab, index)"
              :class="['bg-grey_light', {'bg-red': (index == selectedIndex)}]"
              class="p-3 flex-grow rounded flex items-center justify-center uppercase text-white font-semibold hover:bg-red hover:cursor-pointer">
-            {{tab.value}}
+            {{tab.text}}
         </div>
     </div>
 </template>

@@ -32,7 +32,7 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
-        dd($request);
+        //dd($request);
         // TODO : update GameStoreRequest with correct validation for array
         $players = $request->players ? json_decode(strval($request->players), true) : null;
 
@@ -40,15 +40,17 @@ class GameController extends Controller
             return redirect()->route('game.init');
         }
 
-        $hash = strval($request->get('hash'));
-        $gameType = strval($request->get('gameType'));
-        $exitType = strval($request->get('exitType'));
+        $data = $request->validated();
+
+        $hash = strval($data['hash']);
+        $gameType = strval($data['gameType']);
+        $outType = strval($data['outType']);
 
         $gameService = new GameService();
         $game = $gameService->createGame(
             hash: $hash,
             gameType: $gameType,
-            exitType: $exitType,
+            outType: $outType,
             players: $players
         );
 
@@ -62,6 +64,7 @@ class GameController extends Controller
     public function show(string $hash)
     {
         $game = Game::query()
+            ->with('players')
             ->where('hash', 'like', $hash)
             ->first();
 
