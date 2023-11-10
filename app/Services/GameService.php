@@ -26,23 +26,23 @@ class GameService
     /**
      * @param string $hash
      * @param string $gameType
-     * @param string $exitType
+     * @param string $outType
      * @param array<int, array{id: int, name: string}> $players
      * @return Game
      * @throws \Exception
      */
-    public function createGame(string $hash, string $gameType, string $exitType, array $players): Game
+    public function createGame(string $hash, string $gameType, string $outType, array $players): Game
     {
         $game = new Game();
         $game->hash = $hash;
         $game->game_type = $gameType;
-        $game->exit_type = $exitType;
+        $game->out_type = $outType;
 
         $game->save();
 
         $players = (new PlayerService())->storePlayers($players);
 
-        $gameTypeObject = GameTypeFactory::create($gameType);
+        $gameTypeObject = GameTypeFactory::create($gameType, $outType);
         $playersWithScores = $gameTypeObject->initializeScores(collect($players));
 
         $game->players()->attach($playersWithScores->pluck('id'));

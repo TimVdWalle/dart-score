@@ -16,7 +16,7 @@ class GameStoreRequest extends FormRequest
         return [
             'hash' => ['required', 'string'],
             'gameType' => ['required', 'string', Rule::in(['501', '301', '101', 'cricket'])],
-            'exitType' => ['required', 'string', Rule::in(['dubbel uit', 'exact uit', 'uit'])],
+            'outType' => ['required', 'string', Rule::in(['dubbel uit', 'exact uit', 'uit'])],
 //            'players' => ['required', 'min:1', 'max:6'],
             'players.*.name' => ['required', 'string'],
         ];

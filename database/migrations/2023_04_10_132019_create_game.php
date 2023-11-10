@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('hash');
             $table->string('game_type');            // type = 501, 301, 101, cricket
-            $table->string('exit_type');            // double out / exact out = straight out / out
+            $table->string('out_type');             // double out / exact out = straight out / out
             $table->timestamps();
         });
     }
