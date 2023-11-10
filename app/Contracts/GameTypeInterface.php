@@ -2,6 +2,7 @@
 
 namespace App\Contracts;
 
+use App\Models\Game\Game;
 use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
@@ -12,5 +13,5 @@ interface GameTypeInterface {
      * @param Collection<int|string, mixed> $players
      * @return Collection<int|string, Player>
      */
-    public function initializeScores(Collection $players): Collection;
+    public function initializeScores(Collection $players, Game $game): Collection;
 }
