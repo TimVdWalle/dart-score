@@ -64,18 +64,18 @@ const setOutType = (option) => {
         <tab-group
             @select-tab="setGameType($event)"
             :tabs="[
-                {'value':'501', 'selected': true},
-                {'value':'301', 'selected': false},
-                {'value':'101', 'selected': false},
-                {'value':'cricket', 'selected': false},
+                {'value':'501', 'text':'501', 'selected': true},
+                {'value':'501', 'text':'301', 'selected': false},
+                {'value':'501', 'text':'101', 'selected': false},
+                {'value':'501', 'text':'cricket', 'selected': false},
             ]">
         </tab-group>
         <tab-group v-if="gameStore.gameType !== 'cricket'"
             @select-tab="setOutType($event)"
             :tabs="[
-                {'value':'dubbel uit', 'selected': false},
-                {'value':'exact uit', 'selected': true},
-                {'value':'uit', 'selected': false},
+                {'value': 'double_exact', 'text':'dubbel uit', 'selected': false},
+                {'value': 'exact', 'text':'exact uit', 'selected': true},
+                {'value': 'any', 'text':'uit', 'selected': false},
             ]">
         </tab-group>
 
@@ -121,7 +121,7 @@ const setOutType = (option) => {
             <input type="hidden" name="_token" :value="props.csrf">
             <input type="hidden" name="hash" :value="props.gameHash">
             <input type="hidden" name="gameType" :value="gameStore.gameType">
-            <input type="hidden" name="OutType" :value="gameStore.outType">
+            <input type="hidden" name="outType" :value="gameStore.outType">
             <input type="hidden" name="players" :value="JSON.stringify(gameStore.players)">
 
             <button type="submit" class="button big red">start spel</button>
