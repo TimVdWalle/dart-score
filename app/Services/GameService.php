@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Factories\GameTypeFactory;
 use App\Models\Game\Game;
 use Illuminate\Support\Collection;
 
@@ -28,8 +29,9 @@ class GameService
      * @param string $exitType
      * @param array<int, array{id: int, name: string}> $players
      * @return Game
+     * @throws \Exception
      */
-    public function createGame(string $hash, string $gameType, string $exitType, array $players)
+    public function createGame(string $hash, string $gameType, string $exitType, array $players): Game
     {
         $game = new Game();
         $game->hash = $hash;
@@ -39,7 +41,13 @@ class GameService
         $game->save();
 
         $players = (new PlayerService())->storePlayers($players);
-        $game->players()->attach($players->pluck('id'));
+
+        $gameTypeObject = GameTypeFactory::create($gameType);
+        $playersWithScores = $gameTypeObject->initializeScores(collect($players));
+
+        $game->players()->attach($playersWithScores->pluck('id'));
+
+
 
         return $game;
     }
