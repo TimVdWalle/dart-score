@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int $id
  * @property string $name
+ * @property int $currentScore
  *
  */
 class Player extends Model
@@ -22,5 +23,13 @@ class Player extends Model
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
+    }
+
+    /**
+     * @return HasMany<Score>
+     */
+    public function scores(): HasMany
+    {
+        return $this->hasMany(Score::class);
     }
 }
