@@ -10,6 +10,11 @@ use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
 class Game301Type extends AbstractGameType {
+    /**
+     * @param Collection<int, Player> $players
+     * @param Game $game
+     * @return Collection<int, Player>
+     */
     public function initializeScores(Collection $players, Game $game): Collection {
         $initialScore = GameType::Game301->getStartingScore();
         return GameTypeFactory::mapPlayers($players, $game, $initialScore);

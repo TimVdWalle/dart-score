@@ -7,11 +7,11 @@ use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
 interface GameTypeInterface {
+
     /**
-     * Initializes the scores for each player.
-     *
-     * @param Collection<int|string, mixed> $players
-     * @return Collection<int|string, Player>
+     * @param Collection<int, Player> $players
+     * @param Game $game
+     * @return Collection<int, Player>
      */
     public function initializeScores(Collection $players, Game $game): Collection;
 }

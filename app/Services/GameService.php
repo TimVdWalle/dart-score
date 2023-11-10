@@ -43,7 +43,7 @@ class GameService
         $players = (new PlayerService())->storePlayers($players);
 
         $gameTypeObject = GameTypeFactory::create($game);
-        $playersWithScores = $gameTypeObject->initializeScores(players: collect($players), game: $game);
+        $playersWithScores = $gameTypeObject->initializeScores(players: $players, game: $game);
         $game->players()->attach($playersWithScores->pluck('id'));
 
         return $game;

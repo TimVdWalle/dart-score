@@ -32,15 +32,14 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
-        // TODO : update GameStoreRequest with correct validation for array
+        /** @var ?array<int, array{id: int, name: string}> $players */
         $players = $request->players ? json_decode(strval($request->players), true) : null;
 
-        /*
         if (!is_array($players) || empty($players)) {
             return redirect()->route('game.init');
         }
-        */
 
+        /** @var array<string, string> $data */
         $data = $request->validated();
 
         $hash = strval($data['hash']);
