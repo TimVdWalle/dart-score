@@ -14,11 +14,20 @@ const players = ref(props.game.data.players || []);
     <Head title="Game"/>
 
     <GameLayout>
-        <Players
-            :players="players"
-            class="flex h-[40vh] min-h-[100px] bg-white justify-center items-center"/>
+        <div class="player-list-container">
+            <Players
+                :players="players"
+                class="flex h-full bg-white justify-center fitems-center"/>
+        </div>
 
-        <Keyboard class="fixed bottom-0 w-full h-[40vh] min-h-[250px]"/>
-
+        <Keyboard class="fixed bottom-0 w-full h-[30vh] min-h-[200px] bg-red"/>
     </GameLayout>
 </template>
+
+
+<style>
+.player-list-container {
+    height: 62vh; /* Adjust this value as needed */
+    overflow-y: auto; /* Allows scrolling */
+}
+</style>
