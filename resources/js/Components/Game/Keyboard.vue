@@ -42,7 +42,7 @@ const handleBackspace = (value) => {
 
 <template>
     <div>
-        <div class="nk-hexagon">
+        <div class="">
             <span>{{keyboardValue}}</span>
         </div>
         <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 h-[30vh] fixed bottom-0 w-full">
