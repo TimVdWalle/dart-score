@@ -7,7 +7,7 @@ import GameLayout from "@/Layouts/GameLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
 
 const { props } = usePage();
-const players = ref(props.game.players || []);
+const players = ref(props.game.data.players || []);
 </script>
 
 <template>
