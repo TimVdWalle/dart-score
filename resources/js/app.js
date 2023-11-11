@@ -3,10 +3,13 @@ import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import {createPinia} from "pinia";
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'DartScore';
+
+const mapPiniaStore = createPinia();
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -14,6 +17,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(mapPiniaStore)
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },
