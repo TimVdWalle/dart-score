@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Game\GameStoreRequest;
+use App\Http\Resources\GameResource;
 use App\Models\Game\Game;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;
@@ -69,7 +70,7 @@ class GameController extends Controller
             ->first();
 
         if ($game) {
-            return Inertia::render('Game/Show', ['game' => $game]);
+            return Inertia::render('Game/Show', ['game' => new GameResource($game)]);
         } else {
             return redirect()->route('game.init');
         }

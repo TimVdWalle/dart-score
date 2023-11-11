@@ -4,16 +4,15 @@ namespace App\Models\Game;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Game
  *
  * @property int $id
  * @property string $hash
- * @property string $game_type;
- * @property string $out_type;
- * */
+ * @property string $gameType  // CamelCase to match Laravel's accessor convention
+ * @property string $outType   // CamelCase to match Laravel's accessor convention
+ */
 class Game extends Model
 {
     protected $table = 'games';
