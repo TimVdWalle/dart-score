@@ -1,7 +1,11 @@
-setup db
+make player object explicit everywhere
 
-player input field full width on desktop
+store scores, using the scoreservice and the gametype rules (gametype + outtype)
+=> isValidScore
+=> registerScore
+=> isGameFinnished
+=> updateUI ?
 
-save game in store method
++ update UI to make it possible to register a double
 
 
