@@ -19,12 +19,4 @@
     </div>
 </template>
 
-<script>
-export default {
-    // JavaScript logic if any
-}
-</script>
 
-<style>
-/* CSS styles for your FAQ page */
-</style>
