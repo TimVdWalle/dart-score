@@ -7,7 +7,7 @@ This Dart Score App is a web-based application developed using Vue.js for the fr
 ## Features
 
 - **Select Game Type**: Users can choose from different game types including 501, 301, 101, and Cricket.
-- **Player Names Input**: The app supports 2 players and allows users to input their names.
+- **Player Names Input**: The app supports 2 players and more and allows users to input their names.
 - **Score Input Screen**: A dedicated page for inputting the scores during the game.
 - **Flexible Game Rules**: For 501, 301, and 101 games, users can select from different exit strategies such as Double Out Exact, Exact, or Any.
 
