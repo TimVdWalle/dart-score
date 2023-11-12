@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+/********************************************************************************
+ * the game routes
+ ********************************************************************************/
+Route::get('/game/init',
+    [GameController::class, 'init'])
+    ->name('game.init');
+
+Route::post('/game/store',
+    [GameController::class, 'store'])
+    ->name('game.store');
+
+Route::get('/game/{gameHash}',
+    [GameController::class, 'show'])
+    ->name('game.show');
+
+
+require __DIR__ . '/auth.php';

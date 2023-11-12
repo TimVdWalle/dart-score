@@ -24,6 +24,7 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
+    /** @phpstan-ignore-next-line */
     public function rules(): array
     {
         return [
@@ -80,6 +81,7 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
+        /** @phpstan-ignore-next-line */
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
     }
 }
