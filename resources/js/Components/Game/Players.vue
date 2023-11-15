@@ -1,9 +1,10 @@
 <script setup>
-import { defineProps } from 'vue';
+// import { defineProps } from 'vue';
 
 // Define props to receive the players array
 const props = defineProps({
     players: Array,
+    game: Object,
 });
 </script>
 
@@ -12,7 +13,7 @@ const props = defineProps({
         <table class="nk-table w-full">
             <thead>
             <tr class="headingrow">
-                <th colspan="3">Skills Table</th>
+                <th colspan="3">{{game.title}}</th>
             </tr>
             <tr>
                 <th>Name</th>

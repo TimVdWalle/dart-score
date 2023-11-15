@@ -8,6 +8,7 @@ import Keyboard from "@/Components/Game/Keyboard.vue";
 
 const { props } = usePage();
 const players = ref(props.game.data.players || []);
+const game = ref(props.game.data || null);
 </script>
 
 <template>
@@ -17,6 +18,7 @@ const players = ref(props.game.data.players || []);
         <div class="player-list-container">
             <Players
                 :players="players"
+                :game="game"
                 class="flex h-full bg-white justify-center fitems-center"/>
         </div>
 
