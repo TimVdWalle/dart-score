@@ -20,5 +20,17 @@ class Game301Type extends AbstractGameType {
         return GameTypeFactory::mapPlayers($players, $game, $initialScore);
     }
 
-    // Implement other unique methods for Game301Type
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if(!$this->outTypeStrategy)
+        {
+            return "301";
+        }
+
+        $outTypeTitle = $this->outTypeStrategy->getTitle();
+        return "301, " . $outTypeTitle;
+    }
 }
