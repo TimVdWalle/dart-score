@@ -21,6 +21,6 @@ class AnyOutStrategy implements OutTypeStrategyInterface {
      */
     public function getTitle(): string
     {
-        return "Any out";
+        return "Simple out";
     }
 }
