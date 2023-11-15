@@ -8,6 +8,7 @@ use App\Models\Game\Game;
 use Illuminate\Support\Collection;
 
 class GameCricketType implements GameTypeInterface {
+
     public function __construct() {
         // Constructor logic specific to GameCricketType (if any)
     }
@@ -22,5 +23,11 @@ class GameCricketType implements GameTypeInterface {
         return $players;
     }
 
-    // Implement other unique methods for GameCricketType
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return 'Cricket';
+    }
 }

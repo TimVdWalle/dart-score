@@ -11,4 +11,5 @@ interface OutTypeStrategyInterface {
      * @return bool
      */
     public function isValidOut(int $currentScore, int $hitScore): bool;
+    public function getTitle(): string;
 }
