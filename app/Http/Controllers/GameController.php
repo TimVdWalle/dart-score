@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Game\GameStoreRequest;
 use App\Http\Resources\GameResource;
-use App\Models\Game\Game;
+use App\Models\Game;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 

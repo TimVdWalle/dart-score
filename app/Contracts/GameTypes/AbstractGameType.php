@@ -3,9 +3,6 @@ namespace App\Contracts\GameTypes;
 
 use App\Contracts\GameTypeInterface;
 use App\Contracts\OutTypeStrategyInterface;
-use App\Factories\GameTypeFactory;
-use App\Models\Game\Player;
-use Illuminate\Support\Collection;
 
 abstract class AbstractGameType implements GameTypeInterface {
     protected ?OutTypeStrategyInterface $outTypeStrategy;
