@@ -14,12 +14,19 @@ use Inertia\Response;
 
 class GameController extends Controller
 {
+    protected GameService $gameService;
+
+    public function __construct(GameService $gameService)
+    {
+        $this->gameService = $gameService;
+    }
+
     /**
      * @return Response
      */
     public function init()
     {
-        $gameHash = (new GameService())->getNextHash();
+        $gameHash = $this->gameService->getNextHash();
         return Inertia::render('Game/Init', [
             'gameHash' => strval($gameHash),
             'csrf' => csrf_token(),
@@ -32,23 +39,16 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
-        // Assuming $request->players is a JSON string or null
-//        $playerson = $request->players;
-//        $players = json_decode($playersJson, true);
-
-//        if (!is_array($players) || empty($players)) {
-//            return redirect()->route('game.init');
-//        }
-
         /** @var array<string, string> $data */
         $data = $request->validated();
 
+        /** @var string[] $players */
+        $players = $data['players'];
         $hash = strval($data['hash']);
         $gameType = strval($data['gameType']);
         $outType = strval($data['outType']);
 
-        $gameService = new GameService();
-        $game = $gameService->createGame(
+        $game = $this->gameService->createGame(
             hash: $hash,
             gameType: $gameType,
             outType: $outType,
@@ -75,7 +75,7 @@ class GameController extends Controller
             return redirect()->route('game.init');
         }
 
-        (new GameService())->addCurrentScoreToPlayers($game);
+        $this->gameService->addCurrentScoreToPlayers($game);
         $gameResource = new GameResource($game);
         return Inertia::render('Game/Show', ['game' => $gameResource]);
 

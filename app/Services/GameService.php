@@ -9,6 +9,12 @@ use Illuminate\Support\Collection;
 
 class GameService
 {
+    protected PlayerService $playerService;
+
+    public function __construct(PlayerService $playerService)
+    {
+        $this->playerService = $playerService;
+    }
     /**
      * @return int
      */
@@ -41,7 +47,7 @@ class GameService
 
         $game->save();
 
-        $players = (new PlayerService())->storePlayers($players);
+        $players = $this->playerService->storePlayers($players);
 
         $gameTypeObject = GameTypeFactory::create($game);
         $playersWithScores = $gameTypeObject->initializeScores(players: $players, game: $game);
