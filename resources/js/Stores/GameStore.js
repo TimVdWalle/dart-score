@@ -15,6 +15,11 @@ export const useGameStore = defineStore('game', {
             turns: 0,
         }
     },
+    getters: {
+        playerNames() {
+            return this.players.map(player => player.name);
+        },
+    },
     actions: {
         setLeading(player){
             this.leading = player;
