@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('game_player', function (Blueprint $table) {
-            $table->integer('game_id');
-            $table->integer('player_id');
+            $table->unsignedBigInteger('game_id');
+            $table->unsignedBigInteger('player_id');
+
+            // Define foreign keys and reference the primary keys in the related tables
+            $table->foreign('game_id')->references('id')->on('games');
+            $table->foreign('player_id')->references('id')->on('players');
+
+            // Optionally, make the combination of game_id and player_id the primary key
+            $table->primary(['game_id', 'player_id']);
         });
     }
 
