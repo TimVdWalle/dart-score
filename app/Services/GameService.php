@@ -28,7 +28,7 @@ class GameService
      * @param string $hash
      * @param string $gameType
      * @param string $outType
-     * @param array<int, array{id: int, name: string}> $players
+     * @param string[] $players
      * @return Game
      * @throws \Exception
      */

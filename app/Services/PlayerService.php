@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class PlayerService
 {
     /**
-     * @param array<int, array{id: int, name: string}> $players $players
+     * @param string[] $players
      * @return Collection<int, Player>
      */
     public function storePlayers(array $players)
@@ -19,7 +19,7 @@ class PlayerService
 
         foreach ($players as $player) {
             $record = new Player();
-            $record->name = $player['name'];
+            $record->name = $player;
             $record->save();
             $results->push($record);
         }
