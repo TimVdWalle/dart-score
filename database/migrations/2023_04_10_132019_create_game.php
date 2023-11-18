@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // TODO: add indexes
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('hash');
-            $table->string('game_type');            // type = 501, 301, 101, cricket
-            $table->string('out_type');             // double out / exact out = straight out / out
+            $table->string('hash')->index();           // Adding an index to 'hash'
+            $table->string('game_type')->index();      // Adding an index to 'game_type'
+            $table->string('out_type')->index();       // Adding an index to 'out_type'
             $table->timestamps();
         });
     }

@@ -16,9 +16,9 @@ const props = defineProps({
                 <th colspan="3">{{game.title}}</th>
             </tr>
             <tr>
-                <th>Name</th>
-                <th>Game Line</th>
-                <th class="text-center">Percent</th>
+                <th class="text-left">Player</th>
+                <th class="text-left">Avg</th>
+                <th class="text-center">Score</th>
             </tr>
             </thead>
         </table>
