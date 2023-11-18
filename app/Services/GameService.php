@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Factories\GameTypeFactory;
 use App\Models\Game\Game;
+use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
 class GameService
@@ -48,20 +49,36 @@ class GameService
 
         return $game;
     }
-//
-//    /**
-//     * @param $gameId
-//     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
-//     */
-//    public function getGame($gameId)
-//    {
-//        // Retrieve the game data from the database
-//        $gameData = DB::table('games')->where('id', $gameId)->first();
-//
-//        // Return the game data as an object
-//        return $gameData;
-//    }
 
-    // Add any other methods you need for your game here
+    /**
+     * Add current score to all players of a game.
+     *
+     * @param Game $game
+     * @return Collection<int, Player>
+     * @throws \Exception
+     */
+//    public function addCurrentScoreToPlayers(Game $game): Collection
+//    {
+//        $playerService = new PlayerService();
+//
+//        $players = $game->players;
+//
+//        foreach ($players as $player) {
+//            /** @var Player $player */
+//            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
+//        }
+//
+//        return $players;
+//    }
+    public function addCurrentScoreToPlayers(Game $game): Collection
+    {
+        $gameTypeObject = GameTypeFactory::create($game);
+
+        return $game->players->map(function ($player) use ($game, $gameTypeObject) {
+            /** @var Player $player */
+            $player->currentScore = $gameTypeObject->calculateCurrentScore($player, $game);
+            return $player;
+        });
+    }
 }
 

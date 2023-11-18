@@ -33,4 +33,14 @@ class Game501Type extends AbstractGameType {
         $outTypeTitle = $this->outTypeStrategy->getTitle();
         return "501, " . $outTypeTitle;
     }
+
+    public function calculateCurrentScore(Player $player, Game $game): int
+    {
+        return 500;
+    }
+
+    public function getStatus(Player $player): string
+    {
+        return 'winning';
+    }
 }
