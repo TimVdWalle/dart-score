@@ -1,34 +1,64 @@
 <?php
 
-use App\Models\Game;
+use App\Models\Player;
 use App\Services\GameService;
+use App\Services\PlayerService;
+use Illuminate\Container\Container;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
-uses(Tests\TestCase::class);
 
-beforeEach(function () {
-    $this->gameService = new GameService();
-});
+uses(Tests\TestCase::class, RefreshDatabase::class);
 
 it('generates unique game hash', function () {
-    $hash = $this->gameService->getNextHash();
+    // Mock the dependencies you need for GameService
+    $playerService = Mockery::mock(\App\Services\PlayerService::class);
+
+    // Create an instance of GameService with mocked dependencies
+    $gameService = new GameService($playerService);
+
+    // Your test logic for generating a unique game hash
+    $hash = $gameService->getNextHash();
+
     expect($hash)->toBeInt();
     // Add more assertions to validate the hash
 });
 
 it('creates a game successfully', function () {
-    // Mock data
+    // Mock the dependencies you need for GameService
+    $playerService = Mockery::mock(PlayerService::class);
+
+    // Create a Collection to simulate the expected return value
+    $player1 = Player::factory()->create(['id' => 1, 'name' => 'Player 1']);
+    $player2 = Player::factory()->create(['id' => 2, 'name' => 'Player 2']);
+
+    // Create a Collection and add Player instances to it
+    $playersCollection = new Collection([$player1, $player2]);
+
+
+    // Set up an expectation for the storePlayers method
+    $playerService
+        ->shouldReceive('storePlayers')
+        ->once()
+        ->with(Mockery::type('array'))
+        ->andReturn($playersCollection); // Return the Collection instance
+
+    // Create an instance of GameService with mocked dependencies
+    $gameService = new GameService($playerService);
+
+    // Your test logic for creating a game
     $gameData = [
-        'hash' => 'exampleHash123',  // Example hash value
-        'gameType' => '501',         // Assuming '501' is a valid game type
-        'outType' => 'double_exact', // Assuming this is a valid out type
+        'hash' => 'exampleHash123',
+        'gameType' => '501',
+        'outType' => 'double_exact',
         'players' => [
-            'Player 1', // Mock player data
-            'Player 2', // Mock player data
+            'Player 1',
+            'Player 2',
         ],
     ];
 
     // Call the method with unpacked array as arguments
-    $game = $this->gameService->createGame(...$gameData);
+    $game = $gameService->createGame(...$gameData);
 
     // Assert the Game model was created and exists in the database
     $this->assertModelExists($game);
@@ -41,3 +71,4 @@ it('creates a game successfully', function () {
 
     // You can add more assertions here to thoroughly test the game creation
 });
+
