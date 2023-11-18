@@ -33,21 +33,12 @@ class GameController extends Controller
     public function store(GameStoreRequest $request)
     {
         // Assuming $request->players is a JSON string or null
-        $playersJson = $request->players;
+//        $playerson = $request->players;
+//        $players = json_decode($playersJson, true);
 
-        if (is_string($playersJson)) {
-            // Decode if it's a valid string
-            /** @var ?array<int, array{id: int, name: string}> $players */
-            $players = json_decode($playersJson, true);
-        } else {
-            // Set to null if it's not a string
-            /** @var ?array<int, array{id: int, name: string}> $players */
-            $players = null;
-        }
-
-        if (!is_array($players) || empty($players)) {
-            return redirect()->route('game.init');
-        }
+//        if (!is_array($players) || empty($players)) {
+//            return redirect()->route('game.init');
+//        }
 
         /** @var array<string, string> $data */
         $data = $request->validated();

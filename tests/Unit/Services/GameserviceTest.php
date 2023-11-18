@@ -22,8 +22,8 @@ it('creates a game successfully', function () {
         'gameType' => '501',         // Assuming '501' is a valid game type
         'outType' => 'double_exact', // Assuming this is a valid out type
         'players' => [
-            ['id' => 1, 'name' => 'Player 1'], // Mock player data
-            ['id' => 2, 'name' => 'Player 2'],
+            'Player 1', // Mock player data
+            'Player 2', // Mock player data
         ],
     ];
 
