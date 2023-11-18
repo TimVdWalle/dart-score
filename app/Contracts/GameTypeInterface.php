@@ -14,5 +14,21 @@ interface GameTypeInterface {
      * @return Collection<int, Player>
      */
     public function initializeScores(Collection $players, Game $game): Collection;
+
+    /**
+     * @return string
+     */
     public function getTitle(): string;
+
+    /**
+     * @param Player $player
+     * @return int
+     */
+    public function calculateCurrentScore(Player $player, Game $game): int;
+
+    /**
+     * @param Player $player
+     * @return string
+     */
+    public function getStatus(Player $player): string;
 }

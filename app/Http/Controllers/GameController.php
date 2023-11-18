@@ -33,8 +33,18 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
-        /** @var ?array<int, array{id: int, name: string}> $players */
-        $players = $request->players ? json_decode(strval($request->players), true) : null;
+        // Assuming $request->players is a JSON string or null
+        $playersJson = $request->players;
+
+        if (is_string($playersJson)) {
+            // Decode if it's a valid string
+            /** @var ?array<int, array{id: int, name: string}> $players */
+            $players = json_decode($playersJson, true);
+        } else {
+            // Set to null if it's not a string
+            /** @var ?array<int, array{id: int, name: string}> $players */
+            $players = null;
+        }
 
         if (!is_array($players) || empty($players)) {
             return redirect()->route('game.init');
@@ -61,18 +71,23 @@ class GameController extends Controller
     /**
      * @param $hash
      * @return RedirectResponse|Response
+     * @throws \Exception
      */
-    public function show(string $hash)
+    public function show(string $hash): Response|RedirectResponse
     {
+        /** @var ?Game $game */
         $game = Game::query()
             ->with('players.scores')
             ->where('hash', 'like', $hash)
             ->first();
 
-        if ($game) {
-            return Inertia::render('Game/Show', ['game' => new GameResource($game)]);
-        } else {
+        if(!$game){
             return redirect()->route('game.init');
         }
+
+        (new GameService())->addCurrentScoreToPlayers($game);
+        $gameResource = new GameResource($game);
+        return Inertia::render('Game/Show', ['game' => $gameResource]);
+
     }
 }
