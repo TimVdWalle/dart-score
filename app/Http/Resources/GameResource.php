@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Factories\GameTypeFactory;
-use App\Models\Game\Game;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

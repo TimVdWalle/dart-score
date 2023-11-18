@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Game\Game;
-use App\Models\Game\Player;
-use App\Models\Game\Score;
+use App\Models\Game;
+use App\Models\Player;
+use App\Models\Score;
 
 class ScoreService
 {

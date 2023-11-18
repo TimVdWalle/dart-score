@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Game;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
 
 /**
  * App\Models\Game
@@ -16,6 +16,8 @@ use Illuminate\Support\Collection;
  */
 class Game extends Model
 {
+    use HasFactory;
+
     protected $table = 'games';
 
     /**

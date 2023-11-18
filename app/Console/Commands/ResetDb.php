@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Game\Game;
-use App\Models\Game\Player;
+use App\Models\Game;
+use App\Models\Player;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
