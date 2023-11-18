@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Contracts\GameTypeInterface;
+use App\Factories\GameTypeFactory;
+use App\Models\Game\Game;
 use App\Models\Game\Player;
 use Illuminate\Support\Collection;
 
@@ -23,6 +26,18 @@ class PlayerService
         }
 
         return $results;
+    }
+
+    /**
+     * @param Player $player
+     * @param Game $game
+     * @return int
+     * @throws \Exception
+     */
+    public function calculateCurrentScore(Player $player, Game $game): int
+    {
+        $gameTypeObject = GameTypeFactory::create($game);
+        return $gameTypeObject->calculateCurrentScore($player, $game);
     }
 }
 

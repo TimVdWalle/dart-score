@@ -30,4 +30,14 @@ class GameCricketType implements GameTypeInterface {
     {
         return 'Cricket';
     }
+
+    public function calculateCurrentScore(Player $player, Game $game): int
+    {
+        return 15;
+    }
+
+    public function getStatus(Player $player): string
+    {
+        return 'winning barely';
+    }
 }
