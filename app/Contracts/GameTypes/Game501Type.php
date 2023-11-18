@@ -4,8 +4,8 @@ namespace App\Contracts\GameTypes;
 
 use App\Enums\GameType;
 use App\Factories\GameTypeFactory;
-use App\Models\Game\Game;
-use App\Models\Game\Player;
+use App\Models\Game;
+use App\Models\Player;
 use Illuminate\Support\Collection;
 
 class Game501Type extends AbstractGameType {
