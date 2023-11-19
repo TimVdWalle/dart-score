@@ -76,13 +76,14 @@ class GameService
 //
 //        return $players;
 //    }
-    public function addCurrentScoreToPlayers(Game $game): Collection
+    public function addScoreDataToPlayer(Game $game): Collection
     {
         $gameTypeObject = GameTypeFactory::create($game);
 
         return $game->players->map(function ($player) use ($game, $gameTypeObject) {
             /** @var Player $player */
             $player->currentScore = $gameTypeObject->calculateCurrentScore($player, $game);
+            $player->avgScore = $gameTypeObject->calculateAvgScore($player, $game);
             return $player;
         });
     }

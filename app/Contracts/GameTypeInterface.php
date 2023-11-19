@@ -28,6 +28,12 @@ interface GameTypeInterface {
 
     /**
      * @param Player $player
+     * @return int
+     */
+    public function calculateAvgScore(Player $player, Game $game): ?int;
+
+    /**
+     * @param Player $player
      * @return string
      */
     public function getStatus(Player $player): string;
