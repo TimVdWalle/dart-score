@@ -24,8 +24,9 @@ class PlayerResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => '$this->name',
+            'name' => $this->name,
             'currentScore' => $this->currentScore,
+            'avgScore' => $this->avgScore,
             'scores' => ScoreResource::collection($this->whenLoaded('scores')),
             // Include other player attributes or relationships as needed
         ];

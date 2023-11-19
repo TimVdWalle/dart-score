@@ -36,6 +36,11 @@ class GameCricketType implements GameTypeInterface {
         return 15;
     }
 
+    public function calculateAvgScore(Player $player, Game $game): ?int
+    {
+        return null;
+    }
+
     public function getStatus(Player $player): string
     {
         return 'winning barely';
