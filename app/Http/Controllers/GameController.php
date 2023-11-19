@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Game\GameStoreRequest;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
+use App\Services\GameplayService;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -15,10 +16,12 @@ use Inertia\Response;
 class GameController extends Controller
 {
     protected GameService $gameService;
+    protected GameplayService $gameplayService;
 
-    public function __construct(GameService $gameService)
+    public function __construct(GameService $gameService, GameplayService $gameplayService)
     {
         $this->gameService = $gameService;
+        $this->gameplayService = $gameplayService;
     }
 
     /**
@@ -76,6 +79,7 @@ class GameController extends Controller
         }
 
         $this->gameService->addScoreDataToPlayer($game);
+        $currentTurn = $this->gameplayService->determineCurrentTurn($game);
 
         $gameResource = new GameResource($game);
         return Inertia::render('Game/Show', ['game' => $gameResource]);

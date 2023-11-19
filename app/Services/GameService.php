@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Factories\GameTypeFactory;
 use App\Models\Game;
+use App\Models\Leg;
 use App\Models\Player;
+use App\Models\Set;
 use Illuminate\Support\Collection;
 
 class GameService
@@ -48,10 +50,29 @@ class GameService
         $game->save();
 
         $players = $this->playerService->storePlayers($players);
+        $game = $this->initGame($game);
 
         $gameTypeObject = GameTypeFactory::create($game);
         $playersWithScores = $gameTypeObject->initializeScores(players: $players, game: $game);
         $game->players()->attach($playersWithScores->pluck('id'));
+
+        return $game;
+    }
+
+    private function initGame(Game $game): Game
+    {
+        // Create the first set
+        $set = new Set();
+        $set->game_id = $game->id;
+        $set->set_number = 1;
+        $set->save();
+
+        // Create the first leg for the first set
+        $leg = new Leg();
+        $leg->set_id = $set->id;
+        $leg->leg_number = 1;
+        $leg->turn = 0; // Initialize turn counter
+        $leg->save();
 
         return $game;
     }
