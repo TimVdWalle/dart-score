@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import Players from "@/Components/Game/Players.vue";
+import Scores from "@/Components/Game/Scores.vue";
 
 import GameLayout from "@/Layouts/GameLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
@@ -16,7 +16,7 @@ const game = ref(props.game.data || null);
 
     <GameLayout>
         <div class="player-list-container">
-            <Players
+            <Scores
                 :players="players"
                 :game="game"
                 class="flex h-full bg-white justify-center fitems-center"/>
