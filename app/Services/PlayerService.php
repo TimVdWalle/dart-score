@@ -19,7 +19,7 @@ class PlayerService
 
         foreach ($players as $player) {
             $record = new Player();
-            $record->name = $player;
+            $record->name = ucfirst($player);
             $record->save();
             $results->push($record);
         }

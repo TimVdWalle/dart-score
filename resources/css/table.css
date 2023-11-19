@@ -47,6 +47,10 @@
     padding: 28px 25px;
 }
 
-/*tr {*/
-/*    width: 100%;*/
-/*}*/
+.active-player {
+    /*background-color: red;*/
+}
+.inactive-player {
+    /*background-color: blue;*/
+    padding-left: 33px !important;
+}
