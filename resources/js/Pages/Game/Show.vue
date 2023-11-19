@@ -22,14 +22,14 @@ const game = ref(props.game.data || null);
                 class="flex h-full bg-white justify-center fitems-center"/>
         </div>
 
-        <Keyboard class="fixed bottom-0 w-full h-[30vh] min-h-[200px] bg-red"/>
+        <Keyboard class="fixed bottom-0 w-full h-[35vh] min-h-[200px]"/>
     </GameLayout>
 </template>
 
 
 <style>
 .player-list-container {
-    height: 62vh; /* Adjust this value as needed */
+    //height: 70vh; /* Adjust this value as needed */
     overflow-y: auto; /* Allows scrolling */
 }
 </style>
