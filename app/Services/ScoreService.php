@@ -12,16 +12,17 @@ class ScoreService
      * @param Game $game
      * @param Player $player
      * @param int $score
-     * @return void
+     * @return Score
      */
-    public function setScore(Game $game, Player $player, int $score)
+    public function save(Game $game, Player $player, int $score): Score
     {
-        Score::create([
+        $score = Score::create([
             'game_id' => $game->id,
             'player_id' => $player->id,
             'score' => $score,
         ]);
+
+        return $score;
     }
 
-    // Add other methods as needed, like updating scores, getting current score, etc.
 }

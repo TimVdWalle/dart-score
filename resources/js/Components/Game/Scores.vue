@@ -30,7 +30,6 @@ const props = defineProps({
                     <td class="text-center">{{ player.avgScore ?? '--' }}</td> <!-- You may need to update this based on your data structure -->
                     <td class="text-center"><strong>{{ player.currentScore }}</strong></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
