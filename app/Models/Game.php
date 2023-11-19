@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $hash
  * @property string $gameType  // CamelCase to match Laravel's accessor convention
  * @property string $outType   // CamelCase to match Laravel's accessor convention
+ * @property ?Player $currentPlayer   // CamelCase to match Laravel's accessor convention
  */
 class Game extends Model
 {

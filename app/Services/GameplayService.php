@@ -51,7 +51,8 @@ class GameplayService
             return $player;
         });
 
+        $game->currentPlayer = $players[$currentPlayerIndex];
 
-        return $players[$currentPlayerIndex];
+        return $game->currentPlayer;
     }
 }

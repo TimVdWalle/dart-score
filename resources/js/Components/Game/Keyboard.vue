@@ -2,6 +2,11 @@
 import {ref} from 'vue';
 import KeyboardButton from "@/Components/Game/KeyboardButton.vue";
 
+const props = defineProps({
+    button: Object
+})
+
+const emit = defineEmits(['scoreEntered'])
 const keyboardValue = ref([]);
 keyboardValue.value = 0;
 
@@ -25,6 +30,9 @@ const onButtonClicked = (pressedButton) => {
         handleNumberClicked(pressedButton.value)
     } else if (pressedButton.value === 'faDeleteLeft'){
         handleBackspace()
+    }else if (pressedButton.value === 'faArrowRightLong'){
+        emit('scoreEntered', keyboardValue.value)
+        keyboardValue.value = 0
     }
 }
 
