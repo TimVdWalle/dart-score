@@ -66,7 +66,7 @@ class GameTypeFactory {
         $players = $players->map(function($player) use ($game, $initialScore, $scoreService) {
             /** @var Player $player */
             // Initialize the score for this player
-            $scoreService->setScore($game, $player, $initialScore);
+            $scoreService->save($game, $player, $initialScore);
             return $player;
         });
 
