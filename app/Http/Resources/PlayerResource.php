@@ -18,17 +18,12 @@ class PlayerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        $game = $this->resource;
-//        $gameTypeObject = GameTypeFactory::create($this->games());
-//        $gameTypeObject = GameTypeFactory::create($this->whenLoaded('game')->gameType ?? 'default_game_type');
-
         return [
             'id' => $this->id,
             'name' => $this->name,
             'currentScore' => $this->currentScore,
             'avgScore' => $this->avgScore,
             'scores' => ScoreResource::collection($this->whenLoaded('scores')),
-            // Include other player attributes or relationships as needed
         ];
     }
 }
