@@ -80,7 +80,7 @@ class GameController extends Controller
         }
 
         $this->gameService->addScoreDataToPlayer($game);
-        $currentTurn = $this->gameplayService->determineCurrentTurn($game);
+        $this->gameplayService->determineCurrentTurn($game);
 
         $gameResource = new GameResource($game);
         return Inertia::render('Game/Show', ['game' => $gameResource]);

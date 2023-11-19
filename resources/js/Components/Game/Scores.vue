@@ -1,5 +1,6 @@
 <script setup>
-// import { defineProps } from 'vue';
+import {faChevronRight, faDeleteLeft} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 // Define props to receive the players array
 const props = defineProps({
@@ -26,7 +27,13 @@ const props = defineProps({
             <table class="nk-table w-full">
                 <tbody>
                 <tr v-for="player in players" :key="player.id">
-                    <td>{{ player.name }}</td>
+                    <td :class="{ 'active-player': player.isCurrentTurn, 'inactive-player': !player.isCurrentTurn}">
+                        <font-awesome-icon
+                            v-if="player.isCurrentTurn"
+                            :icon="faChevronRight"
+                            class="fa-1x text-red-dark"/>
+                        {{ player.name }}
+                    </td>
                     <td class="text-center">{{ player.avgScore ?? '--' }}</td> <!-- You may need to update this based on your data structure -->
                     <td class="text-center"><strong>{{ player.currentScore }}</strong></td>
                 </tr>

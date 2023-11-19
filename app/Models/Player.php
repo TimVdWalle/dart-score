@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property int $currentScore
  * @property ?int $avgScore
+ * @property bool $isCurrentTurn
  *
  */
 class Player extends Model
@@ -21,7 +22,7 @@ class Player extends Model
 
     protected $table = 'players';
 
-    /**
+     /**
      * @return HasMany<Game>
      */
     public function games(): HasMany
@@ -35,5 +36,17 @@ class Player extends Model
     public function scores(): HasMany
     {
         return $this->hasMany(Score::class);
+    }
+
+    // Method to set the current turn
+    public function setCurrentTurn(bool $value): void
+    {
+        $this->isCurrentTurn = $value;
+    }
+
+    // Method to check if it's the player's turn
+    public function isCurrentTurn(): bool
+    {
+        return $this->isCurrentTurn;
     }
 }

@@ -23,6 +23,7 @@ class PlayerResource extends JsonResource
             'name' => $this->name,
             'currentScore' => $this->currentScore,
             'avgScore' => $this->avgScore,
+            'isCurrentTurn' => $this->isCurrentTurn,
             'scores' => ScoreResource::collection($this->whenLoaded('scores')),
         ];
     }
