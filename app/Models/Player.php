@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property int $currentScore
+ * @property ?int $avgScore
  *
  */
 class Player extends Model

@@ -17,7 +17,7 @@ const props = defineProps({
             </tr>
             <tr>
                 <th class="text-left">Player</th>
-                <th class="text-left">Avg</th>
+                <th class="text-center">Avg</th>
                 <th class="text-center">Score</th>
             </tr>
             </thead>
@@ -25,46 +25,13 @@ const props = defineProps({
         <div class="tbody-container">
             <table class="nk-table w-full">
                 <tbody>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
+                <tr v-for="player in players" :key="player.id">
+                    <td>{{ player.name }}</td>
+                    <td class="text-center">{{ player.avgScore ?? '--' }}</td> <!-- You may need to update this based on your data structure -->
+                    <td class="text-center"><strong>{{ player.currentScore }}</strong></td>
                 </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr>
-                <tr>
-                    <td>Duke</td>
-                    <td>Top</td>
-                    <td class="text-center"><strong>85</strong></td>
-                </tr></tbody>
+
+                </tbody>
             </table>
         </div>
     </div>

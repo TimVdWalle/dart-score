@@ -75,7 +75,8 @@ class GameController extends Controller
             return redirect()->route('game.init');
         }
 
-        $this->gameService->addCurrentScoreToPlayers($game);
+        $this->gameService->addScoreDataToPlayer($game);
+
         $gameResource = new GameResource($game);
         return Inertia::render('Game/Show', ['game' => $gameResource]);
 
