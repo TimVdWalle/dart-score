@@ -24,15 +24,10 @@ class ScoreController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, string $hash)
     {
-        // Validate and process the request
-        $data = $request->validate([
-            // Validation rules
-        ]);
+        $t = 'yes';
 
-        $score = $this->scoreService->save($data);
-
-        return response()->json($score, 201);
+        return response()->json(201);
     }
 }

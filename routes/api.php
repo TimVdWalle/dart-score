@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
     // User route
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
     // Game-related routes
-    Route::post('/game/{game}/score', [ScoreController::class, 'store']);
-});
+    Route::post('/game/{hash}/score', [ScoreController::class, 'store'])
+        ->name('game.store.score');
+//});

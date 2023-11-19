@@ -29,6 +29,7 @@ class GameResource extends JsonResource
             'gameType' => $this->gameType,
             'outType' => $this->outType,
             'players' => PlayerResource::collection($this->players),
+            'currentPlayer' => new PlayerResource($this->currentPlayer),
 
             'title' => $gameTypeObject->getTitle()
         ];
