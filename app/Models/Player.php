@@ -75,11 +75,13 @@ class Player extends Model
     public function getCurrentScoreForContext(int $gameId, int $setId, int $legId): int
     {
         // Adjust this query based on your database structure and scoring logic
-        return $this->scores()
+        $score = $this->scores()
             ->where('game_id', '=', $gameId)
             ->whereHas('leg', function ($query) use ($setId, $legId) {
                 $query->where('set_id', $setId)->where('id', $legId);
             })
             ->sum('score');
+
+        return is_numeric($score) ? intval($score) : 0;
     }
 }
