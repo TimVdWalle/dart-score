@@ -10,7 +10,7 @@ export const useGameStore = defineStore('game', {
             nextPlayerId: 0,
             players: [],
             gameType: '501',
-            outType: 'double_exact',
+            outType: 'exact',
             leading: null,
             turns: 0,
         }
@@ -18,6 +18,9 @@ export const useGameStore = defineStore('game', {
     getters: {
         playerNames() {
             return this.players.map(player => player.name);
+        },
+        getOutType() {
+            return this.outType;
         },
     },
     actions: {
