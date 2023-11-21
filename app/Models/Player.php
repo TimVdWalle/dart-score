@@ -14,7 +14,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $currentScore
  * @property ?int $avgScore
  * @property bool $isCurrentTurn
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Game> $games
+ * @property-read int|null $games_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Score> $scores
+ * @property-read int|null $scores_count
+ * @method static \Database\Factories\PlayerFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Player extends Model
 {
@@ -48,5 +62,24 @@ class Player extends Model
     public function isCurrentTurn(): bool
     {
         return $this->isCurrentTurn;
+    }
+
+    /**
+     * Get the current score of the player for a specific game, set, and leg.
+     *
+     * @param int $gameId
+     * @param int $setId
+     * @param int $legId
+     * @return int
+     */
+    public function getCurrentScoreForContext(int $gameId, int $setId, int $legId): int
+    {
+        // Adjust this query based on your database structure and scoring logic
+        return $this->scores()
+            ->where('game_id', '=', $gameId)
+            ->whereHas('leg', function ($query) use ($setId, $legId) {
+                $query->where('set_id', $setId)->where('id', $legId);
+            })
+            ->sum('score');
     }
 }
