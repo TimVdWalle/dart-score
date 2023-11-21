@@ -18,7 +18,7 @@ class GameCricketType implements GameTypeInterface {
      * @param Game $game
      * @return Collection<int, Player>
      */
-    public function initializeScores(Collection $players, Game $game): Collection
+    public function initializeScores(Collection $players): Collection
     {
         return $players;
     }
