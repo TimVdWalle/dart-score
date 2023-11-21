@@ -3,7 +3,9 @@
 namespace App\Contracts;
 
 use App\Models\Game;
+use App\Models\Leg;
 use App\Models\Player;
+use App\Models\Set;
 use Illuminate\Support\Collection;
 
 interface GameTypeInterface {
@@ -36,4 +38,6 @@ interface GameTypeInterface {
      * @return string
      */
     public function getStatus(Player $player): string;
+
+    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): bool;
 }
