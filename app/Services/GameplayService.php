@@ -10,7 +10,12 @@ use App\Models\Set;
 class GameplayService
 {
 
-    public function getCurrentSet(Game $game)
+
+    /**
+     * @param Game $game
+     * @return Set|null
+     */
+    public function getCurrentSet(Game $game): Set|null
     {
         $currentSet = $game->sets()->latest()->first();
 
@@ -36,6 +41,11 @@ class GameplayService
     public function getCurrentLeg(Game $game): ?Leg
     {
         $currentSet = $this->getCurrentSet($game);
+
+        if(!$currentSet){
+            return null;
+        }
+
         $currentLeg = $currentSet->legs()->latest()->first();
 
         if (!$currentLeg) {

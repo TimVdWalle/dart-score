@@ -10,7 +10,6 @@ interface GameTypeInterface {
 
     /**
      * @param Collection<int, Player> $players
-     * @param Game $game
      * @return Collection<int, Player>
      */
     public function initializeScores(Collection $players): Collection;

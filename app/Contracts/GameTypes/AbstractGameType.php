@@ -34,48 +34,45 @@ abstract class AbstractGameType implements GameTypeInterface {
     /**
      * @throws Exception
      */
-    public function processScore(int $playerId, int $score)
+    public function processScore(int $playerId, int $score):void
     {
-        // Process the score for GameTypeX01
-
-        /** @var Player $player */
-        $player = Player::find($playerId);
-
-        if(!$player){
-            throw new Exception("no player");
-        }
-        $currentScore = $player->getCurrentScoreForContext($gameId, $setId, $legId);
-        $newScore = $currentScore - $score;
-
-        if ($newScore >= 0) {
-            $player->currentScore = $newScore;
-            $player->save();
-
-            $newScoreRecord = new Score([
-                'player_id' => $playerId,
-                'game_id' => $this->game->id,
-                'score' => $score,
-            ]);
-            $newScoreRecord->save();
-        }
+//        // Process the score for GameTypeX01
+//
+//        /** @var Player $player */
+//        $player = Player::find($playerId);
+//
+//        if(!$player){
+//            throw new Exception("no player");
+//        }
+//        $currentScore = $player->getCurrentScoreForContext($gameId, $setId, $legId);
+//        $newScore = $currentScore - $score;
+//
+//        if ($newScore >= 0) {
+//            $player->currentScore = $newScore;
+//            $player->save();
+//
+//            $newScoreRecord = new Score([
+//                'player_id' => $playerId,
+//                'game_id' => $this->game->id,
+//                'score' => $score,
+//            ]);
+//            $newScoreRecord->save();
+//        }
 
         // Additional logic if needed
     }
 
-    /**
-     * @return Player|null
-     */
-    public function checkWinner(): ?Player
+    public function checkWinner(): void
     {
-        // Determine the winner for GameType501
-        // This is an example and needs to be adjusted based on your game logic
-        foreach ($this->game->players as $player) {
-            if ($player->currentScore === 0) {
-                return $player; // Winner found
-            }
-        }
-
-        return null; // No winner yet
+//        // Determine the winner for GameType501
+//        // This is an example and needs to be adjusted based on your game logic
+//        foreach ($this->game->players as $player) {
+//            if ($player->currentScore === 0) {
+//                return $player; // Winner found
+//            }
+//        }
+//
+//        return null; // No winner yet
     }
 
 //    public function initializeScoresForPlayers(Collection $players, ?int $initialScore): Collection {

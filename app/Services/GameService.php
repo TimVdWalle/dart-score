@@ -19,7 +19,6 @@ class GameService
 
     /**
      * @param PlayerService $playerService
-     * @param GameService $gameService
      */
     public function __construct(PlayerService $playerService)
     {
@@ -40,14 +39,12 @@ class GameService
         return $smallnum;
     }
 
-    /*
+
+    /**
      * @param string $gameType
      * @param string $outType
-     * @param array<int, Player> $players
+     * @param string[] $players
      * @return Game
-     * @throws \Exception
-     */
-    /**
      * @throws \Exception
      */
     public function createGame(string $gameType, string $outType, array $players): Game
@@ -90,9 +87,8 @@ class GameService
         return $game;
     }
 
+
     /**
-     * Add current score to all players of a game.
-     *
      * @param Game $game
      * @return Collection<int, Player>
      * @throws \Exception
@@ -110,9 +106,10 @@ class GameService
 
         return $players;
     }
+
     /**
      * @param Game $game
-     * @return Collection
+     * @return Collection<int, Player>
      * @throws \Exception
      */
     public function addScoreDataToPlayer(Game $game): Collection
