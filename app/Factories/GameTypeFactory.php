@@ -55,18 +55,14 @@ class GameTypeFactory {
 
     /**
      * @param Collection<int, Player> $players
-     * @param Game $game
      * @param int $initialScore
      * @return Collection<int, Player>
      */
-    public static function mapPlayers(Collection $players, Game $game, int $initialScore): Collection
+    public static function mapPlayers(Collection $players, int $initialScore): Collection
     {
-        $scoreService = new ScoreService();
-
-        $players = $players->map(function($player) use ($game, $initialScore, $scoreService) {
+        $players = $players->map(function($player) use ($initialScore) {
             /** @var Player $player */
-            // Initialize the score for this player
-            $scoreService->save($game, $player, $initialScore);
+            $player->currentScore = $initialScore;
             return $player;
         });
 
