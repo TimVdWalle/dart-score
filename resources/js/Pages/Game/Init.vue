@@ -121,7 +121,7 @@ const setOutType = (option) => {
             <input type="hidden" name="_token" :value="props.csrf">
             <input type="hidden" name="hash" :value="props.gameHash">
             <input type="hidden" name="gameType" :value="gameStore.gameType">
-            <input type="hidden" name="outType" :value="gameStore.outType">
+            <input type="hidden" name="outType" :value="gameStore.getOutType">
             <input type="hidden" :name="'players[]'" :value="player" v-for="player in gameStore.playerNames">
 
             <button type="submit" class="button big red">start spel</button>
