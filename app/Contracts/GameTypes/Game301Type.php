@@ -14,9 +14,10 @@ class Game301Type extends AbstractGameType {
      * @param Game $game
      * @return Collection<int, Player>
      */
-    public function initializeScores(Collection $players, Game $game): Collection {
+    public function initializeScores(Collection $players): Collection
+    {
         $initialScore = GameType::Game301->getStartingScore();
-        return GameTypeFactory::mapPlayers($players, $game, $initialScore);
+        return GameTypeFactory::mapPlayers($players, $initialScore);
     }
 
     /**

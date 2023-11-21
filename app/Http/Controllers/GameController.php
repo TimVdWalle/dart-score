@@ -29,9 +29,7 @@ class GameController extends Controller
      */
     public function init()
     {
-//        $gameHash = $this->gameService->getNextHash();
         return Inertia::render('Game/Init', [
-//            'gameHash' => strval($gameHash),
             'csrf' => csrf_token(),
         ]);
     }
@@ -39,6 +37,7 @@ class GameController extends Controller
     /**
      * @param GameStoreRequest $request
      * @return RedirectResponse
+     * @throws \Exception
      */
     public function store(GameStoreRequest $request)
     {
@@ -50,10 +49,7 @@ class GameController extends Controller
         $gameType = strval($data['gameType']);
         $outType = strval($data['outType']);
 
-        $hash = strval($this->gameService->getNextHash());
-
         $game = $this->gameService->createGame(
-            hash: $hash,
             gameType: $gameType,
             outType: $outType,
             players: $players
