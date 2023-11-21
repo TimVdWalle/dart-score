@@ -4,8 +4,10 @@ namespace App\Contracts\GameTypes;
 use App\Contracts\GameTypeInterface;
 use App\Contracts\OutTypeStrategyInterface;
 use App\Models\Game;
+use App\Models\Leg;
 use App\Models\Player;
 use App\Models\Score;
+use App\Models\Set;
 use Exception;
 
 abstract class AbstractGameType implements GameTypeInterface {
@@ -34,32 +36,10 @@ abstract class AbstractGameType implements GameTypeInterface {
     /**
      * @throws Exception
      */
-    public function processScore(int $playerId, int $score):void
+    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): true
     {
-//        // Process the score for GameTypeX01
-//
-//        /** @var Player $player */
-//        $player = Player::find($playerId);
-//
-//        if(!$player){
-//            throw new Exception("no player");
-//        }
-//        $currentScore = $player->getCurrentScoreForContext($gameId, $setId, $legId);
-//        $newScore = $currentScore - $score;
-//
-//        if ($newScore >= 0) {
-//            $player->currentScore = $newScore;
-//            $player->save();
-//
-//            $newScoreRecord = new Score([
-//                'player_id' => $playerId,
-//                'game_id' => $this->game->id,
-//                'score' => $score,
-//            ]);
-//            $newScoreRecord->save();
-//        }
-
-        // Additional logic if needed
+        // TODO
+        return true;
     }
 
     public function checkWinner(): void

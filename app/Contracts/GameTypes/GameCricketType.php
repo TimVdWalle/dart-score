@@ -4,7 +4,10 @@ namespace App\Contracts\GameTypes;
 
 use App\Contracts\GameTypeInterface;
 use App\Models\Game;
+use App\Models\Leg;
 use App\Models\Player;
+use App\Models\Set;
+use Exception;
 use Illuminate\Support\Collection;
 
 class GameCricketType implements GameTypeInterface {
@@ -38,6 +41,15 @@ class GameCricketType implements GameTypeInterface {
     public function calculateAvgScore(Player $player, Game $game): ?int
     {
         return null;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): true
+    {
+        // TODO
+        return true;
     }
 
     public function getStatus(Player $player): string
