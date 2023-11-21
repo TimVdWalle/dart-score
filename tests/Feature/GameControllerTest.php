@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Game;
+use App\Models\Player;
 use App\Services\GameService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
 uses(Tests\TestCase::class, RefreshDatabase::class);
 
@@ -125,11 +127,69 @@ it('redirects if the game does not exist', function () {
     $response->assertRedirect(route('game.init'));
 });
 
-//it('fails to store game with invalid data2', function () {
-//    $response = $this->post(route('game.store'), []);
+//it('initializes game with a mocked hash', function () {
+//    $mockedHash = 'mockedHash123'; // Mocked hash value
 //
-//    // Temporarily add this line for debugging
-//    dd(session('errors')->getMessages());
+//    $this->gameServiceMock
+//        ->shouldReceive('getNextHash')
+//        ->once()
+//        ->andReturn($mockedHash);
 //
-//    $response->assertSessionHasErrors(['hash', 'gameType', 'outType', 'players']);
+//    $response = $this->get(route('game.init'));
+//
+//    $response->assertStatus(200)
+//        ->assertInertia(fn ($assert) => $assert
+//            ->component('Game/Init')
+//            ->where('gameHash', $mockedHash)
+//            ->has('csrf')
+//        );
 //});
+
+//it('displays the correct game details', function () {
+//    $this->gameServiceMock->shouldReceive('addScoreDataToPlayer')
+//        ->andReturnUsing(function (Collection $players) {
+//            // Mock behavior here
+//            return $players;
+//        });
+//
+//    $game = Game::factory()->create(['hash' => 'testhash']);
+//
+//    $response = $this->get(route('game.show', ['gameHash' => 'testhash']));
+//
+//    $response->assertStatus(200)
+//        ->assertInertia(fn ($assert) => $assert
+//            ->component('Game/Show')
+//            ->has('game', fn ($assert) => $assert->where('hash', 'testhash')->etc())
+//        );
+//});
+
+it('handles invalid game hash correctly in show method', function () {
+    $response = $this->get(route('game.show', ['gameHash' => 'invalidHash']));
+
+    $response->assertRedirect(route('game.init'));
+});
+
+it('validates score submission data', function () {
+    $game = Game::factory()->create();
+
+    $response = $this->post(route('game.store.score', ['hash' => $game->hash]), [
+        'player' => false
+    ]);
+
+    $response->assertSessionHasErrors(/* specific fields you expect errors for */);
+});
+
+it('successfully submits a score', function () {
+    $game = Game::factory()->create();
+    $player = Player::factory()->create();
+
+    $scoreData = [
+        'score' => 100,
+        'player_id' => $player->id,
+    ];
+
+    $response = $this->post(route('game.store.score', ['hash' => $game->hash]), $scoreData);
+
+    $response->assertStatus(200);
+    // Additional assertions to verify the score is stored correctly
+});

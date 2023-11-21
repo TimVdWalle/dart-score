@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('game_id')->constrained()->onDelete('cascade');
             $table->foreignId('player_id')->constrained()->onDelete('cascade');
+            $table->foreignId('set_id')->constrained()->onDelete('cascade'); // Added line
+            $table->foreignId('leg_id')->constrained()->onDelete('cascade'); // Added line
             $table->integer('score');
             $table->timestamps(); // Optional, if you want to track when the score was recorded
         });
