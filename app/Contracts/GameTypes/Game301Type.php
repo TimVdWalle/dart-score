@@ -19,20 +19,6 @@ class Game301Type extends AbstractGameType {
         return GameTypeFactory::mapPlayers($players, $initialScore);
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        if(!$this->outTypeStrategy)
-        {
-            return "301";
-        }
-
-        $outTypeTitle = $this->outTypeStrategy->getTitle();
-        return "301, " . $outTypeTitle;
-    }
-
     public function calculateCurrentScore(Player $player, Game $game): int
     {
         return 300;
@@ -41,5 +27,9 @@ class Game301Type extends AbstractGameType {
     public function getStatus(Player $player): string
     {
         return 'losing';
+    }
+
+    public function getInitialScore():int{
+        return GameType::Game301->getStartingScore();
     }
 }
