@@ -88,24 +88,24 @@ class GameService
     }
 
 
-    /**
-     * @param Game $game
-     * @return Collection<int, Player>
-     * @throws \Exception
-     */
-    public function addCurrentScoreToPlayers(Game $game): Collection
-    {
-        $playerService = new PlayerService();
-
-        $players = $game->players;
-
-        foreach ($players as $player) {
-            /** @var Player $player */
-            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
-        }
-
-        return $players;
-    }
+//    /**
+//     * @param Game $game
+//     * @return Collection<int, Player>
+//     * @throws \Exception
+//     */
+//    public function addCurrentScoreToPlayers(Game $game): Collection
+//    {
+//        $playerService = new PlayerService();
+//
+//        $players = $game->players;
+//
+//        foreach ($players as $player) {
+//            /** @var Player $player */
+//            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
+//        }
+//
+//        return $players;
+//    }
 
     /**
      * @param Game $game
