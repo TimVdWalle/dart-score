@@ -56,4 +56,45 @@ class Game extends Model
     {
         return $this->HasMany(Set::class);
     }
+
+    public function scopeWithCurrentSet($query)
+    {
+        $query->addSelect(['current_set_id' => Set::select('id')
+                    ->whereColumn('game_id', '=', 'games.id')
+                    ->latest()
+                    ->take(1)
+            ])->withCasts(['created_at' => 'datetime'])
+            ->get();
+    }
+
+    public function scopeWithLastLoginDate($query)
+    {
+        $query->addSelect([
+                'current_set_id' => Set::select('id')
+                    ->whereColumn('game_id', '=', 'games.id')
+                    ->latest()
+                    ->take(1)
+            ])->withCasts(['created_at' => 'datetime']);
+    }
+
+//    public function getCurrentSetAttribute(): ?Set
+//    {
+//        $set =
+//        return $this->sets()->latest('id')->first();
+//    }
+//
+//    /**
+//     * Get the current leg of the game dynamically.
+//     *
+//     * @return Leg|null
+//     */
+//    public function getCurrentLegAttribute(): ?Leg
+//    {
+//        $currentSet = $this->currentSet;
+//        if (!$currentSet) {
+//            return null;
+//        }
+//
+//        return $currentSet->legs()->latest('id')->first();
+//    }
 }
