@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $games_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Score> $scores
  * @property-read int|null $scores_count
+ *
  * @method static \Database\Factories\PlayerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Player extends Model
@@ -36,7 +38,7 @@ class Player extends Model
 
     protected $table = 'players';
 
-     /**
+    /**
      * @return HasMany<Game>
      */
     public function games(): HasMany
@@ -66,11 +68,6 @@ class Player extends Model
 
     /**
      * Get the current score of the player for a specific game, set, and leg.
-     *
-     * @param int $gameId
-     * @param int $setId
-     * @param int $legId
-     * @return int
      */
     public function getCurrentScoreForContext(int $gameId, int $setId, int $legId): int
     {

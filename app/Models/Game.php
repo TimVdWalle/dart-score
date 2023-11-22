@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $players_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Set> $sets
  * @property-read int|null $sets_count
+ *
  * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereOutType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Game extends Model
@@ -60,41 +62,41 @@ class Game extends Model
     public function scopeWithCurrentSet($query)
     {
         $query->addSelect(['current_set_id' => Set::select('id')
-                    ->whereColumn('game_id', '=', 'games.id')
-                    ->latest()
-                    ->take(1)
-            ])->withCasts(['created_at' => 'datetime'])
+            ->whereColumn('game_id', '=', 'games.id')
+            ->latest()
+            ->take(1),
+        ])->withCasts(['created_at' => 'datetime'])
             ->get();
     }
 
     public function scopeWithLastLoginDate($query)
     {
         $query->addSelect([
-                'current_set_id' => Set::select('id')
-                    ->whereColumn('game_id', '=', 'games.id')
-                    ->latest()
-                    ->take(1)
-            ])->withCasts(['created_at' => 'datetime']);
+            'current_set_id' => Set::select('id')
+                ->whereColumn('game_id', '=', 'games.id')
+                ->latest()
+                ->take(1),
+        ])->withCasts(['created_at' => 'datetime']);
     }
 
-//    public function getCurrentSetAttribute(): ?Set
-//    {
-//        $set =
-//        return $this->sets()->latest('id')->first();
-//    }
-//
-//    /**
-//     * Get the current leg of the game dynamically.
-//     *
-//     * @return Leg|null
-//     */
-//    public function getCurrentLegAttribute(): ?Leg
-//    {
-//        $currentSet = $this->currentSet;
-//        if (!$currentSet) {
-//            return null;
-//        }
-//
-//        return $currentSet->legs()->latest('id')->first();
-//    }
+    //    public function getCurrentSetAttribute(): ?Set
+    //    {
+    //        $set =
+    //        return $this->sets()->latest('id')->first();
+    //    }
+    //
+    //    /**
+    //     * Get the current leg of the game dynamically.
+    //     *
+    //     * @return Leg|null
+    //     */
+    //    public function getCurrentLegAttribute(): ?Leg
+    //    {
+    //        $currentSet = $this->currentSet;
+    //        if (!$currentSet) {
+    //            return null;
+    //        }
+    //
+    //        return $currentSet->legs()->latest('id')->first();
+    //    }
 }

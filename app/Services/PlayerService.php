@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class PlayerService
 {
     /**
-     * @param string[] $players
+     * @param  string[]  $players
      * @return Collection<int, Player>
      */
     public function storePlayers(array $players)
@@ -28,15 +28,12 @@ class PlayerService
     }
 
     /**
-     * @param Player $player
-     * @param Game $game
-     * @return int
      * @throws \Exception
      */
     public function calculateCurrentScore(Player $player, Game $game): int
     {
         $gameTypeObject = GameTypeFactory::create($game);
+
         return $gameTypeObject->calculateCurrentScore($player, $game);
     }
 }
-

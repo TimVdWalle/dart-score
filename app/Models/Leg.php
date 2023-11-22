@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Set $set
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Leg newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Leg newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Leg query()
@@ -24,12 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereSetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereTurn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Leg extends Model
 {
     use HasFactory;
-
 
     protected $fillable = ['set_id', 'leg_number', 'turn'];
 

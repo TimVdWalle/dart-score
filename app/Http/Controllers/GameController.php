@@ -17,6 +17,7 @@ use Inertia\Response;
 class GameController extends Controller
 {
     protected GameService $gameService;
+
     protected GameplayService $gameplayService;
 
     public function __construct(GameService $gameService, GameplayService $gameplayService)
@@ -36,8 +37,8 @@ class GameController extends Controller
     }
 
     /**
-     * @param GameStoreRequest $request
      * @return RedirectResponse
+     *
      * @throws \Exception
      */
     public function store(GameStoreRequest $request)
@@ -60,8 +61,6 @@ class GameController extends Controller
     }
 
     /**
-     * @param $hash
-     * @return RedirectResponse|Response
      * @throws \Exception
      */
     public function show(string $hash): Response|RedirectResponse
@@ -72,25 +71,25 @@ class GameController extends Controller
             ->where('hash', 'like', $hash)
             ->first();
 
-        if(!$game){
+        if (!$game) {
             return redirect()->route('game.init');
         }
 
         $g1 = Game::query()
             ->addSelect([
                 'current_set_id' => Set::select('id')
-                ->whereColumn('game_id', '=', 'games.id')
-                ->latest()
-                ->take(1)
+                    ->whereColumn('game_id', '=', 'games.id')
+                    ->latest()
+                    ->take(1),
             ])->withCasts(['created_at' => 'datetime'])
-        ->get();
+            ->get();
 
         $this->gameService->addScoreDataToPlayer($game);
         $this->gameplayService->determineCurrentTurn($game);
 
         $gameResource = new GameResource($game);
-        return Inertia::render('Game/Show', ['game' => $gameResource]);
 
+        return Inertia::render('Game/Show', ['game' => $gameResource]);
 
         // TODO: fetch game with set and leg as often as possible so it is not needed to getCurrentSet everytime its needed
         // therefor: create a dynamic relationshop on game so last set and last leg is accessible as attribute on game

@@ -3,10 +3,8 @@
 use App\Models\Player;
 use App\Services\GameService;
 use App\Services\PlayerService;
-use Illuminate\Container\Container;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
-
 
 uses(Tests\TestCase::class, RefreshDatabase::class);
 
@@ -34,7 +32,6 @@ it('creates a game successfully', function () {
 
     // Create a Collection and add Player instances to it
     $playersCollection = new Collection([$player1, $player2]);
-
 
     // Set up an expectation for the storePlayers method
     $playerService
@@ -71,4 +68,3 @@ it('creates a game successfully', function () {
 
     // You can add more assertions here to thoroughly test the game creation
 });
-

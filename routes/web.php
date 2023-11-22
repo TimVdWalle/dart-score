@@ -43,17 +43,22 @@ Route::middleware('auth')->group(function () {
 /********************************************************************************
  * the game routes
  ********************************************************************************/
-Route::get('/game/init',
-    [GameController::class, 'init'])
+Route::get(
+    '/game/init',
+    [GameController::class, 'init']
+)
     ->name('game.init');
 
-Route::post('/game/store',
-    [GameController::class, 'store'])
+Route::post(
+    '/game/store',
+    [GameController::class, 'store']
+)
     ->name('game.store');
 
-Route::get('/game/{gameHash}',
-    [GameController::class, 'show'])
+Route::get(
+    '/game/{gameHash}',
+    [GameController::class, 'show']
+)
     ->name('game.show');
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

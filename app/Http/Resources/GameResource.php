@@ -16,6 +16,7 @@ class GameResource extends JsonResource
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
+     *
      * @throws \Exception
      */
     public function toArray(Request $request): array
@@ -31,7 +32,7 @@ class GameResource extends JsonResource
             'players' => PlayerResource::collection($this->players),
             'currentPlayer' => new PlayerResource($this->currentPlayer),
 
-            'title' => $gameTypeObject->getTitle()
+            'title' => $gameTypeObject->getTitle(),
         ];
     }
 }

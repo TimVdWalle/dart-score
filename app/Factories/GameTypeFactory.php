@@ -14,11 +14,11 @@ use App\Enums\GameType;
 use App\Enums\OutType;
 use App\Models\Game;
 use App\Models\Player;
-use App\Services\ScoreService;
 use Exception;
 use Illuminate\Support\Collection;
 
-class GameTypeFactory {
+class GameTypeFactory
+{
     /**
      * @throws Exception
      */
@@ -39,14 +39,15 @@ class GameTypeFactory {
     /**
      * Initializes the scores for each player.
      *
-     * @param Collection<int|string, mixed> $players
+     * @param  Collection<int|string, mixed>  $players
      * @return Collection<int|string, Player>
      */
     public static function mapPlayers_old(Collection $players, int $initialScore)
     {
-        $players = $players->map(function($player) use ($initialScore) {
+        $players = $players->map(function ($player) use ($initialScore) {
             /** @var Player $player */
-            $player->currentScore =  $initialScore;
+            $player->currentScore = $initialScore;
+
             return $player;
         });
 
@@ -54,15 +55,15 @@ class GameTypeFactory {
     }
 
     /**
-     * @param Collection<int, Player> $players
-     * @param int $initialScore
+     * @param  Collection<int, Player>  $players
      * @return Collection<int, Player>
      */
     public static function mapPlayers(Collection $players, int $initialScore): Collection
     {
-        $players = $players->map(function($player) use ($initialScore) {
+        $players = $players->map(function ($player) use ($initialScore) {
             /** @var Player $player */
             $player->currentScore = $initialScore;
+
             return $player;
         });
 
@@ -70,8 +71,8 @@ class GameTypeFactory {
     }
 
     /**
-     * @param string $outType
      * @return AnyOutStrategy|DoubleExactOutStrategy|ExactOutStrategy|null
+     *
      * @throws Exception
      */
     private static function createOutTypeStrategy(?string $outType)

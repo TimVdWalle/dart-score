@@ -44,26 +44,17 @@ class ScoreService
         $gameTypeObject = GameTypeFactory::create($game);
         $isValid = $gameTypeObject->validateScore($game, $currentPlayer, $score, $currentSet, $currentLeg);
 
-        if($isValid){
+        if ($isValid) {
             $this->save($game, $currentPlayer, $score, $currentSet->id, $currentLeg->id);
         }
 
-
         // Check for a winner
-//        if ($gameTypeObject->checkWinner()) {
-//            return 'We have a winner!';
-//        }
+        //        if ($gameTypeObject->checkWinner()) {
+        //            return 'We have a winner!';
+        //        }
         return response()->json(['message' => 'Score accepted'], 201);
     }
 
-    /**
-     * @param Game $game
-     * @param Player $player
-     * @param int $score
-     * @param int $setId
-     * @param int $legId
-     * @return Score
-     */
     public function save(Game $game, Player $player, int $score, int $setId, int $legId): Score
     {
         return Score::create([
@@ -74,5 +65,4 @@ class ScoreService
             'score' => $score,
         ]);
     }
-
 }

@@ -10,14 +10,15 @@ use App\Models\Set;
 use Exception;
 use Illuminate\Support\Collection;
 
-class GameCricketType implements GameTypeInterface {
-
-    public function __construct() {
+class GameCricketType implements GameTypeInterface
+{
+    public function __construct()
+    {
         // Constructor logic specific to GameCricketType (if any)
     }
 
     /**
-     * @param Collection<int, Player> $players
+     * @param  Collection<int, Player>  $players
      * @return Collection<int, Player>
      */
     public function initializeScores(Collection $players): Collection
@@ -25,9 +26,6 @@ class GameCricketType implements GameTypeInterface {
         return $players;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return 'Cricket';
