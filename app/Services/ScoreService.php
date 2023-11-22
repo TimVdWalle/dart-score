@@ -26,8 +26,8 @@ class ScoreService
     public function handleScoreSubmission(Game $game, int $playerId, int $score): \Illuminate\Http\JsonResponse
     {
         $currentPlayer = $this->gameplayService->determineCurrentTurn($game);
-        $currentSet = $this->gameplayService->getCurrentSet($game);
-        $currentLeg = $this->gameplayService->getCurrentLeg($game);
+        $currentSet = $game->currentSet;
+        $currentLeg = $game->currentLeg;
 
         if (!$currentPlayer || $currentPlayer->id != $playerId) {
             throw new Exception('Invalid player turn');

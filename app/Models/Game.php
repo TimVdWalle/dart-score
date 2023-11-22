@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $players
  * @property-read int|null $players_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Set> $sets
+ * @property-read ?Set $currentSet
+ * @property-read ?Leg $currentLeg
  * @property-read int|null $sets_count
  *
  * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
@@ -41,7 +43,13 @@ class Game extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string
+     */
     protected $table = 'games';
+//    protected $casts = [
+//        'created_at' => 'datetime', // Cast the 'created_at' attribute to datetime
+//];
 
     /**
      * @return BelongsToMany<Player>
@@ -59,25 +67,49 @@ class Game extends Model
         return $this->HasMany(Set::class);
     }
 
-    public function scopeWithCurrentSet($query)
-    {
-        $query->addSelect(['current_set_id' => Set::select('id')
-            ->whereColumn('game_id', '=', 'games.id')
-            ->latest()
-            ->take(1),
-        ])->withCasts(['created_at' => 'datetime'])
-            ->get();
-    }
-
-    public function scopeWithLastLoginDate($query)
+    /**
+     *  dynamic relations from subquery : https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries
+     * @param  $query
+     * @return void
+     */
+    public function scopeWithCurrentSetAndLeg($query)
     {
         $query->addSelect([
-            'current_set_id' => Set::select('id')
-                ->whereColumn('game_id', '=', 'games.id')
-                ->latest()
+            'current_set_id' => Set::query()->select('id')
+                ->whereColumn('game_id', 'games.id')
+                ->latest('created_at')
                 ->take(1),
+
+            'current_leg_id' => Leg::query()->select('id')
+                ->where('set_id', function ($query) {
+                    $query->select('id')
+                        ->from('sets')
+                        ->whereColumn('game_id', 'games.id')
+                        ->latest('created_at')
+                        ->take(1);
+                })
+                ->latest('created_at')
+                ->take(1)
         ])->withCasts(['created_at' => 'datetime']);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Set>
+     */
+    public function currentSet()
+    {
+        return $this->hasOne(Set::class, 'id', 'current_set_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Leg>
+     */
+    public function currentLeg()
+    {
+        return $this->hasOne(Leg::class, 'id', 'current_leg_id');
+    }
+
+
 
     //    public function getCurrentSetAttribute(): ?Set
     //    {
