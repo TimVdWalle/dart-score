@@ -13,25 +13,6 @@ class Game501Type extends AbstractGameType {
      * @param Collection<int, Player> $players
      * @return Collection<int, Player>
      */
-    public function initializeScores(Collection $players): Collection
-    {
-        $initialScore = GameType::Game501->getStartingScore();
-        return GameTypeFactory::mapPlayers($players, $initialScore);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        if(!$this->outTypeStrategy)
-        {
-            return "501";
-        }
-
-        $outTypeTitle = $this->outTypeStrategy->getTitle();
-        return "501, " . $outTypeTitle;
-    }
 
     public function calculateCurrentScore(Player $player, Game $game): int
     {
@@ -41,5 +22,10 @@ class Game501Type extends AbstractGameType {
     public function getStatus(Player $player): string
     {
         return 'winning';
+    }
+
+    public function getInitialScore():int
+    {
+        return GameType::Game501->getStartingScore();
     }
 }

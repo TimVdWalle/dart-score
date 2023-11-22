@@ -3,12 +3,15 @@ namespace App\Contracts\GameTypes;
 
 use App\Contracts\GameTypeInterface;
 use App\Contracts\OutTypeStrategyInterface;
+use App\Enums\GameType;
+use App\Factories\GameTypeFactory;
 use App\Models\Game;
 use App\Models\Leg;
 use App\Models\Player;
 use App\Models\Score;
 use App\Models\Set;
 use Exception;
+use Illuminate\Support\Collection;
 
 abstract class AbstractGameType implements GameTypeInterface {
     /**
@@ -21,6 +24,39 @@ abstract class AbstractGameType implements GameTypeInterface {
      */
     public function __construct(?OutTypeStrategyInterface $outTypeStrategy) {
         $this->outTypeStrategy = $outTypeStrategy;
+    }
+
+
+    /**
+     * @param Collection<int, Player> $players
+     * @return Collection<int, Player>
+     */
+    public function initializeScores(Collection $players): Collection
+    {
+        $initialScore = $this->getInitialScore();
+        return GameTypeFactory::mapPlayers($players, $initialScore);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if(!$this->outTypeStrategy)
+        {
+            return "501";
+        }
+
+        $outTypeTitle = $this->outTypeStrategy->getTitle();
+        return "501, " . $outTypeTitle;
+    }
+
+    public function calculateCurrentScore(Player $player, Game $game): int
+    {
+        $initialScore = $this->getInitialScore();
+
+//        $score = Score::query()
+//            ->where('gameId', '=', )
     }
 
     /**

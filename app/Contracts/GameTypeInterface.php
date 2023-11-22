@@ -27,6 +27,8 @@ interface GameTypeInterface {
      */
     public function calculateCurrentScore(Player $player, Game $game): int;
 
+    public function getInitialScore():int;
+
     /**
      * @param Player $player
      * @return int
