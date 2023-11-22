@@ -9,13 +9,7 @@ use App\Models\Set;
 
 class GameplayService
 {
-
-
-    /**
-     * @param Game $game
-     * @return Set|null
-     */
-    public function getCurrentSet(Game $game): Set|null
+    public function getCurrentSet(Game $game): ?Set
     {
         $currentSet = $game->sets()->latest()->first();
 
@@ -34,15 +28,12 @@ class GameplayService
      * Get the current leg for a given game.
      *
      * This assumes that the current leg is within the current set.
-     *
-     * @param Game $game
-     * @return Leg|null
      */
     public function getCurrentLeg(Game $game): ?Leg
     {
         $currentSet = $this->getCurrentSet($game);
 
-        if(!$currentSet){
+        if (!$currentSet) {
             return null;
         }
 
@@ -60,7 +51,6 @@ class GameplayService
     }
 
     /**
-     * @param Game $game
      * @return ?Player
      */
     public function determineCurrentTurn(Game $game)
@@ -75,7 +65,7 @@ class GameplayService
             // return null; // or any default value you deem appropriate
 
             // Option 2: Throw an exception
-             throw new \Exception('Current set not found for the game.');
+            throw new \Exception('Current set not found for the game.');
         }
 
         $currentLeg = $currentSet->legs()->latest()->first();
@@ -86,7 +76,7 @@ class GameplayService
             // return null; // or any default value you deem appropriate
 
             // Option 2: Throw an exception
-             throw new \Exception('Current leg not found for the set.');
+            throw new \Exception('Current leg not found for the set.');
         }
 
         // Determine the current turn based on the number of turns already taken
@@ -98,6 +88,7 @@ class GameplayService
         // Use map to update each player's isCurrentTurn status
         $game->players->map(function ($player, $index) use ($currentPlayerIndex) {
             $player->isCurrentTurn = ($index === $currentPlayerIndex);
+
             return $player;
         });
 

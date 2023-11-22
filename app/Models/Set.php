@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Game $game
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Leg> $legs
  * @property-read int|null $legs_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Set newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Set newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Set query()
@@ -24,12 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Set whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Set whereSetNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Set whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Set extends Model
 {
     use HasFactory;
-
 
     protected $fillable = ['game_id', 'set_number'];
 

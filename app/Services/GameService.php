@@ -11,19 +11,13 @@ use Illuminate\Support\Collection;
 
 class GameService
 {
-    /**
-     * @var PlayerService
-     */
     protected PlayerService $playerService;
 
-
-    /**
-     * @param PlayerService $playerService
-     */
     public function __construct(PlayerService $playerService)
     {
         $this->playerService = $playerService;
     }
+
     /**
      * @return int
      */
@@ -39,12 +33,9 @@ class GameService
         return $smallnum;
     }
 
-
     /**
-     * @param string $gameType
-     * @param string $outType
-     * @param string[] $players
-     * @return Game
+     * @param  string[]  $players
+     *
      * @throws \Exception
      */
     public function createGame(string $gameType, string $outType, array $players): Game
@@ -65,10 +56,6 @@ class GameService
         return $game;
     }
 
-    /**
-     * @param Game $game
-     * @return Game
-     */
     private function initGame(Game $game): Game
     {
         // Create the first set
@@ -87,29 +74,28 @@ class GameService
         return $game;
     }
 
-
-//    /**
-//     * @param Game $game
-//     * @return Collection<int, Player>
-//     * @throws \Exception
-//     */
-//    public function addCurrentScoreToPlayers(Game $game): Collection
-//    {
-//        $playerService = new PlayerService();
-//
-//        $players = $game->players;
-//
-//        foreach ($players as $player) {
-//            /** @var Player $player */
-//            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
-//        }
-//
-//        return $players;
-//    }
+    //    /**
+    //     * @param Game $game
+    //     * @return Collection<int, Player>
+    //     * @throws \Exception
+    //     */
+    //    public function addCurrentScoreToPlayers(Game $game): Collection
+    //    {
+    //        $playerService = new PlayerService();
+    //
+    //        $players = $game->players;
+    //
+    //        foreach ($players as $player) {
+    //            /** @var Player $player */
+    //            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
+    //        }
+    //
+    //        return $players;
+    //    }
 
     /**
-     * @param Game $game
      * @return Collection<int, Player>
+     *
      * @throws \Exception
      */
     public function addScoreDataToPlayer(Game $game): Collection
@@ -120,8 +106,8 @@ class GameService
             /** @var Player $player */
             $player->currentScore = $gameTypeObject->calculateCurrentScore($player, $game);
             $player->avgScore = $gameTypeObject->calculateAvgScore($player, $game);
+
             return $player;
         });
     }
 }
-
