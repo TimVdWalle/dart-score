@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,9 +48,9 @@ class Game extends Model
      * @var string
      */
     protected $table = 'games';
-//    protected $casts = [
-//        'created_at' => 'datetime', // Cast the 'created_at' attribute to datetime
-//];
+    //    protected $casts = [
+    //        'created_at' => 'datetime', // Cast the 'created_at' attribute to datetime
+    //];
 
     /**
      * @return BelongsToMany<Player>
@@ -67,12 +68,12 @@ class Game extends Model
         return $this->HasMany(Set::class);
     }
 
+    // dynamic relations from subquery : https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries
     /**
-     *  dynamic relations from subquery : https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries
-     * @param  $query
+     * @param Builder<Game> $query
      * @return void
      */
-    public function scopeWithCurrentSetAndLeg($query)
+    public function scopeWithCurrentSetAndLeg(Builder $query)
     {
         $query->addSelect([
             'current_set_id' => Set::query()->select('id')
@@ -89,7 +90,7 @@ class Game extends Model
                         ->take(1);
                 })
                 ->latest('created_at')
-                ->take(1)
+                ->take(1),
         ])->withCasts(['created_at' => 'datetime']);
     }
 
@@ -108,8 +109,6 @@ class Game extends Model
     {
         return $this->hasOne(Leg::class, 'id', 'current_leg_id');
     }
-
-
 
     //    public function getCurrentSetAttribute(): ?Set
     //    {

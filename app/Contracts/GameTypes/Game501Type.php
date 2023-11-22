@@ -5,14 +5,11 @@ namespace App\Contracts\GameTypes;
 use App\Enums\GameType;
 use App\Models\Game;
 use App\Models\Player;
-use Illuminate\Support\Collection;
 
 class Game501Type extends AbstractGameType
 {
     /**
-     * @param Player  $player
-     * @param Game  $game
-     * @return Collection<int, Player>
+     * @return int
      */
     public function calculateCurrentScore(Player $player, Game $game): int
     {

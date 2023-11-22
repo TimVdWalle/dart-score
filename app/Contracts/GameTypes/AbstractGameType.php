@@ -50,6 +50,8 @@ abstract class AbstractGameType implements GameTypeInterface
 
         //        $score = Score::query()
         //            ->where('gameId', '=', )
+
+        return 0;
     }
 
     public function calculateAvgScore(Player $player, Game $game): ?int

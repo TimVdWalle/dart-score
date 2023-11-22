@@ -26,9 +26,9 @@ it('initializes game with correct view and data', function () {
     $response->assertStatus(200)
         ->assertInertia(
             fn ($assert) => $assert
-            ->component('Game/Init')
+                ->component('Game/Init')
 //            ->has('gameHash')
-            ->has('csrf')
+                ->has('csrf')
         );
 });
 
