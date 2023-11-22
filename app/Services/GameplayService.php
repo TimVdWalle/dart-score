@@ -57,7 +57,7 @@ class GameplayService
     {
         // Assuming each game has players associated with it
         $players = $game->players;
-        $currentSet = $game->sets()->latest()->first();
+        $currentSet = $game->currentSet;
 
         if (!$currentSet) {
             // Handle the case where no current set is found
@@ -68,7 +68,7 @@ class GameplayService
             throw new \Exception('Current set not found for the game.');
         }
 
-        $currentLeg = $currentSet->legs()->latest()->first();
+        $currentLeg = $game->currentLeg;
 
         if (!$currentLeg) {
             // Handle the case where no current leg is found

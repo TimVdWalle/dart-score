@@ -54,4 +54,9 @@ class GameCricketType implements GameTypeInterface
     {
         return 'winning barely';
     }
+
+    public function getInitialScore(): int
+    {
+        return 0;
+    }
 }

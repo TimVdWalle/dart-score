@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 class Game501Type extends AbstractGameType
 {
     /**
-     * @param  Collection<int, Player>  $players
+     * @param Player  $player
+     * @param Game  $game
      * @return Collection<int, Player>
      */
     public function calculateCurrentScore(Player $player, Game $game): int
