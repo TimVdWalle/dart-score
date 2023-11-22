@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class GameStoreRequest extends FormRequest
 {
-
     /**
      * @return array<string, array<int, \Illuminate\Validation\Rules\In|string>>
      */

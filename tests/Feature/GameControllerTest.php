@@ -14,7 +14,6 @@ beforeEach(function () {
     $this->app->instance(GameService::class, $this->gameServiceMock);
 });
 
-
 it('initializes game correctly', function () {
     $response = $this->get(route('game.init'));
     $response->assertStatus(200);
@@ -25,7 +24,8 @@ it('initializes game with correct view and data', function () {
     $response = $this->get(route('game.init'));
 
     $response->assertStatus(200)
-        ->assertInertia(fn ($assert) => $assert
+        ->assertInertia(
+            fn ($assert) => $assert
             ->component('Game/Init')
 //            ->has('gameHash')
             ->has('csrf')
@@ -173,7 +173,7 @@ it('validates score submission data', function () {
     $game = Game::factory()->create();
 
     $response = $this->post(route('game.store.score', ['hash' => $game->hash]), [
-        'player' => false
+        'player' => false,
     ]);
 
     $response->assertSessionHasErrors(/* specific fields you expect errors for */);

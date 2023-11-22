@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::middleware('auth:sanctum')->group(function () {
-    // User route
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+// User route
+Route::get('/user', function (Request $request) {
+    return $request->user();
+});
 
-    // Game-related routes
-    Route::post('/game/{hash}/score', [ScoreController::class, 'store'])
-        ->name('game.store.score');
+// Game-related routes
+Route::post('/game/{hash}/score', [ScoreController::class, 'store'])
+    ->name('game.store.score');
 //});
