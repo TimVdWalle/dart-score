@@ -67,22 +67,15 @@ class GameController extends Controller
     {
         /** @var ?Game $game */
         $game = Game::query()
-            ->with('players.scores')
+            ->withCurrentSetAndLeg()
+            ->with('currentSet')
+            ->with('currentLeg')
             ->where('hash', 'like', $hash)
             ->first();
 
         if (!$game) {
             return redirect()->route('game.init');
         }
-
-        $g1 = Game::query()
-            ->addSelect([
-                'current_set_id' => Set::select('id')
-                    ->whereColumn('game_id', '=', 'games.id')
-                    ->latest()
-                    ->take(1),
-            ])->withCasts(['created_at' => 'datetime'])
-            ->get();
 
         $this->gameService->addScoreDataToPlayer($game);
         $this->gameplayService->determineCurrentTurn($game);
