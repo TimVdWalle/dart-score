@@ -18,13 +18,15 @@ class GameUpdated implements ShouldBroadcast
 
     private Game $game;                     // the game object
     public GameResource $gameResource;      // the game object in the correct json format to send to frontend
+    public string $clientId;      // the game object in the correct json format to send to frontend
     /**
      * Create a new event instance.
      */
-    public function __construct(Game $game)
+    public function __construct(Game $game, string $clientId)
     {
         $this->game = $game;
         $this->gameResource = new GameResource($game);
+        $this->clientId = $clientId;
     }
 
     /**

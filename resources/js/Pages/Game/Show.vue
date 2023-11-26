@@ -81,8 +81,10 @@ onMounted(() => {
     let channelName = `channel-name-${game.value.hash}`;
     window.Echo.channel(channelName)
         .listen('.GameUpdated', (data) => {
-            console.log(data);
-            updateGame(data.gameResource)
+            if (data.clientId !== clientId) {
+                console.log(data);
+                updateGame(data.gameResource)
+            }
         })
 });
 </script>
