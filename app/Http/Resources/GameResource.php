@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Factories\GameTypeFactory;
-use App\Models\Game\Game;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,6 +16,7 @@ class GameResource extends JsonResource
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
+     *
      * @throws \Exception
      */
     public function toArray(Request $request): array
@@ -29,8 +30,9 @@ class GameResource extends JsonResource
             'gameType' => $this->gameType,
             'outType' => $this->outType,
             'players' => PlayerResource::collection($this->players),
+            'currentPlayer' => new PlayerResource($this->currentPlayer),
 
-            'title' => $gameTypeObject->getTitle()
+            'title' => $gameTypeObject->getTitle(),
         ];
     }
 }

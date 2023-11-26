@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ScoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//Route::middleware('auth:sanctum')->group(function () {
+// User route
+Route::get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Game-related routes
+Route::post('/game/{hash}/score', [ScoreController::class, 'store'])
+    ->name('game.store.score');
+//});

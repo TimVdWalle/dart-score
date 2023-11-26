@@ -3,22 +3,22 @@
 namespace App\Factories;
 
 use App\Contracts\GameTypeInterface;
-use App\Contracts\GameTypes\Game101Type;
-use App\Contracts\GameTypes\Game301Type;
-use App\Contracts\GameTypes\Game501Type;
+use App\Contracts\GameTypes\X01Game101Type;
+use App\Contracts\GameTypes\X01Game301Type;
+use App\Contracts\GameTypes\X01Game501Type;
 use App\Contracts\GameTypes\GameCricketType;
 use App\Contracts\OutTypes\AnyOutStrategy;
 use App\Contracts\OutTypes\DoubleExactOutStrategy;
 use App\Contracts\OutTypes\ExactOutStrategy;
 use App\Enums\GameType;
 use App\Enums\OutType;
-use App\Models\Game\Game;
-use App\Models\Game\Player;
-use App\Services\ScoreService;
+use App\Models\Game;
+use App\Models\Player;
 use Exception;
 use Illuminate\Support\Collection;
 
-class GameTypeFactory {
+class GameTypeFactory
+{
     /**
      * @throws Exception
      */
@@ -27,9 +27,9 @@ class GameTypeFactory {
         $outTypeStrategy = self::createOutTypeStrategy($game->out_type);
 
         return match ($game->game_type) {
-            GameType::Game501->value => new Game501Type($outTypeStrategy),
-            GameType::Game301->value => new Game301Type($outTypeStrategy),
-            GameType::Game101->value => new Game101Type($outTypeStrategy),
+            GameType::Game501->value => new X01Game501Type($outTypeStrategy),
+            GameType::Game301->value => new X01Game301Type($outTypeStrategy),
+            GameType::Game101->value => new X01Game101Type($outTypeStrategy),
             GameType::Cricket->value => new GameCricketType(),
 
             default => throw new Exception("Unsupported game type: {$game->game_type}"),
@@ -39,14 +39,15 @@ class GameTypeFactory {
     /**
      * Initializes the scores for each player.
      *
-     * @param Collection<int|string, mixed> $players
+     * @param  Collection<int|string, mixed>  $players
      * @return Collection<int|string, Player>
      */
     public static function mapPlayers_old(Collection $players, int $initialScore)
     {
-        $players = $players->map(function($player) use ($initialScore) {
+        $players = $players->map(function ($player) use ($initialScore) {
             /** @var Player $player */
-            $player->currentScore =  $initialScore;
+            $player->currentScore = $initialScore;
+
             return $player;
         });
 
@@ -54,19 +55,15 @@ class GameTypeFactory {
     }
 
     /**
-     * @param Collection<int, Player> $players
-     * @param Game $game
-     * @param int $initialScore
+     * @param  Collection<int, Player>  $players
      * @return Collection<int, Player>
      */
-    public static function mapPlayers(Collection $players, Game $game, int $initialScore): Collection
+    public static function mapPlayers(Collection $players, int $initialScore): Collection
     {
-        $scoreService = new ScoreService();
-
-        $players = $players->map(function($player) use ($game, $initialScore, $scoreService) {
+        $players = $players->map(function ($player) use ($initialScore) {
             /** @var Player $player */
-            // Initialize the score for this player
-            $scoreService->setScore($game, $player, $initialScore);
+            $player->currentScore = $initialScore;
+
             return $player;
         });
 
@@ -74,8 +71,8 @@ class GameTypeFactory {
     }
 
     /**
-     * @param string $outType
      * @return AnyOutStrategy|DoubleExactOutStrategy|ExactOutStrategy|null
+     *
      * @throws Exception
      */
     private static function createOutTypeStrategy(?string $outType)

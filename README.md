@@ -44,4 +44,5 @@ For any queries or contributions, please contact [Your Name] at [Your Email].
 
 ---
 
+
 *Note: Replace the placeholders like `[repository URL]`, `[project folder]`, `[LICENSE TYPE]`, `[Your Name]`, and `[Your Email]` with the appropriate information specific to your project.*

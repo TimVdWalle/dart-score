@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Game\Score;
+use App\Models\Score;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -27,4 +27,3 @@ class ScoreResource extends JsonResource
         ];
     }
 }
-

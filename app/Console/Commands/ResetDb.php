@@ -2,14 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Game\Game;
-use App\Models\Game\Player;
+use App\Models\Game;
+use App\Models\Player;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-/**
- *
- */
 class ResetDb extends Command
 {
     /**
@@ -31,11 +28,11 @@ class ResetDb extends Command
      */
     public function handle(): void
     {
-        $this->info("truncating tables: players and games");
+        $this->info('truncating tables: players and games');
         Player::query()->truncate();
         Game::query()->truncate();
         DB::table('game_player')->truncate();
 
-        $this->info("truncating done!");
+        $this->info('truncating done!');
     }
 }

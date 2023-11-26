@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Factories\GameTypeFactory;
-use App\Models\Game\Player;
+use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,16 +18,13 @@ class PlayerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        $game = $this->resource;
-//        $gameTypeObject = GameTypeFactory::create($this->games());
-//        $gameTypeObject = GameTypeFactory::create($this->whenLoaded('game')->gameType ?? 'default_game_type');
-
         return [
             'id' => $this->id,
-            'name' => '$this->name',
+            'name' => $this->name,
             'currentScore' => $this->currentScore,
+            'avgScore' => $this->avgScore,
+            'isCurrentTurn' => $this->isCurrentTurn,
             'scores' => ScoreResource::collection($this->whenLoaded('scores')),
-            // Include other player attributes or relationships as needed
         ];
     }
 }

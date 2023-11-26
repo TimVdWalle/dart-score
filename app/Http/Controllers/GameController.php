@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Game\GameStoreRequest;
 use App\Http\Resources\GameResource;
-use App\Models\Game\Game;
+use App\Models\Game;
+use App\Models\Set;
+use App\Services\GameplayService;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,51 +16,42 @@ use Inertia\Response;
 
 class GameController extends Controller
 {
+    protected GameService $gameService;
+
+    protected GameplayService $gameplayService;
+
+    public function __construct(GameService $gameService, GameplayService $gameplayService)
+    {
+        $this->gameService = $gameService;
+        $this->gameplayService = $gameplayService;
+    }
+
     /**
      * @return Response
      */
     public function init()
     {
-        $gameHash = (new GameService())->getNextHash();
         return Inertia::render('Game/Init', [
-            'gameHash' => strval($gameHash),
             'csrf' => csrf_token(),
         ]);
     }
 
     /**
-     * @param GameStoreRequest $request
      * @return RedirectResponse
+     *
+     * @throws \Exception
      */
     public function store(GameStoreRequest $request)
     {
-        // Assuming $request->players is a JSON string or null
-        $playersJson = $request->players;
-
-        if (is_string($playersJson)) {
-            // Decode if it's a valid string
-            /** @var ?array<int, array{id: int, name: string}> $players */
-            $players = json_decode($playersJson, true);
-        } else {
-            // Set to null if it's not a string
-            /** @var ?array<int, array{id: int, name: string}> $players */
-            $players = null;
-        }
-
-        if (!is_array($players) || empty($players)) {
-            return redirect()->route('game.init');
-        }
-
         /** @var array<string, string> $data */
         $data = $request->validated();
 
-        $hash = strval($data['hash']);
+        /** @var string[] $players */
+        $players = $data['players'];
         $gameType = strval($data['gameType']);
         $outType = strval($data['outType']);
 
-        $gameService = new GameService();
-        $game = $gameService->createGame(
-            hash: $hash,
+        $game = $this->gameService->createGame(
             gameType: $gameType,
             outType: $outType,
             players: $players
@@ -69,25 +61,30 @@ class GameController extends Controller
     }
 
     /**
-     * @param $hash
-     * @return RedirectResponse|Response
      * @throws \Exception
      */
     public function show(string $hash): Response|RedirectResponse
     {
         /** @var ?Game $game */
         $game = Game::query()
-            ->with('players.scores')
+            ->withCurrentSetAndLeg()
+            ->with('currentSet')
+            ->with('currentLeg')
             ->where('hash', 'like', $hash)
             ->first();
 
-        if(!$game){
+        if (!$game) {
             return redirect()->route('game.init');
         }
 
-        (new GameService())->addCurrentScoreToPlayers($game);
+        $this->gameplayService->addScoreDataToPlayer($game);
+        $this->gameplayService->determineCurrentTurn($game);
+
         $gameResource = new GameResource($game);
+
         return Inertia::render('Game/Show', ['game' => $gameResource]);
 
+        // TODO: fetch game with set and leg as often as possible so it is not needed to getCurrentSet everytime its needed
+        // therefor: create a dynamic relationshop on game so last set and last leg is accessible as attribute on game
     }
 }

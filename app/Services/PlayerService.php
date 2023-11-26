@@ -2,16 +2,15 @@
 
 namespace App\Services;
 
-use App\Contracts\GameTypeInterface;
 use App\Factories\GameTypeFactory;
-use App\Models\Game\Game;
-use App\Models\Game\Player;
+use App\Models\Game;
+use App\Models\Player;
 use Illuminate\Support\Collection;
 
 class PlayerService
 {
     /**
-     * @param array<int, array{id: int, name: string}> $players $players
+     * @param  string[]  $players
      * @return Collection<int, Player>
      */
     public function storePlayers(array $players)
@@ -20,7 +19,7 @@ class PlayerService
 
         foreach ($players as $player) {
             $record = new Player();
-            $record->name = $player['name'];
+            $record->name = ucfirst($player);
             $record->save();
             $results->push($record);
         }
@@ -29,15 +28,12 @@ class PlayerService
     }
 
     /**
-     * @param Player $player
-     * @param Game $game
-     * @return int
      * @throws \Exception
      */
     public function calculateCurrentScore(Player $player, Game $game): int
     {
         $gameTypeObject = GameTypeFactory::create($game);
+
         return $gameTypeObject->calculateCurrentScore($player, $game);
     }
 }
-

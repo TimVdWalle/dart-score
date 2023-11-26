@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from 'vue';
-import {faUserPlus} from "@fortawesome/free-solid-svg-icons";
-import Button from "@/Components/CardSmall.vue";
+// import {faUserPlus} from "@fortawesome/free-solid-svg-icons";
+// import Button from "@/Components/CardSmall.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faDeleteLeft} from "@fortawesome/free-solid-svg-icons";
 import {faArrowRightLong} from "@fortawesome/free-solid-svg-icons";
