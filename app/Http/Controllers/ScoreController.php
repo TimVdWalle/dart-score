@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameUpdated;
 use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
 use App\Http\Resources\GameResource;
@@ -60,11 +61,13 @@ class ScoreController extends Controller
             $this->gameplayService->determineCurrentTurn($game);
         }
 
+        event(new GameUpdated($game));
+
         return response()->json(
             [
-            'message' => 'Score saved!',
-            'game' => new GameResource($game),
-        ],
+                'message' => 'Score saved!',
+                'game' => new GameResource($game),
+            ],
             200
         );
 
