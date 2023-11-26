@@ -52,7 +52,7 @@ abstract class AbstractX01GameType implements GameTypeInterface
     {
         $initialScore = $this->getInitialScore();
 
-        if(!$game->currentSet || !$game->currentLeg){
+        if(!$game->currentSet || !$game->currentLeg) {
             throw new ScoreException('Not in a game');
         }
 
