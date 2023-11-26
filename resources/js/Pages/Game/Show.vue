@@ -19,12 +19,13 @@ const players = ref(props.game.data.players || []);
 const game = ref(props.game.data || null);
 const currentPlayer = ref(props.game.data.currentPlayer || null);
 
-const onScoreEntered = (score) => {
-    console.log("received score", score);
+const onScoreEntered = (score, withDouble) => {
+    console.log("received score", score, withDouble);
 
     try {
         axios.post('/api/game/' + game.value.hash + '/score', {
             score: score,
+            with_double: withDouble,
             player_id: currentPlayer.value.id,
             client_id: clientId,
         })
@@ -101,8 +102,10 @@ onMounted(() => {
         </div>
 
         <Keyboard
+            :showDoubleButton="true"
+            :currentPlayerScore="currentPlayer.currentScore"
             @scoreEntered="onScoreEntered"
-            class="fixed bottom-0 w-full h-[35vh] min-h-[200px]"
+            class="fixed bottom-0 w-full h-[40vh] min-h-[200px]"
         />
     </GameLayout>
 </template>
