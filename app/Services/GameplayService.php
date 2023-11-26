@@ -2,52 +2,31 @@
 
 namespace App\Services;
 
+use App\Factories\GameTypeFactory;
 use App\Models\Game;
 use App\Models\Leg;
 use App\Models\Player;
 use App\Models\Set;
+use Illuminate\Support\Collection;
 
 class GameplayService
 {
-    public function getCurrentSet(Game $game): ?Set
-    {
-        $currentSet = $game->sets()->latest()->first();
-
-        if (!$currentSet) {
-            // Create the first set if it doesn't exist
-            $currentSet = new Set();
-            $currentSet->game_id = $game->id;
-            $currentSet->set_number = 1; // Assuming set number starts at 1
-            $currentSet->save();
-        }
-
-        return $currentSet;
-    }
-
     /**
-     * Get the current leg for a given game.
+     * @return Collection<int, Player>
      *
-     * This assumes that the current leg is within the current set.
+     * @throws \Exception
      */
-    public function getCurrentLeg(Game $game): ?Leg
+    public function addScoreDataToPlayer(Game $game): Collection
     {
-        $currentSet = $this->getCurrentSet($game);
+        $gameTypeObject = GameTypeFactory::create($game);
 
-        if (!$currentSet) {
-            return null;
-        }
+        return $game->players->map(function ($player) use ($game, $gameTypeObject) {
+            /** @var Player $player */
+            $player->currentScore = $gameTypeObject->calculateCurrentScore($player, $game);
+            $player->avgScore = $gameTypeObject->calculateAvgScore($player, $game);
 
-        $currentLeg = $currentSet->legs()->latest()->first();
-
-        if (!$currentLeg) {
-            // Create the first leg if it doesn't exist
-            $currentLeg = new Leg();
-            $currentLeg->set_id = $currentSet->id;
-            $currentLeg->leg_number = 1; // Assuming leg number starts at 1
-            $currentLeg->save();
-        }
-
-        return $currentLeg;
+            return $player;
+        });
     }
 
     /**
