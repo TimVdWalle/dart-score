@@ -6,23 +6,20 @@ use App\Enums\GameType;
 use App\Models\Game;
 use App\Models\Player;
 
-class Game501Type extends AbstractGameType
+class X01Game101Type extends AbstractX01GameType
 {
-    /**
-     * @return int
-     */
     public function calculateCurrentScore(Player $player, Game $game): int
     {
-        return 500;
+        return 100;
     }
 
     public function getStatus(Player $player): string
     {
-        return 'winning';
+        return 'losing hard';
     }
 
     public function getInitialScore(): int
     {
-        return GameType::Game501->getStartingScore();
+        return GameType::Game101->getStartingScore();
     }
 }

@@ -13,7 +13,7 @@ use App\Models\Set;
 use Exception;
 use Illuminate\Support\Collection;
 
-abstract class AbstractGameType implements GameTypeInterface
+abstract class AbstractX01GameType implements GameTypeInterface
 {
     protected ?OutTypeStrategyInterface $outTypeStrategy;
 
