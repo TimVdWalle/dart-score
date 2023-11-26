@@ -48,6 +48,9 @@ class ScoreService
             $this->save($game, $currentPlayer, $score, $currentSet->id, $currentLeg->id);
         }
 
+        $currentLeg->turn = $currentLeg->turn + 1;
+        $currentLeg->save();
+
         // Check for a winner
         //        if ($gameTypeObject->checkWinner()) {
         //            return 'We have a winner!';
