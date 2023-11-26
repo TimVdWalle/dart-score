@@ -5,6 +5,7 @@ namespace App\Contracts\GameTypes;
 use App\Contracts\GameTypeInterface;
 use App\Contracts\OutTypeStrategyInterface;
 use App\Factories\GameTypeFactory;
+use App\Http\Exceptions\ScoreException;
 use App\Models\Game;
 use App\Models\Leg;
 use App\Models\Player;
@@ -44,14 +45,25 @@ abstract class AbstractX01GameType implements GameTypeInterface
         return '501, '.$outTypeTitle;
     }
 
+    /**
+     * @throws ScoreException
+     */
     public function calculateCurrentScore(Player $player, Game $game): int
     {
         $initialScore = $this->getInitialScore();
 
-        //        $score = Score::query()
-        //            ->where('gameId', '=', )
+        if(!$game->currentSet || !$game->currentLeg){
+            throw new ScoreException('Not in a game');
+        }
 
-        return 0;
+        $score = Score::query()
+            ->where('game_id', '=', $game->id)
+            ->where('set_id', '=', $game->currentSet->id)
+            ->where('leg_id', '=', $game->currentLeg->id)
+            ->where('player_id', '=', $player->id)
+            ->sum('score');
+
+        return $initialScore - $score;
     }
 
     public function calculateAvgScore(Player $player, Game $game): ?int

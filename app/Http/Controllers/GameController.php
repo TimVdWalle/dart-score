@@ -77,7 +77,7 @@ class GameController extends Controller
             return redirect()->route('game.init');
         }
 
-        $this->gameService->addScoreDataToPlayer($game);
+        $this->gameplayService->addScoreDataToPlayer($game);
         $this->gameplayService->determineCurrentTurn($game);
 
         $gameResource = new GameResource($game);
