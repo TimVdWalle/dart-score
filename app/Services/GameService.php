@@ -19,18 +19,24 @@ class GameService
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getNextHash()
     {
+        // Read hash length from configuration, with a fallback default
+        /** @var int $hashLength */
+        $hashLength = config('game.default_hash_length', 4);
+        $hashLength = intval($hashLength);
+
+        // Ensure hash length is within a reasonable range
+        $hashLength = max(1, min($hashLength, 15)); // Example range: 1 to 15
+
         $gameHash = rand(0, 9999999);
-
         $bignum = hexdec(substr(sha1(strval($gameHash)), 0, 15));
-        $smallnum = $bignum % 9999;
+        $smallnum = $bignum % pow(10, $hashLength); // Use $hashLength in calculation
 
-        // TODO: check if hash already exists for other game
-
-        return $smallnum;
+        // Convert $smallnum to string and pad with zeros if necessary
+        return str_pad(strval($smallnum), $hashLength, '0', STR_PAD_LEFT);
     }
 
     /**
