@@ -38,6 +38,7 @@ class ScoreController extends Controller
         /** @var string[] $data */
         $data = $request->validated();
         $playerId = intval($data['player_id']);
+        $clientId = strval($data['client_id']);
         $score = intval($data['score']);
 
         $game = Game::query()
@@ -61,7 +62,7 @@ class ScoreController extends Controller
             $this->gameplayService->determineCurrentTurn($game);
         }
 
-        event(new GameUpdated($game));
+        event(new GameUpdated($game, $clientId));
 
         return response()->json(
             [
