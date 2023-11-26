@@ -26,5 +26,8 @@ interface GameTypeInterface
 
     public function getStatus(Player $player): string;
 
-    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): bool;
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool;
+
+//    public function checkForLegWinner(Game $game, Leg $currentLeg): ?Player;
+//    public function checkForSetWinner(Game $game, Set $currentSet): ?Player;
 }

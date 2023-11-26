@@ -44,7 +44,7 @@ class GameCricketType implements GameTypeInterface
     /**
      * @throws Exception
      */
-    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): true
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble = false): true
     {
         // TODO
         return true;

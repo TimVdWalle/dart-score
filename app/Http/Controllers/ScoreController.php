@@ -40,6 +40,7 @@ class ScoreController extends Controller
         $playerId = intval($data['player_id']);
         $clientId = strval($data['client_id']);
         $score = intval($data['score']);
+        $withDouble = boolval($data['with_double']);
 
         $game = Game::query()
             ->withCurrentSetAndLeg()
@@ -52,7 +53,7 @@ class ScoreController extends Controller
         //        }
 
         try {
-            $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
+            $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score, $withDouble);
         } catch (ScoreException $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
         }

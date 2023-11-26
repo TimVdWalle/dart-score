@@ -24,7 +24,7 @@ class ScoreService
     /**
      * @throws Exception
      */
-    public function handleScoreSubmission(Game $game, int $playerId, int $score): bool
+    public function handleScoreSubmission(Game $game, int $playerId, int $score, bool $withDouble = false): bool
     {
         $currentPlayer = $this->gameplayService->determineCurrentTurn($game);
         $currentSet = $game->currentSet;
@@ -43,7 +43,7 @@ class ScoreService
         }
 
         $gameTypeObject = GameTypeFactory::create($game);
-        $isValid = $gameTypeObject->validateScore($game, $currentPlayer, $score, $currentSet, $currentLeg);
+        $isValid = $gameTypeObject->validateScore($game, $currentSet, $currentLeg, $currentPlayer, $score, $withDouble);
 
         if (!$isValid) {
             return false;

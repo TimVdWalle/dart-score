@@ -15,6 +15,7 @@ class ScoreStoreRequest extends FormRequest
             'score' => ['required', 'integer', 'min:0'], // Assuming score is an integer
             'player_id' => ['required', 'exists:players,id'], // Assuming player_id should exist in the players table
             'client_id' => ['required', 'string'],
+            'with_double' => ['sometimes', 'bool'],
         ];
     }
 }
