@@ -55,7 +55,7 @@ class ScoreController extends Controller
             return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
         }
 
-        if($isValid){
+        if ($isValid) {
             $this->gameplayService->addScoreDataToPlayer($game);
             $this->gameplayService->determineCurrentTurn($game);
         }
