@@ -8,11 +8,6 @@ use App\Models\Player;
 
 class X01Game101Type extends AbstractX01GameType
 {
-    public function calculateCurrentScore(Player $player, Game $game): int
-    {
-        return 100;
-    }
-
     public function getStatus(Player $player): string
     {
         return 'losing hard';

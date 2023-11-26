@@ -24,7 +24,7 @@ class ScoreService
     /**
      * @throws Exception
      */
-    public function handleScoreSubmission(Game $game, int $playerId, int $score): \Illuminate\Http\JsonResponse
+    public function handleScoreSubmission(Game $game, int $playerId, int $score): bool
     {
         $currentPlayer = $this->gameplayService->determineCurrentTurn($game);
         $currentSet = $game->currentSet;
@@ -45,18 +45,15 @@ class ScoreService
         $gameTypeObject = GameTypeFactory::create($game);
         $isValid = $gameTypeObject->validateScore($game, $currentPlayer, $score, $currentSet, $currentLeg);
 
-        if ($isValid) {
-            $this->save($game, $currentPlayer, $score, $currentSet->id, $currentLeg->id);
+        if (!$isValid) {
+            return false;
         }
 
+        $this->save($game, $currentPlayer, $score, $currentSet->id, $currentLeg->id);
         $currentLeg->turn = $currentLeg->turn + 1;
         $currentLeg->save();
 
-        // Check for a winner
-        //        if ($gameTypeObject->checkWinner()) {
-        //            return 'We have a winner!';
-        //        }
-        return response()->json(['message' => 'Score saved!'], 201);
+        return true;
     }
 
     public function save(Game $game, Player $player, int $score, int $setId, int $legId): Score

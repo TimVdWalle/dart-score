@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
+use App\Http\Resources\GameResource;
 use App\Models\Game;
 use App\Services\GameplayService;
 use App\Services\ScoreService;
@@ -35,25 +36,40 @@ class ScoreController extends Controller
     {
         /** @var string[] $data */
         $data = $request->validated();
+        $playerId = intval($data['player_id']);
+        $score = intval($data['score']);
+
         $game = Game::query()
             ->withCurrentSetAndLeg()
             ->with('currentSet', 'currentLeg')
             ->where('hash', $hash)
             ->firstOrFail();
-        $playerId = intval($data['player_id']);
-        $score = intval($data['score']);
+
+//        if(!$game){
+//            return response()->json(['error' => true, 'message' => 'Not in a game'], 400);
+//        }
 
         try {
-            $response = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
+            $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
         } catch (ScoreException $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
         }
+
+        if($isValid){
+            $this->gameplayService->addScoreDataToPlayer($game);
+            $this->gameplayService->determineCurrentTurn($game);
+        }
+
+        return response()->json([
+            'message' => 'Score saved!',
+            'game' => new GameResource($game),
+        ],
+            200);
 
         //        // Check for a winner
         //        if ($gameTypeObject->checkWinner()) {
         //            return response()->json(['message' => 'We have a winner!'], 200);
         //        }
 
-        return $response;
     }
 }
