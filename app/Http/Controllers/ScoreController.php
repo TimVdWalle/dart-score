@@ -40,6 +40,7 @@ class ScoreController extends Controller
         $playerId = intval($data['player_id']);
         $clientId = strval($data['client_id']);
         $score = intval($data['score']);
+        $withDouble = boolval($data['with_double']);
 
         $game = Game::query()
             ->withCurrentSetAndLeg()
@@ -52,15 +53,18 @@ class ScoreController extends Controller
         //        }
 
         try {
-            $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
+            $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score, $withDouble);
         } catch (ScoreException $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
         }
 
-        if ($isValid) {
-            $this->gameplayService->addScoreDataToPlayer($game);
-            $this->gameplayService->determineCurrentTurn($game);
+        if (!$isValid) {
+            return response()->json(['error' => true, 'message' => 'Invalid score entered!'], 400);
         }
+
+        $this->gameplayService->addScoreDataToPlayer($game);
+        $this->gameplayService->determineCurrentTurn($game);
+
 
         event(new GameUpdated($game, $clientId));
 
@@ -71,11 +75,6 @@ class ScoreController extends Controller
             ],
             200
         );
-
-        //        // Check for a winner
-        //        if ($gameTypeObject->checkWinner()) {
-        //            return response()->json(['message' => 'We have a winner!'], 200);
-        //        }
 
     }
 }

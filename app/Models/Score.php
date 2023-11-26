@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\Leg $leg
  * @property-read \App\Models\Player $player
  * @property-read \App\Models\Set $set
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Score newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Score newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Score query()
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Score whereScore($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Score whereSetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Score whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Score extends Model

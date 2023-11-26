@@ -3,6 +3,8 @@
 namespace App\Contracts\GameTypes;
 
 use App\Contracts\GameTypeInterface;
+use App\Contracts\OutTypes\AnyOutStrategy;
+use App\Contracts\OutTypes\DoubleExactOutStrategy;
 use App\Contracts\OutTypeStrategyInterface;
 use App\Factories\GameTypeFactory;
 use App\Http\Exceptions\ScoreException;
@@ -74,9 +76,31 @@ abstract class AbstractX01GameType implements GameTypeInterface
     /**
      * @throws Exception
      */
-    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): true
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool
     {
-        // TODO
+        // thrown score can not be negative and not be more than 180
+        if ($score < $this->getMinThrow() || $score > $this->getMaxThrow()) {
+            return false;
+        }
+
+        $currentScore = $this->calculateCurrentScore($player, $game);
+        $newScore = $currentScore - $score;
+
+        // negative final score only allowed in any out strategy
+        if ($newScore < 0 && !$this->outTypeStrategy instanceof AnyOutStrategy) {
+            return false;
+        }
+
+        // last throw should be a double when out strategy is exact_double
+        if ($newScore === 0 && $this->outTypeStrategy instanceof DoubleExactOutStrategy && !$withDouble) {
+            return false;
+        }
+
+        // can not end on 1 in exact double out strategy
+        if ($newScore === 1 && $this->outTypeStrategy instanceof DoubleExactOutStrategy) {
+            return false;
+        }
+
         return true;
     }
 

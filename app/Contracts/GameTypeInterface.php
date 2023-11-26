@@ -22,9 +22,16 @@ interface GameTypeInterface
 
     public function getInitialScore(): int;
 
+    public function getMaxThrow(): int;
+
+    public function getMinThrow(): int;
+
     public function calculateAvgScore(Player $player, Game $game): ?int;
 
     public function getStatus(Player $player): string;
 
-    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): bool;
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool;
+
+//    public function checkForLegWinner(Game $game, Leg $currentLeg): ?Player;
+//    public function checkForSetWinner(Game $game, Set $currentSet): ?Player;
 }

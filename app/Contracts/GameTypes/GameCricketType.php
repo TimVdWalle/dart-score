@@ -44,7 +44,7 @@ class GameCricketType implements GameTypeInterface
     /**
      * @throws Exception
      */
-    public function validateScore(Game $game, Player $player, int $score, Set $currentSet, Leg $currentLeg): true
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble = false): true
     {
         // TODO
         return true;
@@ -56,6 +56,16 @@ class GameCricketType implements GameTypeInterface
     }
 
     public function getInitialScore(): int
+    {
+        return 0;
+    }
+
+    public function getMaxThrow(): int
+    {
+        return 180;
+    }
+
+    public function getMinThrow(): int
     {
         return 0;
     }

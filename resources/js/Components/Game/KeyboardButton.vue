@@ -1,13 +1,13 @@
 <script setup>
 import {ref} from 'vue';
-// import {faUserPlus} from "@fortawesome/free-solid-svg-icons";
-// import Button from "@/Components/CardSmall.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faDeleteLeft} from "@fortawesome/free-solid-svg-icons";
 import {faArrowRightLong} from "@fortawesome/free-solid-svg-icons";
+// import {faArrowsDownToLine} from "@fortawesome/free-solid-svg-icons";
 
 const props = defineProps({
-    button: Object
+    button: Object,
+    class: String
 })
 
 const emit = defineEmits(['clicked'])
@@ -23,18 +23,19 @@ const handleClick = () => {
 </script>
 
 <template>
-    <div :class="{'bg-red': isActive}" @click="handleClick" class="h-full w-full flex justify-center items-center bg-grey_lighterer rounded-lg hover:cursor-pointer text-2xl font-display text-white">
+    <div :class="{'bg-red': isActive, 'bg-blue': props.class === 'bg-blue'}" @click="handleClick" class="h-full w-full flex justify-center items-center bg-grey_lighterer rounded-lg hover:cursor-pointer text-2xl font-display text-white">
         <span v-if="button.type === 'number'">
-        {{button.value}}
-        </span>
-        <span v-else-if="button.value === 'faDeleteLeft'">
-            <font-awesome-icon :icon="faDeleteLeft" class="fa-1x text-white"/>
+            {{button.value}}
         </span>
         <span v-else-if="button.value === 'faDeleteLeft'">
             <font-awesome-icon :icon="faDeleteLeft" class="fa-1x text-white"/>
         </span>
         <span v-else-if="button.value === 'faArrowRightLong'">
             <font-awesome-icon :icon="faArrowRightLong" class="fa-1x text-white"/>
+        </span>
+        <span v-else-if="button.value === 'faArrowsDownToLine'">
+            double
+<!--            <font-awesome-icon :icon="faArrowsDownToLine" class="fa-1x text-white"/>-->
         </span>
     </div>
 </template>
