@@ -1,15 +1,19 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import Scores from "@/Components/Game/Scores.vue";
 import axios from 'axios'; // Import Axios
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
 
 import GameLayout from "@/Layouts/GameLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import Scores from "@/Components/Game/Scores.vue";
 
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
+const clientId = Date.now() + Math.random().toString(36).substring(2, 15);
+
 const { props } = usePage();
 const players = ref(props.game.data.players || []);
 const game = ref(props.game.data || null);
@@ -22,9 +26,10 @@ const onScoreEntered = (score) => {
         axios.post('/api/game/' + game.value.hash + '/score', {
             score: score,
             player_id: currentPlayer.value.id,
+            client_id: clientId,
         })
         .then(response => {
-            console.log(response.data);
+            console.log('response received =  ', response.data);
             updateGame(response.data.game);
             showToast(response.data.message, 'success')
         })
@@ -63,6 +68,23 @@ const showToast = (message, type) => {
         });
     }
 }
+
+onMounted(() => {
+    window.Pusher = Pusher;
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: import.meta.env.VITE_PUSHER_APP_KEY,
+        cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+        forceTLS: true
+    });
+
+    let channelName = `channel-name-${game.value.hash}`;
+    window.Echo.channel(channelName)
+        .listen('.GameUpdated', (data) => {
+            console.log(data);
+            updateGame(data.gameResource)
+        })
+});
 </script>
 
 <template>
