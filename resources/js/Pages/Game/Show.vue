@@ -6,6 +6,8 @@ import axios from 'axios'; // Import Axios
 
 import GameLayout from "@/Layouts/GameLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 const { props } = usePage();
@@ -17,13 +19,29 @@ const onScoreEntered = async (score) => {
     console.log("received score", score);
 
     try {
-        const response = await axios.post('/api/game/' + game.value.hash + '/score', {
+        axios.post('/api/game/' + game.value.hash + '/score', {
             score: score,
             player_id: currentPlayer.value.id,
-        });
-
-        // Handle the response here, e.g., update the game state or navigate to another page
-        console.log(response.data);
+        })
+        .then(response => {
+            console.log(response.data);
+            toast.success(response.data.message, {
+                autoClose: 1000,
+                theme: 'colored',
+            });
+        })
+            .catch(error => {
+                // Check if the error response has data and a message
+                if (error.response && error.response.data && error.response.data.message) {
+                    console.error('error = ', error.response.data.message);
+                    toast.error(error.response.data.message, {
+                        autoClose: 3000,
+                        theme: 'colored',
+                    });
+                } else {
+                    console.error('Unexpected error:', error);
+                }
+            });
     } catch (error) {
         // Handle errors here, such as displaying a message to the user
         console.error('Error submitting score:', error);

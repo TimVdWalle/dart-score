@@ -2,6 +2,7 @@
 import {faChevronRight, faDeleteLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
+
 // Define props to receive the players array
 const props = defineProps({
     players: Array,

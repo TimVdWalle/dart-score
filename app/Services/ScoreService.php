@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Factories\GameTypeFactory;
+use App\Http\Exceptions\ScoreException;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Score;
@@ -30,15 +31,15 @@ class ScoreService
         $currentLeg = $game->currentLeg;
 
         if (!$currentPlayer || $currentPlayer->id != $playerId) {
-            throw new Exception('Invalid player turn');
+            throw new ScoreException('Invalid player turn');
         }
 
         if (!$currentSet) {
-            throw new Exception('Invalid current set');
+            throw new ScoreException('Invalid current set');
         }
 
         if (!$currentLeg) {
-            throw new Exception('Invalid current leg');
+            throw new ScoreException('Invalid current leg');
         }
 
         $gameTypeObject = GameTypeFactory::create($game);
@@ -55,7 +56,7 @@ class ScoreService
         //        if ($gameTypeObject->checkWinner()) {
         //            return 'We have a winner!';
         //        }
-        return response()->json(['message' => 'Score accepted'], 201);
+        return response()->json(['message' => 'Score saved!'], 201);
     }
 
     public function save(Game $game, Player $player, int $score, int $setId, int $legId): Score
