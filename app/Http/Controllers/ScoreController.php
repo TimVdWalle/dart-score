@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
 use App\Models\Game;
 use App\Services\GameplayService;
@@ -34,11 +35,19 @@ class ScoreController extends Controller
     {
         /** @var string[] $data */
         $data = $request->validated();
-        $game = Game::where('hash', $hash)->firstOrFail();
+        $game = Game::query()
+            ->withCurrentSetAndLeg()
+            ->with('currentSet', 'currentLeg')
+            ->where('hash', $hash)
+            ->firstOrFail();
         $playerId = intval($data['player_id']);
         $score = intval($data['score']);
 
-        $response = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
+        try {
+            $response = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
+        } catch (ScoreException $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
+        }
 
         //        // Check for a winner
         //        if ($gameTypeObject->checkWinner()) {
