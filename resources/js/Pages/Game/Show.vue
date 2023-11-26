@@ -15,7 +15,7 @@ const players = ref(props.game.data.players || []);
 const game = ref(props.game.data || null);
 const currentPlayer = ref(props.game.data.currentPlayer || null);
 
-const onScoreEntered = async (score) => {
+const onScoreEntered = (score) => {
     console.log("received score", score);
 
     try {
@@ -25,26 +25,42 @@ const onScoreEntered = async (score) => {
         })
         .then(response => {
             console.log(response.data);
-            toast.success(response.data.message, {
-                autoClose: 1000,
-                theme: 'colored',
-            });
+            updateGame(response.data.game);
+            showToast(response.data.message, 'success')
         })
-            .catch(error => {
-                // Check if the error response has data and a message
-                if (error.response && error.response.data && error.response.data.message) {
-                    console.error('error = ', error.response.data.message);
-                    toast.error(error.response.data.message, {
-                        autoClose: 3000,
-                        theme: 'colored',
-                    });
-                } else {
-                    console.error('Unexpected error:', error);
-                }
-            });
+        .catch(error => {
+            console.error('error = ', error);
+            if (error.response && error.response.data && error.response.data.message) {
+                showToast(error.response.data.message, 'error')
+            } else {
+                showToast('Unexpected error:', error);
+            }
+        });
     } catch (error) {
         // Handle errors here, such as displaying a message to the user
         console.error('Error submitting score:', error);
+    }
+}
+
+const updateGame = (game) => {
+    console.log("updating game with: ", game)
+    players.value = game.players;
+    currentPlayer.value = game.currentPlayer;
+}
+
+const showToast = (message, type) => {
+    if(type === 'success'){
+        toast.success(message, {
+            autoClose: 700,
+            theme: 'colored',
+        });
+    }
+
+    if(type === 'error'){
+        toast.error(message, {
+            autoClose: 3500,
+            theme: 'colored',
+        });
     }
 }
 </script>
