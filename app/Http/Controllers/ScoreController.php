@@ -45,9 +45,9 @@ class ScoreController extends Controller
             ->where('hash', $hash)
             ->firstOrFail();
 
-//        if(!$game){
-//            return response()->json(['error' => true, 'message' => 'Not in a game'], 400);
-//        }
+        //        if(!$game){
+        //            return response()->json(['error' => true, 'message' => 'Not in a game'], 400);
+        //        }
 
         try {
             $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score);
@@ -60,11 +60,13 @@ class ScoreController extends Controller
             $this->gameplayService->determineCurrentTurn($game);
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'message' => 'Score saved!',
             'game' => new GameResource($game),
         ],
-            200);
+            200
+        );
 
         //        // Check for a winner
         //        if ($gameTypeObject->checkWinner()) {
