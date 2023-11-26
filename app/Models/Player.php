@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $games_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Score> $scores
  * @property-read int|null $scores_count
- *
  * @method static \Database\Factories\PlayerFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Player extends Model

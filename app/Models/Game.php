@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read ?Set $currentSet
  * @property-read ?Leg $currentLeg
  * @property-read int|null $sets_count
- *
  * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
@@ -37,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereOutType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
- *
+ * @method static Builder|Game withCurrentSetAndLeg()
  * @mixin \Eloquent
  */
 class Game extends Model
