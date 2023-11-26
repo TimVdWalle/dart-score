@@ -65,7 +65,7 @@ const handleDoubleClicked = (value) => {
 }
 
 const showDoubleButtonCheck = computed(() => {
-    return props.showDoubleButton && (props.currentPlayerScore - keyboardValue.value) <= 40; // Example logic
+    return props.showDoubleButton && ((props.currentPlayerScore - keyboardValue.value) === 0); // Example logic
 });
 </script>
 
@@ -73,7 +73,10 @@ const showDoubleButtonCheck = computed(() => {
     <div>
         <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 w-full">
             <div>
-                {{currentPlayerScore}}{{doubleClicked}}
+                {{currentPlayerScore}}
+                <br />
+                {{doubleClicked}}
+                {{showDoubleButtonCheck}}
             </div>
             <div class="text-center justify-center align-middle items-center flex content-center p-1 score-input h-full">
                 <span>{{ keyboardValue }}</span>

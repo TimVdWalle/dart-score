@@ -102,7 +102,7 @@ onMounted(() => {
         </div>
 
         <Keyboard
-            :showDoubleButton="true"
+            :showDoubleButton="game.outType === 'double_exact'"
             :currentPlayerScore="currentPlayer.currentScore"
             @scoreEntered="onScoreEntered"
             class="fixed bottom-0 w-full h-[40vh] min-h-[200px]"

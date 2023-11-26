@@ -58,10 +58,13 @@ class ScoreController extends Controller
             return response()->json(['error' => true, 'message' => $e->getMessage()], 400);
         }
 
-        if ($isValid) {
-            $this->gameplayService->addScoreDataToPlayer($game);
-            $this->gameplayService->determineCurrentTurn($game);
+        if (!$isValid) {
+            return response()->json(['error' => true, 'message' => 'Invalid score entered!'], 400);
         }
+
+        $this->gameplayService->addScoreDataToPlayer($game);
+        $this->gameplayService->determineCurrentTurn($game);
+
 
         event(new GameUpdated($game, $clientId));
 
@@ -72,11 +75,6 @@ class ScoreController extends Controller
             ],
             200
         );
-
-        //        // Check for a winner
-        //        if ($gameTypeObject->checkWinner()) {
-        //            return response()->json(['message' => 'We have a winner!'], 200);
-        //        }
 
     }
 }

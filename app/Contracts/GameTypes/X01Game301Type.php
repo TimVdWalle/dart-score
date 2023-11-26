@@ -16,4 +16,13 @@ class X01Game301Type extends AbstractX01GameType
     {
         return GameType::Game301->getStartingScore();
     }
+
+    public function getMaxThrow(): int
+    {
+        return 180;
+    }
+    public function getMinThrow(): int
+    {
+        return 0;
+    }
 }

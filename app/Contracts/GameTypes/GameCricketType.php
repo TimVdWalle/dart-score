@@ -59,4 +59,14 @@ class GameCricketType implements GameTypeInterface
     {
         return 0;
     }
+
+    public function getMaxThrow(): int
+    {
+        return 180;
+    }
+
+    public function getMinThrow(): int
+    {
+        return 0;
+    }
 }

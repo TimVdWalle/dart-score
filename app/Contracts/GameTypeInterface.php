@@ -22,6 +22,10 @@ interface GameTypeInterface
 
     public function getInitialScore(): int;
 
+    public function getMaxThrow(): int;
+
+    public function getMinThrow(): int;
+
     public function calculateAvgScore(Player $player, Game $game): ?int;
 
     public function getStatus(Player $player): string;

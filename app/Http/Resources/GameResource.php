@@ -25,14 +25,19 @@ class GameResource extends JsonResource
         $game = $this->resource;
         $gameTypeObject = GameTypeFactory::create($game);
 
-        return [
+        $t1 = $this->outType;
+//        $t2 = $gameTypeObject->outType;
+
+        $result =  [
             'hash' => $this->hash,
-            'gameType' => $this->gameType,
-            'outType' => $this->outType,
+            'gameType' => $this->game_type,
+            'outType' => $this->out_type,
             'players' => PlayerResource::collection($this->players),
             'currentPlayer' => new PlayerResource($this->currentPlayer),
 
             'title' => $gameTypeObject->getTitle(),
         ];
+
+        return $result;
     }
 }
