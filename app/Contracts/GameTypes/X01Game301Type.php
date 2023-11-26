@@ -8,7 +8,7 @@ use App\Models\Game;
 use App\Models\Player;
 use Illuminate\Support\Collection;
 
-class Game301Type extends AbstractGameType
+class X01Game301Type extends AbstractX01GameType
 {
     /**
      * @param  Collection<int, Player>  $players

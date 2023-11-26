@@ -3,9 +3,9 @@
 namespace App\Factories;
 
 use App\Contracts\GameTypeInterface;
-use App\Contracts\GameTypes\Game101Type;
-use App\Contracts\GameTypes\Game301Type;
-use App\Contracts\GameTypes\Game501Type;
+use App\Contracts\GameTypes\X01Game101Type;
+use App\Contracts\GameTypes\X01Game301Type;
+use App\Contracts\GameTypes\X01Game501Type;
 use App\Contracts\GameTypes\GameCricketType;
 use App\Contracts\OutTypes\AnyOutStrategy;
 use App\Contracts\OutTypes\DoubleExactOutStrategy;
@@ -27,9 +27,9 @@ class GameTypeFactory
         $outTypeStrategy = self::createOutTypeStrategy($game->out_type);
 
         return match ($game->game_type) {
-            GameType::Game501->value => new Game501Type($outTypeStrategy),
-            GameType::Game301->value => new Game301Type($outTypeStrategy),
-            GameType::Game101->value => new Game101Type($outTypeStrategy),
+            GameType::Game501->value => new X01Game501Type($outTypeStrategy),
+            GameType::Game301->value => new X01Game301Type($outTypeStrategy),
+            GameType::Game101->value => new X01Game101Type($outTypeStrategy),
             GameType::Cricket->value => new GameCricketType(),
 
             default => throw new Exception("Unsupported game type: {$game->game_type}"),
