@@ -24,12 +24,10 @@ class GameTypeFactory
      */
     public static function create(Game $game): GameTypeInterface
     {
-        $outTypeStrategy = self::createOutTypeStrategy($game->out_type);
-
         return match ($game->game_type) {
-            GameType::Game501->value => new X01Game501Type($outTypeStrategy),
-            GameType::Game301->value => new X01Game301Type($outTypeStrategy),
-            GameType::Game101->value => new X01Game101Type($outTypeStrategy),
+            GameType::Game501->value => new X01Game501Type(self::createOutTypeStrategy($game->out_type)),
+            GameType::Game301->value => new X01Game301Type(self::createOutTypeStrategy($game->out_type)),
+            GameType::Game101->value => new X01Game101Type(self::createOutTypeStrategy($game->out_type)),
             GameType::Cricket->value => new GameCricketType(),
 
             default => throw new Exception("Unsupported game type: {$game->game_type}"),
@@ -71,16 +69,12 @@ class GameTypeFactory
     }
 
     /**
-     * @return AnyOutStrategy|DoubleExactOutStrategy|ExactOutStrategy|null
+     * @return AnyOutStrategy|DoubleExactOutStrategy|ExactOutStrategy
      *
      * @throws Exception
      */
     private static function createOutTypeStrategy(?string $outType)
     {
-        if ($outType === null) {
-            return null;
-        }
-
         return match ($outType) {
             OutType::DoubleExact->value => new DoubleExactOutStrategy(),
             OutType::Exact->value => new ExactOutStrategy(),

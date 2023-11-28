@@ -14,6 +14,12 @@ class DoubleExactOutStrategy implements OutTypeStrategyInterface
         return ($currentScore - $hitScore === 0) && $this->isDoubleHit($hitScore);
     }
 
+    public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool {
+        $newScore = $currentScore - $hitScore;
+        // Must finish on double and not leave 1 point
+        return !($newScore < 0 || $newScore === 1 || ($newScore === 0 && !$withDouble));
+    }
+
     private function isDoubleHit(int $hitScore): bool
     {
         // Implement logic to check if the hit was a double
