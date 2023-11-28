@@ -18,9 +18,9 @@ use Illuminate\Support\Collection;
 
 abstract class AbstractX01GameType implements GameTypeInterface
 {
-    protected ?OutTypeStrategyInterface $outTypeStrategy;
+    protected OutTypeStrategyInterface $outTypeStrategy;
 
-    public function __construct(?OutTypeStrategyInterface $outTypeStrategy)
+    public function __construct(OutTypeStrategyInterface $outTypeStrategy)
     {
         $this->outTypeStrategy = $outTypeStrategy;
     }
@@ -38,10 +38,6 @@ abstract class AbstractX01GameType implements GameTypeInterface
 
     public function getTitle(): string
     {
-        if (!$this->outTypeStrategy) {
-            return '501';
-        }
-
         $outTypeTitle = $this->outTypeStrategy->getTitle();
 
         return '501, '.$outTypeTitle;
@@ -78,30 +74,14 @@ abstract class AbstractX01GameType implements GameTypeInterface
      */
     public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool
     {
-        // thrown score can not be negative and not be more than 180
         if ($score < $this->getMinThrow() || $score > $this->getMaxThrow()) {
             return false;
         }
 
         $currentScore = $this->calculateCurrentScore($player, $game);
-        $newScore = $currentScore - $score;
 
-        // negative final score only allowed in any out strategy
-        if ($newScore < 0 && !$this->outTypeStrategy instanceof AnyOutStrategy) {
-            return false;
-        }
-
-        // last throw should be a double when out strategy is exact_double
-        if ($newScore === 0 && $this->outTypeStrategy instanceof DoubleExactOutStrategy && !$withDouble) {
-            return false;
-        }
-
-        // can not end on 1 in exact double out strategy
-        if ($newScore === 1 && $this->outTypeStrategy instanceof DoubleExactOutStrategy) {
-            return false;
-        }
-
-        return true;
+        // Delegate to the OutTypeStrategy
+        return $this->outTypeStrategy->validateScore($currentScore, $score, $withDouble);
     }
 
     public function checkWinner(): void

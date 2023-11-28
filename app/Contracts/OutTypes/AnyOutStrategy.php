@@ -8,9 +8,14 @@ class AnyOutStrategy implements OutTypeStrategyInterface
 {
     public function isValidOut(int $currentScore, int $hitScore): bool
     {
-        // In AnyOutStrategy, the player can finish with any score that reduces
-        // the remaining points to zero or below.
+        // In this strategy, a player can win by reducing the score to zero or below.
         return $currentScore - $hitScore <= 0;
+    }
+
+    public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool
+    {
+        // Allow any score, since hitting zero or below is considered a win.
+        return true;
     }
 
     public function getTitle(): string
