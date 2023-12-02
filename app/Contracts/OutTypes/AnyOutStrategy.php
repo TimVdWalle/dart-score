@@ -6,10 +6,10 @@ use App\Contracts\OutTypeStrategyInterface;
 
 class AnyOutStrategy implements OutTypeStrategyInterface
 {
-    public function isValidOut(int $currentScore, int $hitScore): bool
+    public function isValidOut(int $currentScore, bool $withDouble = null): bool
     {
         // In this strategy, a player can win by reducing the score to zero or below.
-        return $currentScore - $hitScore <= 0;
+        return $currentScore <= 0;
     }
 
     public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool

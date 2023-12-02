@@ -8,11 +8,11 @@ use App\Models\Player;
 
 class ExactOutStrategy implements OutTypeStrategyInterface
 {
-    public function isValidOut(int $currentScore, int $hitScore): bool
+    public function isValidOut(int $currentScore, bool $withDouble = null): bool
     {
         // In ExactOutStrategy, the last hit must make the score exactly zero
         // but does not need to be a double.
-        return $currentScore - $hitScore === 0;
+        return $currentScore === 0;
     }
 
     public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool {
