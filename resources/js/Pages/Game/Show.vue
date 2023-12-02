@@ -30,9 +30,16 @@ const onScoreEntered = (score, withDouble) => {
             client_id: clientId,
         })
         .then(response => {
-            console.log('response received =  ', response);
-            updateGame(response.data.data);
-            showToast(response.data.message, 'success')
+            console.log('response received1 =  ', response);
+            console.log('response received2 =  ', response.data);
+            console.log('response received3 =  ', response.data.data.gameResource);
+
+            if(response.data && response.data.data && response.data.data.gameResource){
+                updateGame(response.data.data.gameResource);
+                showToast(response.data.message, 'success');
+            }
+
+            // if(response.data && response.data.status)
         })
         .catch(error => {
             console.error('error = ', error);

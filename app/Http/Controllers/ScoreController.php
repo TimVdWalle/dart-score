@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseStatus;
 use App\Events\GameUpdated;
 use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
@@ -55,7 +56,12 @@ class ScoreController extends Controller
         }
 
         if (!$isValid) {
-            return jsonResponse(false, 'Invalid score entered!', null, 400);
+            return jsonResponse(
+                false,
+                'Invalid score entered!',
+                ResponseStatus::invalid_score,
+                null,
+                400);
         }
 
         $this->gameplayService->addScoreDataToPlayer($game);
@@ -67,16 +73,25 @@ class ScoreController extends Controller
 
             event(new GameUpdated($game, $clientId));
 
-            return jsonResponse(true, 'Leg ended', [
-                'status' => 'leg_ended',
-                'winner' => $winner->name,
-                'next_step' => 'overview',
-                'game' => new GameResource($game)
+            return jsonResponse(
+                true,
+                'Leg ended',
+                ResponseStatus::leg_ended, [
+                    'winner' => $winner->name,
+                    'next_step' => 'overview',
+                    'game' => new GameResource($game)
             ]);
         }
 
         event(new GameUpdated($game, $clientId));
 
-        return jsonResponse(true, 'Score saved!', new GameResource($game));
+        return jsonResponse(
+            true,
+            'Score saved!',
+            ResponseStatus::valid_score,
+            [
+                'gameResource' => new GameResource($game)
+            ]
+        );
     }
 }

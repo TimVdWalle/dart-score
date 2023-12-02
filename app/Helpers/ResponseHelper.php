@@ -1,8 +1,12 @@
 <?php
 
+use App\Enums\ResponseStatus;
+
 if (!function_exists('jsonResponse')) {
-    function jsonResponse($success, $message, $data = null, $statusCode = 200) {
+    function jsonResponse(bool $success, string $message, ResponseStatus $status, array $data = null, int $statusCode = 200) : \Illuminate\Http\JsonResponse
+    {
         $response = [
+            'status' => $status,
             'success' => $success,
             'message' => $message,
         ];
