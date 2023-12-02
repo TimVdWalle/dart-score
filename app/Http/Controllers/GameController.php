@@ -84,7 +84,5 @@ class GameController extends Controller
 
         return Inertia::render('Game/Show', ['game' => $gameResource]);
 
-        // TODO: fetch game with set and leg as often as possible so it is not needed to getCurrentSet everytime its needed
-        // therefor: create a dynamic relationshop on game so last set and last leg is accessible as attribute on game
     }
 }
