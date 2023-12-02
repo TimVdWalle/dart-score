@@ -28,10 +28,9 @@ interface GameTypeInterface
 
     public function calculateAvgScore(Player $player, Game $game): ?int;
 
+    public function checkForLegWinner(Game $game, Player $player): ?Player;
+
     public function getStatus(Player $player): string;
 
     public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool;
-
-//    public function checkForLegWinner(Game $game, Leg $currentLeg): ?Player;
-//    public function checkForSetWinner(Game $game, Set $currentSet): ?Player;
 }

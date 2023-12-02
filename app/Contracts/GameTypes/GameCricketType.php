@@ -69,4 +69,9 @@ class GameCricketType implements GameTypeInterface
     {
         return 0;
     }
+
+    public function checkForLegWinner(Game $game, Player $player): ?Player
+    {
+        return null;
+    }
 }

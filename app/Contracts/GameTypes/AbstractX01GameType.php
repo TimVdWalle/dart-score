@@ -43,6 +43,16 @@ abstract class AbstractX01GameType implements GameTypeInterface
         return '501, '.$outTypeTitle;
     }
 
+    public function checkForLegWinner(Game $game, Player $player): ?Player
+    {
+        $currentScore = $this->calculateCurrentScore($player, $game);
+        if ($this->outTypeStrategy->isValidOut($currentScore)) {
+            return $player; // This player is the winner
+        }
+
+        return null; // No winner yet
+    }
+
     /**
      * @throws ScoreException
      */
@@ -64,9 +74,32 @@ abstract class AbstractX01GameType implements GameTypeInterface
         return $initialScore - $score;
     }
 
+    /**
+     * @throws ScoreException
+     */
     public function calculateAvgScore(Player $player, Game $game): ?int
     {
-        return null;
+        if(!$game->currentSet || !$game->currentLeg) {
+            throw new ScoreException('Not in a game');
+        }
+
+        /** @var int $totalScore */
+        $totalScore = Score::query()
+            ->where('game_id', '=', $game->id)
+            ->where('set_id', '=', $game->currentSet->id)
+            ->where('leg_id', '=', $game->currentLeg->id)
+            ->where('player_id', $player->id)
+            ->sum('score');
+
+        /** @var int $throwsCount */
+        $throwsCount = Score::query()
+            ->where('game_id', '=', $game->id)
+            ->where('set_id', '=', $game->currentSet->id)
+            ->where('leg_id', '=', $game->currentLeg->id)
+            ->where('player_id', $player->id)
+            ->count();
+
+        return $throwsCount > 0 ? intdiv($totalScore, $throwsCount) : null;
     }
 
     /**
