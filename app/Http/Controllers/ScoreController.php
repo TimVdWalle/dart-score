@@ -48,10 +48,6 @@ class ScoreController extends Controller
             ->where('hash', $hash)
             ->firstOrFail();
 
-        //        if(!$game){
-        //            return response()->json(['error' => true, 'message' => 'Not in a game'], 400);
-        //        }
-
         try {
             $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score, $withDouble);
         } catch (ScoreException $e) {
@@ -59,22 +55,28 @@ class ScoreController extends Controller
         }
 
         if (!$isValid) {
-            return response()->json(['error' => true, 'message' => 'Invalid score entered!'], 400);
+            return jsonResponse(false, 'Invalid score entered!', null, 400);
         }
 
         $this->gameplayService->addScoreDataToPlayer($game);
         $this->gameplayService->determineCurrentTurn($game);
+        $winner = $this->gameplayService->checkForLegWinner($game, $playerId);
 
+        if ($winner) {
+            $this->gameplayService->endLeg($game, $winner);
+
+            event(new GameUpdated($game, $clientId));
+
+            return jsonResponse(true, 'Leg ended', [
+                'status' => 'leg_ended',
+                'winner' => $winner->name,
+                'next_step' => 'overview',
+                'game' => new GameResource($game)
+            ]);
+        }
 
         event(new GameUpdated($game, $clientId));
 
-        return response()->json(
-            [
-                'message' => 'Score saved!',
-                'game' => new GameResource($game),
-            ],
-            200
-        );
-
+        return jsonResponse(true, 'Score saved!', new GameResource($game));
     }
 }
