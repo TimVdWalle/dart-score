@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseStatus;
 use App\Events\GameUpdated;
+use App\Events\LegEnded;
 use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
 use App\Http\Resources\GameResource;
@@ -48,10 +50,6 @@ class ScoreController extends Controller
             ->where('hash', $hash)
             ->firstOrFail();
 
-        //        if(!$game){
-        //            return response()->json(['error' => true, 'message' => 'Not in a game'], 400);
-        //        }
-
         try {
             $isValid = $this->scoreService->handleScoreSubmission($game, $playerId, $score, $withDouble);
         } catch (ScoreException $e) {
@@ -59,22 +57,44 @@ class ScoreController extends Controller
         }
 
         if (!$isValid) {
-            return response()->json(['error' => true, 'message' => 'Invalid score entered!'], 400);
+            return jsonResponse(
+                false,
+                'Invalid score entered!',
+                ResponseStatus::invalid_score,
+                null,
+                400);
         }
 
         $this->gameplayService->addScoreDataToPlayer($game);
         $this->gameplayService->determineCurrentTurn($game);
+        $winner = $this->gameplayService->checkForLegWinner($game, $playerId);
 
+        if ($winner) {
+            $this->gameplayService->endLeg($game, $winner);
+
+            $data = [
+                'winner' => $winner->name,
+                'next_step' => 'overview',
+                'next_step_url' => "/game/{$game->hash}/overview",
+                'game' => new GameResource($game)
+            ];
+            event(new LegEnded($game, $clientId, $data));
+
+            return jsonResponse(
+                true,
+                'Leg ended',
+                ResponseStatus::leg_ended, $data);
+        }
 
         event(new GameUpdated($game, $clientId));
 
-        return response()->json(
+        return jsonResponse(
+            true,
+            'Score saved!',
+            ResponseStatus::valid_score,
             [
-                'message' => 'Score saved!',
-                'game' => new GameResource($game),
-            ],
-            200
+                'gameResource' => new GameResource($game)
+            ]
         );
-
     }
 }

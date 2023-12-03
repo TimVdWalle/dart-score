@@ -3,7 +3,7 @@
 
 return [
 
-    'default_hash_length' => 10,
+    'default_hash_length' => 3,
 
 
 ];

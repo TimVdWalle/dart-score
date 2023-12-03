@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereSetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereTurn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Leg whereUpdatedAt($value)
+ * @property int $winner_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Leg whereWinnerId($value)
  * @mixin \Eloquent
  */
 class Leg extends Model
@@ -38,5 +40,10 @@ class Leg extends Model
     public function set()
     {
         return $this->belongsTo(Set::class);
+    }
+
+    public function winner()
+    {
+        return $this->hasOne(Player::class, 'id', 'winner_id');
     }
 }

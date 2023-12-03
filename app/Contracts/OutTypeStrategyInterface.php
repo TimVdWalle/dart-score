@@ -11,9 +11,9 @@ interface OutTypeStrategyInterface
      * Determines if the current hit is a valid out based on the out type's rules.
      *
      * @param  int  $currentScore The current score of the player.
-     * @param  int  $hitScore The score of the current hit.
+     * @param  bool  $withDouble Whether the last throw was with a double.
      */
-    public function isValidOut(int $currentScore, int $hitScore): bool;
+    public function isValidOut(int $currentScore, bool $withDouble = null): bool;
 
     public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool;
 

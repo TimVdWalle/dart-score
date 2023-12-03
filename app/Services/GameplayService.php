@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Factories\GameTypeFactory;
+use App\Http\Exceptions\GameException;
 use App\Models\Game;
 use App\Models\Leg;
 use App\Models\Player;
@@ -74,5 +75,28 @@ class GameplayService
         $game->currentPlayer = $players[$currentPlayerIndex];
 
         return $game->currentPlayer;
+    }
+
+    public function checkForLegWinner(Game $game, int $playerId): ?Player
+    {
+        $player = Player::findOrFail($playerId);
+        $gameTypeObject = GameTypeFactory::create($game);
+        return $gameTypeObject->checkForLegWinner($game, $player);
+    }
+
+    /**
+     * @throws GameException
+     */
+    public function endLeg(Game $game, Player $winner): void
+    {
+        // Update the leg with the winner's information
+        $currentLeg = $game->currentLeg;
+
+        if(!$currentLeg){
+            throw new GameException("Not currently in leg");
+        }
+
+        $currentLeg->winner_id = $winner->id;
+        $currentLeg->save();
     }
 }

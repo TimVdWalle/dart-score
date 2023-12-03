@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { router } from '@inertiajs/vue3'
 import { Head, usePage } from '@inertiajs/vue3';
 import axios from 'axios'; // Import Axios
 import { toast } from 'vue3-toastify';
@@ -11,6 +12,7 @@ import GameLayout from "@/Layouts/GameLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
 import Scores from "@/Components/Game/Scores.vue";
 
+// const router = useRouter();
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 const clientId = Date.now() + Math.random().toString(36).substring(2, 15);
 
@@ -30,9 +32,20 @@ const onScoreEntered = (score, withDouble) => {
             client_id: clientId,
         })
         .then(response => {
-            console.log('response received =  ', response.data);
-            updateGame(response.data.game);
-            showToast(response.data.message, 'success')
+            console.log('response received1 =  ', response);
+            console.log('response received2 =  ', response.data);
+            console.log('response received3 =  ', response.data.data.gameResource);
+
+            if(response.data.status && response.data.status === 'valid_score'){
+                updateGame(response.data.data.gameResource);
+                showToast(response.data.message, 'success');
+            }
+
+            if(response.data.status && response.data.status === 'leg_ended'){
+                handleLegEnded(response.data.data)
+            }
+
+            // if(response.data && response.data.status)
         })
         .catch(error => {
             console.error('error = ', error);
@@ -52,6 +65,14 @@ const updateGame = (game) => {
     console.log("updating game with: ", game)
     players.value = game.players;
     currentPlayer.value = game.currentPlayer;
+}
+
+const handleLegEnded = (data) => {
+    console.log("handling leg ended")
+    console.log(data);
+    // showToast('Winner of the leg : ' + data.winner, 'success');
+    let url = data.next_step_url
+    router.get(`${url}`, {},{});
 }
 
 const showToast = (message, type) => {
@@ -87,6 +108,12 @@ onMounted(() => {
                 updateGame(data.gameResource)
             }
         })
+        .listen('.LegEnded', (data) => { // Listen for LegEnded event
+            if (data.clientId !== clientId) {
+                console.log(data.data);
+                handleLegEnded(data.data);
+            }
+        });
 });
 </script>
 

@@ -12,11 +12,10 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GameUpdated extends GameEvent
+class LegEnded extends GameEvent
 {
-
     public function broadcastAs(): string
     {
-        return 'GameUpdated';
+        return 'LegEnded';
     }
 }

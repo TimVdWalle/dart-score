@@ -83,8 +83,24 @@ class GameController extends Controller
         $gameResource = new GameResource($game);
 
         return Inertia::render('Game/Show', ['game' => $gameResource]);
+    }
 
-        // TODO: fetch game with set and leg as often as possible so it is not needed to getCurrentSet everytime its needed
-        // therefor: create a dynamic relationshop on game so last set and last leg is accessible as attribute on game
+    public function overview(string $hash)
+    {
+        /** @var ?Game $game */
+        $game = Game::query()
+            ->withCurrentSetAndLeg()
+            ->with('currentSet')
+            ->with('currentLeg.winner')
+            ->where('hash', 'like', $hash)
+            ->first();
+
+        if (!$game) {
+            return redirect()->route('game.init');
+        }
+
+        $winner = $game->currentLeg->winner;
+
+        return Inertia::render('Game/Overview', ['winner' => $winner]);
     }
 }

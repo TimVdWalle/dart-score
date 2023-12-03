@@ -21,6 +21,7 @@ class X01Game101Type extends AbstractX01GameType
     {
         return 180;
     }
+
     public function getMinThrow(): int
     {
         return 0;

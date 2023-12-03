@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Factories\GameTypeFactory;
+use App\Http\Exceptions\GameException;
+use App\Http\Exceptions\ScoreException;
 use App\Models\Game;
 use App\Models\Leg;
 use App\Models\Player;
@@ -79,24 +81,4 @@ class GameService
 
         return $game;
     }
-
-    //    /**
-    //     * @param Game $game
-    //     * @return Collection<int, Player>
-    //     * @throws \Exception
-    //     */
-    //    public function addCurrentScoreToPlayers(Game $game): Collection
-    //    {
-    //        $playerService = new PlayerService();
-    //
-    //        $players = $game->players;
-    //
-    //        foreach ($players as $player) {
-    //            /** @var Player $player */
-    //            $player->currentScore = $playerService->calculateCurrentScore($player, $game);
-    //        }
-    //
-    //        return $players;
-    //    }
-
 }
