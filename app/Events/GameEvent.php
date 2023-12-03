@@ -19,13 +19,28 @@ abstract class GameEvent implements ShouldBroadcast
     protected string $hash;
     public GameResource $gameResource;      // the game object in the correct json format to send to frontend
     public string $clientId;      // the game object in the correct json format to send to frontend
+    public ?array $data;
+
     /**
      * Create a new event instance.
      */
-    public function __construct(Game $game, string $clientId)
+    public function __construct(Game $game, string $clientId, ?array $data = null)
     {
         $this->hash = $game->hash;
         $this->gameResource = new GameResource($game);
         $this->clientId = $clientId;
+        $this->data = $data;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(): array
+    {
+        return [
+            new Channel("channel-name-{$this->hash}"),
+        ];
     }
 }
