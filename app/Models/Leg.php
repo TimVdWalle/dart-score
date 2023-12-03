@@ -41,4 +41,9 @@ class Leg extends Model
     {
         return $this->belongsTo(Set::class);
     }
+
+    public function winner()
+    {
+        return $this->hasOne(Player::class, 'id', 'winner_id');
+    }
 }

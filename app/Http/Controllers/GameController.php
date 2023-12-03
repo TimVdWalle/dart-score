@@ -83,6 +83,24 @@ class GameController extends Controller
         $gameResource = new GameResource($game);
 
         return Inertia::render('Game/Show', ['game' => $gameResource]);
+    }
 
+    public function overview(string $hash)
+    {
+        /** @var ?Game $game */
+        $game = Game::query()
+            ->withCurrentSetAndLeg()
+            ->with('currentSet')
+            ->with('currentLeg.winner')
+            ->where('hash', 'like', $hash)
+            ->first();
+
+        if (!$game) {
+            return redirect()->route('game.init');
+        }
+
+        $winner = $game->currentLeg->winner;
+
+        return Inertia::render('Game/Overview', ['winner' => $winner]);
     }
 }

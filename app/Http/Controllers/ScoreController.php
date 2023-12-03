@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ResponseStatus;
 use App\Events\GameUpdated;
+use App\Events\LegEnded;
 use App\Http\Exceptions\ScoreException;
 use App\Http\Requests\Game\ScoreStoreRequest;
 use App\Http\Resources\GameResource;
@@ -71,16 +72,18 @@ class ScoreController extends Controller
         if ($winner) {
             $this->gameplayService->endLeg($game, $winner);
 
-            event(new GameUpdated($game, $clientId));
+            $data = [
+                'winner' => $winner->name,
+                'next_step' => 'overview',
+                'next_step_url' => "/game/{$game->hash}/overview",
+                'game' => new GameResource($game)
+            ];
+            event(new LegEnded($game, $clientId, $data));
 
             return jsonResponse(
                 true,
                 'Leg ended',
-                ResponseStatus::leg_ended, [
-                    'winner' => $winner->name,
-                    'next_step' => 'overview',
-                    'game' => new GameResource($game)
-            ]);
+                ResponseStatus::leg_ended, $data);
         }
 
         event(new GameUpdated($game, $clientId));
