@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Game\GameStoreRequest;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
-use App\Models\Set;
 use App\Services\GameplayService;
 use App\Services\GameService;
 use Illuminate\Http\RedirectResponse;

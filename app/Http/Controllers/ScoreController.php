@@ -62,7 +62,8 @@ class ScoreController extends Controller
                 'Invalid score entered!',
                 ResponseStatus::invalid_score,
                 null,
-                400);
+                400
+            );
         }
 
         $this->gameplayService->addScoreDataToPlayer($game);
@@ -83,7 +84,9 @@ class ScoreController extends Controller
             return jsonResponse(
                 true,
                 'Leg ended',
-                ResponseStatus::leg_ended, $data);
+                ResponseStatus::leg_ended,
+                $data
+            );
         }
 
         event(new GameUpdated($game, $clientId));

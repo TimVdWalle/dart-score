@@ -2,7 +2,6 @@
 
 namespace App\Contracts;
 
-use App\Models\Game;
 use App\Models\Player;
 
 interface OutTypeStrategyInterface

@@ -3,13 +3,9 @@
 namespace App\Services;
 
 use App\Factories\GameTypeFactory;
-use App\Http\Exceptions\GameException;
-use App\Http\Exceptions\ScoreException;
 use App\Models\Game;
 use App\Models\Leg;
-use App\Models\Player;
 use App\Models\Set;
-use Illuminate\Support\Collection;
 
 class GameService
 {
