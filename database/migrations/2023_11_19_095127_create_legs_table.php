@@ -14,7 +14,7 @@ class CreateLegsTable extends Migration
             $table->integer('turn')->default(0); // Added turn attribute
 
             $table->foreignId('set_id')->constrained('sets')->onDelete('cascade');
-            $table->foreignId('winner_id')->nullable()->constrained('sets')->onDelete('cascade');
+            $table->foreignId('winner_id')->nullable()->constrained('players')->onDelete('cascade');
             $table->timestamps();
         });
     }
