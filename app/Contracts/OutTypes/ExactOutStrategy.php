@@ -3,8 +3,6 @@
 namespace App\Contracts\OutTypes;
 
 use App\Contracts\OutTypeStrategyInterface;
-use App\Models\Game;
-use App\Models\Player;
 
 class ExactOutStrategy implements OutTypeStrategyInterface
 {
@@ -15,7 +13,8 @@ class ExactOutStrategy implements OutTypeStrategyInterface
         return $currentScore === 0;
     }
 
-    public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool {
+    public function validateScore(int $currentScore, int $hitScore, bool $withDouble): bool
+    {
         // Must finish exactly on 0, but doubles are not required
         return $currentScore - $hitScore >= 0;
     }

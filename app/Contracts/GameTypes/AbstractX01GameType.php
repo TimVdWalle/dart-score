@@ -3,8 +3,6 @@
 namespace App\Contracts\GameTypes;
 
 use App\Contracts\GameTypeInterface;
-use App\Contracts\OutTypes\AnyOutStrategy;
-use App\Contracts\OutTypes\DoubleExactOutStrategy;
 use App\Contracts\OutTypeStrategyInterface;
 use App\Factories\GameTypeFactory;
 use App\Http\Exceptions\ScoreException;
@@ -105,7 +103,7 @@ abstract class AbstractX01GameType implements GameTypeInterface
     /**
      * @throws Exception
      */
-    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg,  Player $player, int $score, bool $withDouble): bool
+    public function validateScore(Game $game, Set $currentSet, Leg $currentLeg, Player $player, int $score, bool $withDouble): bool
     {
         if ($score < $this->getMinThrow() || $score > $this->getMaxThrow()) {
             return false;

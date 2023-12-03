@@ -26,7 +26,7 @@ class GameResource extends JsonResource
         $gameTypeObject = GameTypeFactory::create($game);
 
         $t1 = $this->outType;
-//        $t2 = $gameTypeObject->outType;
+        //        $t2 = $gameTypeObject->outType;
 
         $result =  [
             'hash' => $this->hash,

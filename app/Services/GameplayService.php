@@ -92,7 +92,7 @@ class GameplayService
         // Update the leg with the winner's information
         $currentLeg = $game->currentLeg;
 
-        if(!$currentLeg){
+        if(!$currentLeg) {
             throw new GameException("Not currently in leg");
         }
 

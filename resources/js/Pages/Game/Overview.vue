@@ -22,12 +22,13 @@
 // const currentPlayer = ref(props.game.data.currentPlayer || null);
 
 import { ref, onMounted } from 'vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import {Head, Link, usePage} from '@inertiajs/vue3';
 
 const { props } = usePage();
 const winner = ref(props.winner || []);
 
 import GameLayout from "@/Layouts/GameLayout.vue";
+import Button from "@/Components/CardSmall.vue";
 </script>
 
 <template>
@@ -40,15 +41,15 @@ import GameLayout from "@/Layouts/GameLayout.vue";
             <br />
             <br />
                 <div class="flex justify-center content-center items-center">
-            <span class="text-red">
+            <span class="text-green-dark">
                 {{winner.name}}
             </span></div>
             </div>
         </div>
-        <div class="flex justify-center content-center text-green-dark items-center h-full mt-14 text-2xl">
-            <a href="/game/init">
-                New game
-            </a>
+        <div class="flex justify-center content-center text-blue-dark items-center h-full mt-14 text-2xl">
+            <Link :href="route('game.init')">
+                <button class="button big red">start nieuw spel</button>
+            </Link>
         </div>
     </GameLayout>
 </template>
