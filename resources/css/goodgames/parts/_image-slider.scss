@@ -1,0 +1,165 @@
+.nk-image-slider {
+    position: relative;
+    overflow: hidden;
+    background-color: $color_dark_2;
+    border-bottom: 3px solid $color_main_1;
+    border-radius: 4px;
+
+    // items
+    .nk-image-slider-item {
+        position: relative;
+        width: 100%;
+        min-height: 360px;
+        padding-bottom: 35%;
+    }
+
+    // Items before swiper init
+    > .nk-image-slider-item:not(:first-of-type) {
+        display: none;
+    }
+
+    // images
+    .nk-image-slider-item img,
+    .nk-image-slider-thumbs img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    // background
+    .nk-image-slider-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-position: center center;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    // content
+    .nk-image-slider-content {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        bottom: 65px;
+        width: 315px;
+        visibility: hidden;
+        background-color: rgba($color_dark_1, .95);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        opacity: 0;
+        transition: .3s opacity, .3s visibility;
+
+        &.nk-image-slider-content-visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media #{$media_xxs} {
+            bottom: auto;
+            left: 15px;
+            width: auto;
+            height: 360px - 30px; // images height 360px
+        }
+
+        .nano-content {
+            padding: 25px;
+        }
+    }
+
+    // thumbs
+    .nk-image-slider-thumbs {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        width: 315px;
+        height: 50px;
+        overflow: hidden;
+        background-color: rgba($color_dark_1, .95);
+        border-radius: 4px;
+
+        .nk-image-slider-thumbs-item {
+            position: relative;
+            width: 25%;
+            height: 50px;
+            cursor: pointer;
+
+            // overlay
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: $color_dark_1;
+                opacity: .6;
+                transition: .15s opacity;
+                z-index: 1;
+            }
+            &:hover::before,
+            &.hover::before {
+                opacity: .4;
+            }
+
+            // active item
+            &.is-selected::before {
+                opacity: 0;
+            }
+
+            // counter
+            .nk-image-slider-thumbs-count {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 30px;
+                height: 30px;
+                margin-top: -15px;
+                margin-left: -15px;
+                font-weight: 600;
+                line-height: 30px;
+                color: $color_dark_1;
+                text-align: center;
+                background-color: $color_headings;
+                border-radius: 50%;
+                z-index: 1;
+            }
+        }
+
+        @media #{$media_xxs} {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            width: 100%;
+            height: auto;
+
+            &::after {
+                content: "";
+                display: block;
+                padding-top: 15%;
+            }
+
+            .nk-image-slider-thumbs-item {
+                height: 100%;
+            }
+
+            .flickity-viewport {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                // stylelint-disable-next-line
+                height: 100% !important;
+            }
+        }
+    }
+
+    .nk-image-slider-content-visible + .nk-image-slider-thumbs {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}

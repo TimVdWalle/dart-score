@@ -4,7 +4,7 @@
 }
 
 .logo span::first-letter {
-    @apply text-red;
+    @apply tw-text-red;
     font-weight: bold;
 }
 
@@ -37,37 +37,37 @@
 }
 
 .button.small {
-    @apply rounded;
-    @apply py-1 px-4;
+    @apply tw-rounded;
+    @apply tw-py-1 tw-px-4;
     line-height: 1.7;
-    @apply uppercase;
-    @apply text-white;
-    @apply font-extrabold;
+    @apply tw-uppercase;
+    @apply tw-text-white;
+    @apply tw-font-extrabold;
 }
 
 .button.big {
-    @apply rounded;
-    @apply py-4 px-6;
+    @apply tw-rounded;
+    @apply tw-py-4 tw-px-6;
     line-height: 2;
-    @apply uppercase;
-    @apply text-white;
-    @apply font-extrabold;
+    @apply tw-uppercase;
+    @apply tw-text-white;
+    @apply tw-font-extrabold;
 }
 
 .button.red {
-    @apply bg-red;
+    @apply tw-bg-red;
 }
 
 .button.red:hover {
-    @apply bg-blue;
+    @apply tw-bg-blue;
 }
 
 .button.grey {
-    @apply bg-grey_lightest;
+    @apply tw-bg-grey_lightest;
 }
 
 .button.grey:hover {
-    @apply bg-red;
+    @apply tw-bg-red;
 }
 
 .score-input {
@@ -85,4 +85,13 @@
     text-align: left;
     text-indent: 0px;
     text-transform: uppercase;
+}
+
+
+.active-player {
+    /*background-color: red;*/
+}
+.inactive-player {
+    /*background-color: blue;*/
+    padding-left: 33px !important;
 }

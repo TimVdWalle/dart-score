@@ -1,0 +1,44 @@
+.nk-accordion {
+    .panel-heading {
+        margin-bottom: 12px;
+
+        a {
+            position: relative;
+            display: block;
+            padding: 10px 20px;
+            font-family: $font_headings;
+            font-weight: 600;
+            color: $color_headings;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-color: $color_dark_3;
+            border-radius: 4px;
+            transition: .15s background-color;
+
+            &:focus,
+            &:hover {
+                background-color: lighten($color_dark_3, 3%);
+            }
+
+            &:not(.collapsed) {
+                &,
+                &:focus,
+                &:hover {
+                    background-color: $color_main_1;
+                }
+                .panel-heading-arrow {
+                    transform: rotate(-90deg);
+                }
+            }
+
+            .panel-heading-arrow {
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                height: 14px;
+                margin-top: -7px;
+                transition: .2s transform;
+            }
+        }
+    }
+}
