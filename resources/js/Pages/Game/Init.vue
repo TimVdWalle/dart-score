@@ -60,6 +60,8 @@ const setOutType = (option) => {
         <!----------------------------------------------------
             SETTINGS
         ---------------------------------------------------->
+<!--        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Instellingen</span></span></h3>-->
+
         <lined-title class="mt-4">Instellingen</lined-title>
         <tab-group
             @select-tab="setGameType($event)"
@@ -84,19 +86,19 @@ const setOutType = (option) => {
         ---------------------------------------------------->
         <lined-title class="mt-12">Spelers</lined-title>
 
-        <div class="flex items-center gap-x-8 mb-8">
+        <div class="flex items-center gap-x-8 mb-20">
             <input
                 ref="playerNameInput"
                 v-model="playerName"
                 v-on:keyup.enter="addPlayer"
                 class="input-light min-w-[200px]" placeholder="speler 1">
 
-            <button class="button small red" @click="addPlayer">
+            <div style="padding: 15px;" class="nk-btn nk-btn-rounded nk-btn-color-main-1 hover:bg-red hover:cursor-pointer" @click="addPlayer">
                 <font-awesome-icon :icon="faUserPlus" class="fa-1x text-white"/>
-            </button>
+            </div>
         </div>
 
-        <div class="flex grid grid-cols-2 gap-x-4 gap-y-4 mb-16">
+        <div class=" grid grid-cols-2 gap-x-8 gap-y-4 mb-16 mt-4">
             <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton
                        @close="removePlayer(player)">
                 <!--            <template #icon>-->
@@ -124,7 +126,7 @@ const setOutType = (option) => {
             <input type="hidden" name="outType" :value="gameStore.getOutType">
             <input type="hidden" :name="'players[]'" :value="player" v-for="player in gameStore.playerNames">
 
-            <button type="submit" class="button big red">start spel</button>
+            <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1">start spel</button>
         </form>
 
     </AppLayout>

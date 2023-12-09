@@ -2,7 +2,10 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    prefix: 'tw-',
+    // prefix: 'tw-',
+    corePlugins: {
+        preflight: false,
+    },
 
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',

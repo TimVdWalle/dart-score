@@ -8,10 +8,10 @@ import Button from "@/Components/CardSmall.vue";
 <template>
     <Head title="Home" />
 
-    <AppLayout classes="tw-h-full">
-        <div class="tw-flex tw-justify-center tw-items-center tw-align-middle tw-h-[70vh]">
+    <AppLayout classes="h-full">
+        <div class="flex justify-center items-center align-middle h-[70vh]">
             <Link :href="route('game.init')">
-                <button class="button big red">start nieuw spel</button>
+                <button class="nk-btn nk-btn-rounded nk-btn-color-main-1">start nieuw spel</button>
             </Link>
         </div>
     </AppLayout>

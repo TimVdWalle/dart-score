@@ -4,7 +4,7 @@
 }
 
 .logo span::first-letter {
-    @apply tw-text-red;
+    @apply text-red;
     font-weight: bold;
 }
 
@@ -37,37 +37,37 @@
 }
 
 .button.small {
-    @apply tw-rounded;
-    @apply tw-py-1 tw-px-4;
+    @apply rounded;
+    @apply py-1 px-4;
     line-height: 1.7;
-    @apply tw-uppercase;
-    @apply tw-text-white;
-    @apply tw-font-extrabold;
+    @apply uppercase;
+    @apply text-white;
+    @apply font-extrabold;
 }
 
 .button.big {
-    @apply tw-rounded;
-    @apply tw-py-4 tw-px-6;
+    @apply rounded;
+    @apply py-4 px-6;
     line-height: 2;
-    @apply tw-uppercase;
-    @apply tw-text-white;
-    @apply tw-font-extrabold;
+    @apply uppercase;
+    @apply text-white;
+    @apply font-extrabold;
 }
 
 .button.red {
-    @apply tw-bg-red;
+    @apply bg-red;
 }
 
 .button.red:hover {
-    @apply tw-bg-blue;
+    @apply bg-blue;
 }
 
 .button.grey {
-    @apply tw-bg-grey_lightest;
+    @apply bg-grey_lightest;
 }
 
 .button.grey:hover {
-    @apply tw-bg-red;
+    @apply bg-red;
 }
 
 .score-input {

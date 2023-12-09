@@ -27,7 +27,7 @@ import {Head, Link, usePage} from '@inertiajs/vue3';
 const { props } = usePage();
 const winner = ref(props.winner || []);
 
-import GameLayout from "@/Layouts/GameLayout.vue";
+import GameLayout from "@/Layouts/AppLayout.vue";
 import Button from "@/Components/CardSmall.vue";
 </script>
 
@@ -51,5 +51,26 @@ import Button from "@/Components/CardSmall.vue";
                 <button class="button big red">start nieuw spel</button>
             </Link>
         </div>
+
+        <div class="nk-countdown nk-countdown-center" data-end="2021-11-26 08:20" data-timezone="EST"><div class="nk-hexagon">
+            <div class="nk-hexagon-inner"></div>
+            <span>00</span>
+            <small>Days</small>
+        </div>
+            <div class="nk-hexagon">
+                <div class="nk-hexagon-inner"></div>
+                <span>00</span>
+                <small>Hours</small>
+            </div>
+            <div class="nk-hexagon">
+                <div class="nk-hexagon-inner"></div>
+                <span>00</span>
+                <small>Minutes</small>
+            </div>
+            <div class="nk-hexagon">
+                <div class="nk-hexagon-inner"></div>
+                <span>00</span>
+                <small>Seconds</small>
+            </div></div>
     </GameLayout>
 </template>

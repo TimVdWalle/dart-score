@@ -8,7 +8,7 @@ import 'vue3-toastify/dist/index.css';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
-import GameLayout from "@/Layouts/GameLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import Keyboard from "@/Components/Game/Keyboard.vue";
 import Scores from "@/Components/Game/Scores.vue";
 
@@ -120,7 +120,7 @@ onMounted(() => {
 <template>
     <Head title="Game"/>
 
-    <GameLayout>
+    <AppLayout>
         <div class="player-list-container">
             <Scores
                 :players="players"
@@ -134,13 +134,13 @@ onMounted(() => {
             @scoreEntered="onScoreEntered"
             class="fixed bottom-0 w-full h-[40vh] min-h-[200px]"
         />
-    </GameLayout>
+    </AppLayout>
 </template>
 
 
 <style>
 .player-list-container {
-    //height: 70vh; /* Adjust this value as needed */
+    /*height: 70vh; /* Adjust this value as needed */
     overflow-y: auto; /* Allows scrolling */
 }
 </style>
