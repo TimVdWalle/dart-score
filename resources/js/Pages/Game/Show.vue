@@ -125,7 +125,7 @@ onMounted(() => {
             <Scores
                 :players="players"
                 :game="game"
-                class="flex h-full bg-white justify-center fitems-center"/>
+                class=""/>
         </div>
 
         <Keyboard

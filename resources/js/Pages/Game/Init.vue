@@ -98,7 +98,7 @@ const setOutType = (option) => {
             </div>
         </div>
 
-        <div class=" grid grid-cols-2 gap-x-8 gap-y-4 mb-16 mt-4">
+        <div class=" grid grid-cols-2 gap-x-8 gap-y-4 mb-12 mt-4">
             <CardSmall v-for="(player, index) in gameStore.players" :key="player.id" closeButton
                        @close="removePlayer(player)">
                 <!--            <template #icon>-->

@@ -95,3 +95,7 @@
     /*background-color: blue;*/
     padding-left: 33px !important;
 }
+
+.nk-table {
+    border-spacing: 0px;
+}
