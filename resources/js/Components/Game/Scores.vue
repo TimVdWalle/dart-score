@@ -39,7 +39,11 @@ const props = defineProps({
                     {{ player.name }}
 
                 </td>
-                <td class="text-center">{{ player.currentScore }}</td>
+                <td class="text-center">
+                    <strong class="text-xl">
+                        {{ player.currentScore }}
+                    </strong>
+                </td>
                 <td class="text-center">{{ player.avgScore ?? '--' }}</td>
             </tr>
             </tbody>
