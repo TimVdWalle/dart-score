@@ -99,3 +99,9 @@
 .nk-table {
     border-spacing: 0px;
 }
+
+button.nk-btn-color-main-1 {
+    background-color: #dd163b;
+    border-color: #a5102c;
+    border-style: solid;
+}

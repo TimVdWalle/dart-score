@@ -73,10 +73,6 @@ const showDoubleButtonCheck = computed(() => {
     <div>
         <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 w-full">
             <div>
-                {{currentPlayerScore}}
-                <br />
-                {{doubleClicked}}
-                {{showDoubleButtonCheck}}
             </div>
             <div class="text-center justify-center align-middle items-center flex content-center p-1 score-input h-full">
                 <span>{{ keyboardValue }}</span>
@@ -91,7 +87,7 @@ const showDoubleButtonCheck = computed(() => {
             </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 h-[30vh] fixed bottom-0 w-full">
+        <div class="grid grid-cols-3 gap-1 bg-grey_darker p-4 h-[30vh] fixed bottom-0 w-full">
             <div v-for="button in buttons">
                 <KeyboardButton
                     :button="button"
