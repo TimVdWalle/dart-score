@@ -41,7 +41,7 @@ import Button from "@/Components/CardSmall.vue";
             <br />
             <br />
                 <div class="flex justify-center content-center items-center">
-            <span class="text-green-dark">
+            <span class="text-green font-bold text-7xl">
                 {{winner.name}}
             </span></div>
             </div>
@@ -51,26 +51,5 @@ import Button from "@/Components/CardSmall.vue";
                 <button class="button big red">start nieuw spel</button>
             </Link>
         </div>
-
-        <div class="nk-countdown nk-countdown-center" data-end="2021-11-26 08:20" data-timezone="EST"><div class="nk-hexagon">
-            <div class="nk-hexagon-inner"></div>
-            <span>00</span>
-            <small>Days</small>
-        </div>
-            <div class="nk-hexagon">
-                <div class="nk-hexagon-inner"></div>
-                <span>00</span>
-                <small>Hours</small>
-            </div>
-            <div class="nk-hexagon">
-                <div class="nk-hexagon-inner"></div>
-                <span>00</span>
-                <small>Minutes</small>
-            </div>
-            <div class="nk-hexagon">
-                <div class="nk-hexagon-inner"></div>
-                <span>00</span>
-                <small>Seconds</small>
-            </div></div>
     </GameLayout>
 </template>
