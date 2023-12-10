@@ -125,14 +125,14 @@ onMounted(() => {
             <Scores
                 :players="players"
                 :game="game"
-                class="bg-grey_darker"/>
+                class="bg-grey_dark"/>
         </div>
 
         <Keyboard
             :showDoubleButton="game.outType === 'double_exact'"
             :currentPlayerScore="currentPlayer.currentScore"
             @scoreEntered="onScoreEntered"
-            class="fixed bottom-0 w-full h-[40vh] min-h-[200px] bg-grey_darker"
+            class="fixed bottom-0 w-full h-[40vh] min-h-[200px] bg-grey_dark"
         />
     </AppLayout>
 </template>

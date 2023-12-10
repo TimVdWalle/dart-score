@@ -71,7 +71,7 @@ const showDoubleButtonCheck = computed(() => {
 
 <template>
     <div>
-        <div class="grid grid-cols-3 gap-1 bg-grey_darker p-1 w-full">
+        <div class="grid grid-cols-3 gap-1 bg-grey_dark p-1 w-full">
             <div>
             </div>
             <div class="text-center justify-center align-middle items-center flex content-center p-1 score-input h-full">
